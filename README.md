@@ -1,5 +1,4 @@
 "# glove_test" 
-<<<<<<< HEAD
 ### Env_install
 #### install python
 #### install pyqt4

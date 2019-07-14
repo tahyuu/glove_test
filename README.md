@@ -11,7 +11,13 @@ C:\Python27
 ```
 pip install Install\packages\pywin32-224-cp27-cp27m-win_amd64.whl
 ```
-#### whl Install eric
+#### Install eric
+#### create new project and config project
+```
+config project as below.
+1, project type: PyQt4 GUI
+2, Progr languge: python2
+```
 ### Tips
 #### download pkg from 
 ```

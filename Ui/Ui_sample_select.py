@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\yong\Desktop\glove_test\sample_select.ui'
+# Form implementation generated from reading ui file 'E:\WorkSpace\gloves_test\Program\Ui\sample_select.ui'
 #
 # Created by: PyQt4 UI code generator 4.11.4
 #
@@ -38,11 +38,15 @@ class Ui_sample_select(object):
         self.checkBox_3.setObjectName(_fromUtf8("checkBox_3"))
         self.next_step = QtGui.QPushButton(sample_select)
         self.next_step.setGeometry(QtCore.QRect(310, 90, 93, 28))
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Arial Black"))
+        self.next_step.setFont(font)
         self.next_step.setObjectName(_fromUtf8("next_step"))
         self.label = QtGui.QLabel(sample_select)
-        self.label.setGeometry(QtCore.QRect(10, 10, 171, 31))
+        self.label.setGeometry(QtCore.QRect(10, 10, 191, 31))
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setFamily(_fromUtf8("Arial Black"))
+        font.setPointSize(9)
         self.label.setFont(font)
         self.label.setObjectName(_fromUtf8("label"))
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\yong\Desktop\glove_test\main.ui'
+# Form implementation generated from reading ui file 'E:\WorkSpace\gloves_test\Program\Ui\main.ui'
 #
 # Created by: PyQt4 UI code generator 4.11.4
 #

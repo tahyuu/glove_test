@@ -25,28 +25,50 @@ except AttributeError:
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName(_fromUtf8("Dialog"))
-        Dialog.resize(286, 144)
+        Dialog.resize(297, 153)
         Dialog.setSizeGripEnabled(True)
         self.label = QtGui.QLabel(Dialog)
-        self.label.setGeometry(QtCore.QRect(50, 40, 71, 21))
+        self.label.setGeometry(QtCore.QRect(40, 30, 81, 21))
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Arial Black"))
+        self.label.setFont(font)
         self.label.setObjectName(_fromUtf8("label"))
         self.label_2 = QtGui.QLabel(Dialog)
-        self.label_2.setGeometry(QtCore.QRect(50, 90, 71, 21))
+        self.label_2.setGeometry(QtCore.QRect(50, 70, 71, 21))
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Arial Black"))
+        self.label_2.setFont(font)
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.lineEdit = QtGui.QLineEdit(Dialog)
-        self.lineEdit.setGeometry(QtCore.QRect(120, 40, 113, 20))
+        self.lineEdit.setGeometry(QtCore.QRect(130, 30, 113, 20))
         self.lineEdit.setObjectName(_fromUtf8("lineEdit"))
         self.lineEdit_2 = QtGui.QLineEdit(Dialog)
-        self.lineEdit_2.setGeometry(QtCore.QRect(120, 90, 113, 20))
+        self.lineEdit_2.setGeometry(QtCore.QRect(130, 70, 113, 20))
         self.lineEdit_2.setObjectName(_fromUtf8("lineEdit_2"))
+        self.pushButton = QtGui.QPushButton(Dialog)
+        self.pushButton.setGeometry(QtCore.QRect(150, 110, 81, 31))
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Times New Roman"))
+        font.setBold(True)
+        font.setWeight(75)
+        self.pushButton.setFont(font)
+        self.pushButton.setObjectName(_fromUtf8("pushButton"))
 
         self.retranslateUi(Dialog)
+        QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.Login)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(_translate("Dialog", "Dialog", None))
         self.label.setText(_translate("Dialog", "User Name:", None))
         self.label_2.setText(_translate("Dialog", " Password:", None))
+        self.pushButton.setText(_translate("Dialog", "Login", None))
+    def Login(self):
+        userName = self.lineEdit.text()
+        passWord = self.lineEdit_2.text()
+        print userName
+        print passWord
+        self.accept()
 
 
 if __name__ == "__main__":

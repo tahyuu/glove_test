@@ -14,6 +14,47 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuSample">
+    <property name="title">
+     <string>Sample</string>
+    </property>
+    <addaction name="actionCreate_Samples"/>
+   </widget>
+   <widget class="QMenu" name="menuUsers">
+    <property name="title">
+     <string>Users</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionLogin"/>
+    <addaction name="actionCreate_User"/>
+   </widget>
+   <addaction name="menuSample"/>
+   <addaction name="menuUsers"/>
+  </widget>
+  <action name="actionCreate_Samples">
+   <property name="text">
+    <string>Create Samples</string>
+   </property>
+  </action>
+  <action name="actionLogin">
+   <property name="text">
+    <string>Login</string>
+   </property>
+  </action>
+  <action name="actionCreate_User">
+   <property name="text">
+    <string>User Manager</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

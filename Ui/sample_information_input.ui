@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>707</width>
-    <height>593</height>
+    <width>709</width>
+    <height>666</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>10</y>
+     <y>90</y>
      <width>641</width>
      <height>171</height>
     </rect>
@@ -125,7 +125,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>190</y>
+     <y>270</y>
      <width>641</width>
      <height>171</height>
     </rect>
@@ -233,7 +233,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>370</y>
+     <y>450</y>
      <width>641</width>
      <height>171</height>
     </rect>
@@ -341,7 +341,7 @@
    <property name="geometry">
     <rect>
      <x>380</x>
-     <y>560</y>
+     <y>630</y>
      <width>93</width>
      <height>28</height>
     </rect>
@@ -354,7 +354,7 @@
    <property name="geometry">
     <rect>
      <x>240</x>
-     <y>560</y>
+     <y>630</y>
      <width>91</width>
      <height>28</height>
     </rect>
@@ -363,12 +363,42 @@
     <string>Last Step</string>
    </property>
   </widget>
-  <zorder>groupBox</zorder>
-  <zorder>groupBox_2</zorder>
-  <zorder>layoutWidget_3</zorder>
-  <zorder>groupBox_3</zorder>
-  <zorder>pushButton</zorder>
-  <zorder>pushButton_2</zorder>
+  <widget class="QGroupBox" name="groupBox_4">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>641</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>General information</string>
+   </property>
+   <widget class="QLabel" name="label_13">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>102</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>User Name:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_11">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>20</y>
+      <width>205</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
  </widget>
  <resources/>
  <connections>

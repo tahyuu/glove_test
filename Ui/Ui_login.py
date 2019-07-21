@@ -23,8 +23,9 @@ except AttributeError:
         return QtGui.QApplication.translate(context, text, disambig)
 
 class Ui_Dialog(object):
-    def setupUi(self, Dialog):
+    def setupUi(self, Dialog, parent):
         self.Dialog=Dialog
+        self.parent=parent
         Dialog.setObjectName(_fromUtf8("Dialog"))
         Dialog.resize(297, 153)
         Dialog.setSizeGripEnabled(True)
@@ -71,6 +72,8 @@ class Ui_Dialog(object):
         passWord = self.lineEdit_2.text()
         if userName == 'admin' and passWord == 'admin': 
             # 如果用户名和密码正确，关闭对话框，accept()关闭后，如果增加一个取消按钮调用reject() 
+            self.parent.userName=userName
+            self.parent.passWord=passWord
             self.Dialog.close()
         else: 
             QtGui.QMessageBox.critical(self.Dialog, 'Error', 'User name or password not correct!', 0,0) 
@@ -83,7 +86,7 @@ if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     Dialog = QtGui.QDialog()
     ui = Ui_Dialog()
-    ui.setupUi(Dialog)
+    ui.setupUi(Dialog, None)
     Dialog.show()
     sys.exit(app.exec_())
 

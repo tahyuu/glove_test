@@ -22,8 +22,9 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class Ui_Form(object):
-    def setupUi(self, Form):
+class Ui_sample_information_input(object):
+    def setupUi(self, Form, parent):
+        self.parent=parent
         Form.setObjectName(_fromUtf8("Form"))
         Form.resize(707, 593)
         self.groupBox = QtGui.QGroupBox(Form)
@@ -227,7 +228,7 @@ if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)
     Form = QtGui.QWidget()
-    ui = Ui_Form()
+    ui = Ui_sample_information_input()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())

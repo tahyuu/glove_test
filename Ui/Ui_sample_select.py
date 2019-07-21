@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
+from Ui_sample_information_input import *
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -23,7 +24,8 @@ except AttributeError:
         return QtGui.QApplication.translate(context, text, disambig)
 
 class Ui_sample_select(object):
-    def setupUi(self, sample_select):
+    def setupUi(self, sample_select, parent):
+        self.parent=parent
         sample_select.setObjectName(_fromUtf8("sample_select"))
         sample_select.resize(427, 128)
         sample_select.setSizeGripEnabled(True)
@@ -61,14 +63,22 @@ class Ui_sample_select(object):
         self.checkBox_3.setText(_translate("sample_select", "Sample2", None))
         self.next_step.setText(_translate("sample_select", "Next Step", None))
         self.label.setText(_translate("sample_select", "Step1:  Select test samples", None))
+    def NextStep(self):
+        self.parent.CurrentStatus="inputInformation"
 
+#        Dialog = QtGui.QDialog()
+#        ui = Ui_sample_information_input()
+#        ui.setupUi(Dialog )
+#        Dialog.show()
+#        if Dialog.exec_():
+#            pass
 
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)
     sample_select = QtGui.QDialog()
     ui = Ui_sample_select()
-    ui.setupUi(sample_select)
+    ui.setupUi(sample_select, None)
     sample_select.show()
     sys.exit(app.exec_())
 

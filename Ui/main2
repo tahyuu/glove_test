@@ -13,6 +13,16 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>logo.gif</normaloff>logo.gif</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-image:url(gloves.jpg) ;no-repeat;
+filter:&quot;progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='scale')&quot;;  
+-moz-background-size:100% 100%;  
+    background-size:100% 100%; </string>
+  </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

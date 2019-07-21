@@ -64,25 +64,47 @@ class Ui_MainWindow(object):
         self.actionLogin.setText(_translate("MainWindow", "Login", None))
         self.actionCreate_User.setText(_translate("MainWindow", "User Manager", None))
     def Login(self):
-        if self.userName =="" or self.passWord=="":
-                app = QtGui.QApplication(sys.argv)
-                Dialog = QtGui.QDialog()
-                ui = Ui_Dialog()
-                ui.setupUi(Dialog)
-                Dialog.show()
-                if app.exec_():
-                    return True
-                else:
-                    return False
-
+        Dialog = QtGui.QDialog()
+        ui = Ui_Dialog()
+        ui.setupUi(Dialog )
+        Dialog.show()
+        if Dialog.exec_():
+            pass
 
 if __name__ == "__main__":
     import sys
-    app = QtGui.QApplication(sys.argv)
+#    app = QtGui.QApplication(sys.argv)
+#    MainWindow = QtGui.QMainWindow()
+#    ui = Ui_MainWindow()
+#    ui.setupUi(MainWindow)
+#    MainWindow.show()
+#    if ui.Login():
+#        sys.exit(app.exec_())
+
+
+    app = QtGui.QApplication(sys.argv) 
     MainWindow = QtGui.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
-    if ui.Login():
-        sys.exit(app.exec_())
-
+    ui.Login()
+#    dialog = LoginDialog() 
+#    Dialog = QtGui.QDialog()
+#    ui = Ui_ProgramListDlg()
+#    ui.setupUi(Dialog, self)
+#    Dialog.show()
+#    if Dialog.exec_():
+#        pass
+#    if dialog.exec_(): 
+#        pass
+#    sys.exit(app.exec_())
+#        MainWindow = QtGui.QMainWindow() 
+#        win.setWindowTitle('MainWindow')
+#        win.show() 
+    sys.exit(app.exec_()) 
+        
+#        MainWindow = QtGui.QMainWindow()
+#        ui = Ui_MainWindow()
+#        ui.setupUi(MainWindow)
+#        MainWindow.show()
+#        sys.exit(app.exec_())

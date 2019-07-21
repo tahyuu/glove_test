@@ -24,6 +24,7 @@ except AttributeError:
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
+        self.Dialog=Dialog
         Dialog.setObjectName(_fromUtf8("Dialog"))
         Dialog.resize(297, 153)
         Dialog.setSizeGripEnabled(True)
@@ -45,6 +46,8 @@ class Ui_Dialog(object):
         self.lineEdit_2 = QtGui.QLineEdit(Dialog)
         self.lineEdit_2.setGeometry(QtCore.QRect(130, 70, 113, 20))
         self.lineEdit_2.setObjectName(_fromUtf8("lineEdit_2"))
+        self.lineEdit_2.setEchoMode(QtGui.QLineEdit.Password) 
+
         self.pushButton = QtGui.QPushButton(Dialog)
         self.pushButton.setGeometry(QtCore.QRect(150, 110, 81, 31))
         font = QtGui.QFont()
@@ -66,9 +69,13 @@ class Ui_Dialog(object):
     def Login(self):
         userName = self.lineEdit.text()
         passWord = self.lineEdit_2.text()
-        print userName
-        print passWord
-        self.accept()
+        if userName == 'admin' and passWord == 'admin': 
+            # 如果用户名和密码正确，关闭对话框，accept()关闭后，如果增加一个取消按钮调用reject() 
+            self.Dialog.close()
+        else: 
+            QtGui.QMessageBox.critical(self.Dialog, 'Error', 'User name or password not correct!', 0,0) 
+ 
+        
 
 
 if __name__ == "__main__":

@@ -7,7 +7,6 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
-from Ui_sample_information_input import *
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -26,6 +25,7 @@ except AttributeError:
 class Ui_sample_select(object):
     def setupUi(self, sample_select, parent):
         self.parent=parent
+        self.sample_select=sample_select
         sample_select.setObjectName(_fromUtf8("sample_select"))
         sample_select.resize(427, 128)
         sample_select.setSizeGripEnabled(True)
@@ -53,7 +53,7 @@ class Ui_sample_select(object):
         self.label.setObjectName(_fromUtf8("label"))
 
         self.retranslateUi(sample_select)
-        QtCore.QObject.connect(self.next_step, QtCore.SIGNAL(_fromUtf8("pressed()")), sample_select.close)
+        QtCore.QObject.connect(self.next_step, QtCore.SIGNAL(_fromUtf8("pressed()")), self.NextStep)
         QtCore.QMetaObject.connectSlotsByName(sample_select)
 
     def retranslateUi(self, sample_select):
@@ -65,6 +65,8 @@ class Ui_sample_select(object):
         self.label.setText(_translate("sample_select", "Step1:  Select test samples", None))
     def NextStep(self):
         self.parent.CurrentStatus="inputInformation"
+        print  self.parent.CurrentStatus
+        self.sample_select.close()
 
 #        Dialog = QtGui.QDialog()
 #        ui = Ui_sample_information_input()

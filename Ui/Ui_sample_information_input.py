@@ -25,6 +25,7 @@ except AttributeError:
 class Ui_sample_information_input(object):
     def setupUi(self, Form, parent):
         self.parent=parent
+        self.Form=Form
         Form.setObjectName(_fromUtf8("Form"))
         Form.resize(707, 593)
         self.groupBox = QtGui.QGroupBox(Form)
@@ -188,7 +189,7 @@ class Ui_sample_information_input(object):
         self.pushButton_2.raise_()
 
         self.retranslateUi(Form)
-        QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL(_fromUtf8("clicked()")), Form.close)
+        QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.NextStep)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -222,6 +223,10 @@ class Ui_sample_information_input(object):
         self.comboBox_4.setItemText(1, _translate("Form", "Other", None))
         self.pushButton.setText(_translate("Form", "Next Step", None))
         self.pushButton_2.setText(_translate("Form", "Last Step", None))
+    def NextStep(self):
+        self.Form.close()
+
+        self.parent.CurrentStatus="exit"
 
 
 if __name__ == "__main__":
@@ -229,7 +234,7 @@ if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     Form = QtGui.QWidget()
     ui = Ui_sample_information_input()
-    ui.setupUi(Form)
+    ui.setupUi(Form, None)
     Form.show()
     sys.exit(app.exec_())
 

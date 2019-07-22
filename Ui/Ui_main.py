@@ -9,7 +9,7 @@
 from PyQt4 import QtCore, QtGui
 from Ui_login import  *
 from Ui_sample_select import *
-
+from Ui_sample_information_input import *
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -64,6 +64,11 @@ class Ui_MainWindow(object):
         #self.MainWindow.setStyleSheet(_fromUtf8("#MainWindow{background-image:url(gloves.jpg) ;no-repeat;}"))
 
         self.centralWidget.setStyleSheet(self.css_centralWidget)
+        
+#        palette=QtGui.QPalette()
+#        icon=QtGui.QPixmap('gloves.jpg')
+#        palette.setBrush(self.centralWidget.backgroundRole(), QtGui.QBrush(icon)) #添加背景图片
+#        self.centralWidget.setPalette(palette)
 
     def createAction(self, text, slot=None, shortcut=None, icon=None,
                      tip=None, checkable=False, signal="triggered()"):
@@ -92,7 +97,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
 
     def Login(self):
-        self.CurrentStatus="selectSampels"
+        #self.CurrentStatus="selectSampels"
         Dialog = QtGui.QDialog()
         ui = Ui_Dialog()
         ui.setupUi(Dialog, self )
@@ -113,6 +118,7 @@ class Ui_MainWindow(object):
             print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
             self.Login()
             return False
+            return False
         else:
             return True
     def createSamples(self):
@@ -120,15 +126,14 @@ class Ui_MainWindow(object):
 
         self.CurrentStatus="selectSampels"
 #            return
+        print self.CurrentStatus
         while True:
-            print self.CurrentStatus
-
             if self.CurrentStatus=="selectSampels":
                 Dialog = QtGui.QDialog()
                 ui = Ui_sample_select()
                 ui.setupUi(Dialog , self)
                 Dialog.show()
-                self.CurrentStatus="inputInformation"
+                #self.CurrentStatus="inputInformation"
                 if Dialog.exec_():
                     pass
             if self.CurrentStatus=="inputInformation":
@@ -137,10 +142,10 @@ class Ui_MainWindow(object):
                 ui = Ui_sample_information_input()
                 ui.setupUi(Dialog , self)
                 Dialog.show()
-                self.CurrentStatus="break"
+                #self.CurrentStatus="break"
                 if Dialog.exec_():
                     pass
-            if self.CurrentStatus=="break":
+            if self.CurrentStatus=="exit":
                 break
 
 

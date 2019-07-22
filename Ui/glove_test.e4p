@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-5.1.dtd">
 <!-- eric project file for project glove_test -->
-<!-- Saved: 2019-07-19, 21:53:25 -->
+<!-- Saved: 2019-07-21, 22:01:51 -->
 <!-- Copyright (C) 2019 ,  -->
 <Project version="5.1">
   <Language>en_US</Language>
@@ -22,7 +22,6 @@
   </Sources>
   <Forms>
     <Form>login.ui</Form>
-    <Form>main.ui</Form>
     <Form>sample_information_input.ui</Form>
     <Form>sample_select.ui</Form>
   </Forms>

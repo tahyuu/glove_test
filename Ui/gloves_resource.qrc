@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="glove_pic">
+    <file>gloves.jpg</file>
+  </qresource>
+  <qresource prefix="hw_log">
+    <file>logo.gif</file>
+  </qresource>
+</RCC>

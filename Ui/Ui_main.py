@@ -35,7 +35,7 @@ class Ui_MainWindow(object):
         self.MainWindow.setWindowIcon(icon)
         self.centralWidget.setObjectName(_fromUtf8("centralWidget"))
         self.MainWindow.setCentralWidget(self.centralWidget)
-	self.menuBar =   self.MainWindow.menuBar()
+        self.menuBar =   self.MainWindow.menuBar()
         #self.menuBar.setGeometry(QtCore.QRect(0, 0, 800, 23))
         #self.menuBar.setObjectName(_fromUtf8("menuBar"))
         self.samplesMenu = self.menuBar.addMenu("&Samples")
@@ -56,15 +56,15 @@ class Ui_MainWindow(object):
         self.addActions(self.usersMenu , (LoginAction,UserMangerAction ,LogoutAction ))
 
         self.retranslateUi(MainWindow)
-        self.css_centralWidget= ("#centralWidget{\n"
-"background-image:url(gloves.jpg) no-repeat;\n    width:100%;\n    height:100%;"
-"}")
 
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        #self.MainWindow.setStyleSheet(_fromUtf8("#MainWindow{background-image:url(gloves.jpg) ;no-repeat;}"))
-
-        self.centralWidget.setStyleSheet(self.css_centralWidget)
         
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/hw_log/logo.gif")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
+        MainWindow.setStyleSheet(_fromUtf8("image: url(:/glove_pic/gloves.jpg);"))
+        
+        import gloves_resource_rc
 #        palette=QtGui.QPalette()
 #        icon=QtGui.QPixmap('gloves.jpg')
 #        palette.setBrush(self.centralWidget.backgroundRole(), QtGui.QBrush(icon)) #添加背景图片

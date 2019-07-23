@@ -24,3 +24,11 @@ config project as below.
 pip download -i https://pypi.tuna.tsinghua.edu.cn/simple -d \home\packs pywin32
 pip download -i https://pypi.tuna.tsinghua.edu.cn/simple -d \home\packs -r requirement.txt
 ```
+
+### How to use resource file in PYQT4
+```
+1, property editor-->styleSheet-->edit styleSheet --> Add Resource
+2, Clicke the pen --> New  --> input Resource name --> Add pix --> Add file -->ok -->OK
+3, Eric Build form
+4, Eric add Resource --> build Resource
+```

@@ -63,7 +63,7 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         #self.MainWindow.setStyleSheet(_fromUtf8("#MainWindow{background-image:url(gloves.jpg) ;no-repeat;}"))
 
-#        self.centralWidget.setStyleSheet(self.css_centralWidget)
+        self.centralWidget.setStyleSheet(self.css_centralWidget)
         
 #        palette=QtGui.QPalette()
 #        icon=QtGui.QPixmap('gloves.jpg')

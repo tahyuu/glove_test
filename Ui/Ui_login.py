@@ -22,11 +22,11 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class Ui_Dialog(object):
+class Ui_Login(object):
     def setupUi(self, Dialog, parent):
         self.Dialog=Dialog
         self.parent=parent
-        Dialog.setObjectName(_fromUtf8("Dialog"))
+        Dialog.setObjectName(_fromUtf8("Login"))
         Dialog.resize(320, 153)
         Dialog.setSizeGripEnabled(True)
         self.label = QtGui.QLabel(Dialog)
@@ -63,9 +63,9 @@ class Ui_Dialog(object):
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog", None))
-        self.label.setText(_translate("Dialog", "User Name:", None))
-        self.label_2.setText(_translate("Dialog", " Password:", None))
+        Dialog.setWindowTitle(_translate("Login", "Login", None))
+        self.label.setText(_translate("Login", "User Name:", None))
+        self.label_2.setText(_translate("Login", " Password:", None))
         self.pushButton.setText(_translate("Dialog", "Login", None))
     def Login(self):
         userName = self.lineEdit.text()
@@ -84,7 +84,7 @@ if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)
     Dialog = QtGui.QDialog()
-    ui = Ui_Dialog()
+    ui = Ui_Login()
     ui.setupUi(Dialog, None)
     Dialog.show()
     sys.exit(app.exec_())

@@ -29,9 +29,9 @@ class Ui_sample_select(object):
         sample_select.setObjectName(_fromUtf8("sample_select"))
         sample_select.resize(427, 128)
         sample_select.setSizeGripEnabled(True)
-        self.checkBox = QtGui.QCheckBox(sample_select)
-        self.checkBox.setGeometry(QtCore.QRect(40, 30, 81, 61))
-        self.checkBox.setObjectName(_fromUtf8("checkBox"))
+        self.checkBox_1 = QtGui.QCheckBox(sample_select)
+        self.checkBox_1.setGeometry(QtCore.QRect(40, 30, 81, 61))
+        self.checkBox_1.setObjectName(_fromUtf8("checkBox_1"))
         self.checkBox_2 = QtGui.QCheckBox(sample_select)
         self.checkBox_2.setGeometry(QtCore.QRect(150, 30, 81, 61))
         self.checkBox_2.setObjectName(_fromUtf8("checkBox_2"))
@@ -58,22 +58,22 @@ class Ui_sample_select(object):
 
     def retranslateUi(self, sample_select):
         sample_select.setWindowTitle(_translate("sample_select", "Sample Slect", None))
-        self.checkBox.setText(_translate("sample_select", "Sample1", None))
+        self.checkBox_1.setText(_translate("sample_select", "Sample1", None))
         self.checkBox_2.setText(_translate("sample_select", "Sample2", None))
         self.checkBox_3.setText(_translate("sample_select", "Sample2", None))
         self.next_step.setText(_translate("sample_select", "Next Step", None))
         self.label.setText(_translate("sample_select", "Step1:  Select test samples", None))
     def NextStep(self):
         self.parent.CurrentStatus="inputInformation"
-        print  self.parent.CurrentStatus
+        #print  self.parent.CurrentStatus
+        if self.checkBox_1.isChecked():
+            self.parent.sample_1_enable=True
+        if self.checkBox_2.isChecked():
+            self.parent.sample_1_enable=True
+        if self.checkBox_3.isChecked():
+            self.parent.sample_3_enable=True
         self.sample_select.close()
 
-#        Dialog = QtGui.QDialog()
-#        ui = Ui_sample_information_input()
-#        ui.setupUi(Dialog )
-#        Dialog.show()
-#        if Dialog.exec_():
-#            pass
 
 if __name__ == "__main__":
     import sys

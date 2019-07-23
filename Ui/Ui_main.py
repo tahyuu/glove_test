@@ -30,9 +30,9 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         self.MainWindow.resize(1200, 700)
         self.centralWidget = QtGui.QWidget(MainWindow)
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8("logo.gif")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.MainWindow.setWindowIcon(icon)
+        #icon = QtGui.QIcon()
+        #icon.addPixmap(QtGui.QPixmap(_fromUtf8("logo.gif")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        #self.MainWindow.setWindowIcon(icon)
         self.centralWidget.setObjectName(_fromUtf8("centralWidget"))
         self.MainWindow.setCentralWidget(self.centralWidget)
         self.menuBar =   self.MainWindow.menuBar()
@@ -59,11 +59,11 @@ class Ui_MainWindow(object):
 
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/hw_log/logo.gif")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        MainWindow.setWindowIcon(icon)
-        MainWindow.setStyleSheet(_fromUtf8("image: url(:/glove_pic/gloves.jpg);"))
-        
+#        icon = QtGui.QIcon()
+#        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/hw_log/logo.gif")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+#        MainWindow.setWindowIcon(icon)
+        #MainWindow.setStyleSheet(_fromUtf8("image: url(:/glove_pic/gloves.jpg);"))
+        MainWindow.setStyleSheet(_fromUtf8("#MainWindow{background-image:url(:/glove_pic/gloves.jpg);}"))
         import gloves_resource_rc
 #        palette=QtGui.QPalette()
 #        icon=QtGui.QPixmap('gloves.jpg')
@@ -99,7 +99,7 @@ class Ui_MainWindow(object):
     def Login(self):
         #self.CurrentStatus="selectSampels"
         Dialog = QtGui.QDialog()
-        ui = Ui_Dialog()
+        ui = Ui_Login()
         ui.setupUi(Dialog, self )
         Dialog.show()
         if Dialog.exec_():
@@ -108,14 +108,13 @@ class Ui_MainWindow(object):
         self.userName=""
         self.passWord=""
         Dialog = QtGui.QDialog()
-        ui = Ui_Dialog()
+        ui = Ui_Login()
         ui.setupUi(Dialog , self)
         Dialog.show()
         if Dialog.exec_():
             pass
     def CheckLogin(self):
         if self.userName=="" and self.passWord=="":
-            print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
             self.Login()
             return False
             return False
@@ -123,6 +122,9 @@ class Ui_MainWindow(object):
             return True
     def createSamples(self):
         self.CheckLogin()
+        self.sample_1_enable=False
+        self.sample_2_enable=False
+        self.sample_3_enable=False
 
         self.CurrentStatus="selectSampels"
 #            return

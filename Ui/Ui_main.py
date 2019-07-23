@@ -28,16 +28,16 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         self.MainWindow=MainWindow
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(1200, 700)
+        self.MainWindow.resize(1200, 700)
         self.centralWidget = QtGui.QWidget(MainWindow)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8("logo.gif")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        MainWindow.setWindowIcon(icon)
+        self.MainWindow.setWindowIcon(icon)
         self.centralWidget.setObjectName(_fromUtf8("centralWidget"))
-        MainWindow.setCentralWidget(self.centralWidget)
-        self.menuBar = QtGui.QMenuBar(MainWindow)
-        self.menuBar.setGeometry(QtCore.QRect(0, 0, 800, 23))
-        self.menuBar.setObjectName(_fromUtf8("menuBar"))
+        self.MainWindow.setCentralWidget(self.centralWidget)
+	self.menuBar =   self.MainWindow.menuBar()
+        #self.menuBar.setGeometry(QtCore.QRect(0, 0, 800, 23))
+        #self.menuBar.setObjectName(_fromUtf8("menuBar"))
         self.samplesMenu = self.menuBar.addMenu("&Samples")
         self.usersMenu = self.menuBar.addMenu("&Users")
         createSameplsAction = self.createAction(
@@ -63,7 +63,7 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         #self.MainWindow.setStyleSheet(_fromUtf8("#MainWindow{background-image:url(gloves.jpg) ;no-repeat;}"))
 
-        self.centralWidget.setStyleSheet(self.css_centralWidget)
+#        self.centralWidget.setStyleSheet(self.css_centralWidget)
         
 #        palette=QtGui.QPalette()
 #        icon=QtGui.QPixmap('gloves.jpg')

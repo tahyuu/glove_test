@@ -176,7 +176,7 @@ class Ui_sample_information_input(object):
         self.cb_3_standard.addItem(_fromUtf8(""))
         self.gridLayout_4.addWidget(self.cb_3_standard, 2, 3, 1, 1)
         self.bt_next = QtGui.QPushButton(Form)
-        self.bt_next.setGeometry(QtCore.QRect(380, 570, 93, 28))
+        self.bt_next.setGeometry(QtCore.QRect(380, 570, 120, 30))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial Black"))
         font.setBold(True)
@@ -184,7 +184,7 @@ class Ui_sample_information_input(object):
         self.bt_next.setFont(font)
         self.bt_next.setObjectName(_fromUtf8("bt_next"))
         self.bt_last = QtGui.QPushButton(Form)
-        self.bt_last.setGeometry(QtCore.QRect(240, 570, 91, 28))
+        self.bt_last.setGeometry(QtCore.QRect(220, 570, 120, 30))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial Black"))
         font.setBold(True)
@@ -192,7 +192,7 @@ class Ui_sample_information_input(object):
         self.bt_last.setFont(font)
         self.bt_last.setObjectName(_fromUtf8("bt_last"))
         self.label_13 = QtGui.QLabel(Form)
-        self.label_13.setGeometry(QtCore.QRect(30, 10, 281, 21))
+        self.label_13.setGeometry(QtCore.QRect(30, 10, 350, 21))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial Black"))
         font.setBold(False)
@@ -238,11 +238,11 @@ class Ui_sample_information_input(object):
         self.bt_next.setText(_translate("Form", "Next Step", None))
         self.bt_last.setText(_translate("Form", "Last Step", None))
         self.label_13.setText(_translate("Form", "Step2: Input Samples information", None))
-        if not self.parent.sample_1_enable:
+        if self.parent and (not self.parent.sample_1_enable):
             self.le_1_name.setReadOnly(True)
-        if not self.parent.sample_2_enable:
+        if self.parent and (not self.parent.sample_2_enable):
             self.le_2_name.setReadOnly(True)
-        if not self.parent.sample_3_enable:
+        if self.parent and (not self.parent.sample_3_enable):
             self.le_3_name.setReadOnly(True)
 
     def NextStep(self):
@@ -254,7 +254,7 @@ if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     Form = QtGui.QWidget()
     ui = Ui_sample_information_input()
-    ui.setupUi(Form)
+    ui.setupUi(Form,None)
     Form.show()
     sys.exit(app.exec_())
 

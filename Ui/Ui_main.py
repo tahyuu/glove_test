@@ -10,6 +10,7 @@ from PyQt4 import QtCore, QtGui
 from Ui_login import  *
 from Ui_sample_select import *
 from Ui_sample_information_input import *
+import gloves_resource_rc
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -41,7 +42,7 @@ class Ui_MainWindow(object):
         self.samplesMenu = self.menuBar.addMenu("&Samples")
         self.usersMenu = self.menuBar.addMenu("&Users")
         createSameplsAction = self.createAction(
-                "&createSamepls", self.createSamples,
+                "&CreateSamepls", self.createSamples,
                 tip="Create Samples")
         LoginAction = self.createAction(
                 "&Login", self.Login,
@@ -64,7 +65,6 @@ class Ui_MainWindow(object):
 #        MainWindow.setWindowIcon(icon)
         #MainWindow.setStyleSheet(_fromUtf8("image: url(:/glove_pic/gloves.jpg);"))
         MainWindow.setStyleSheet(_fromUtf8("#MainWindow{background-image:url(:/glove_pic/gloves.jpg);}"))
-        import gloves_resource_rc
 #        palette=QtGui.QPalette()
 #        icon=QtGui.QPixmap('gloves.jpg')
 #        palette.setBrush(self.centralWidget.backgroundRole(), QtGui.QBrush(icon)) #添加背景图片

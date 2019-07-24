@@ -10,7 +10,7 @@ from PyQt4 import QtCore, QtGui
 from Ui_login import  *
 from Ui_sample_select import *
 from Ui_sample_information_input import *
-import gloves_resource_rc
+#import gloves_resource_rc
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:

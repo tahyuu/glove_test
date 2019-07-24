@@ -238,12 +238,15 @@ class Ui_sample_information_input(object):
         self.bt_next.setText(_translate("Form", "Next Step", None))
         self.bt_last.setText(_translate("Form", "Last Step", None))
         self.label_13.setText(_translate("Form", "Step2: Input Samples information", None))
-        if self.parent and (not self.parent.sample_1_enable):
-            self.le_1_name.setReadOnly(True)
-        if self.parent and (not self.parent.sample_2_enable):
-            self.le_2_name.setReadOnly(True)
-        if self.parent and (not self.parent.sample_3_enable):
-            self.le_3_name.setReadOnly(True)
+        self.groupBox.setEnabled(False)
+        self.groupBox_2.setEnabled(False)
+        self.groupBox_3.setEnabled(False)
+        if self.parent and self.parent.sample_1_enable:
+            self.groupBox.setEnabled(True)
+        if self.parent and self.parent.sample_2_enable:
+            self.groupBox_2.setEnabled(True)
+        if self.parent and self.parent.sample_3_enable:
+            self.groupBox_3.setEnabled(True)
 
     def NextStep(self):
         self.Form.close()

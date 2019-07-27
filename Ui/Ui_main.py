@@ -10,6 +10,7 @@ from PyQt4 import QtCore, QtGui
 from Ui_login import  *
 from Ui_sample_select import *
 from Ui_sample_information_input import *
+from sample_information_input import *
 #import gloves_resource_rc
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -140,11 +141,15 @@ class Ui_MainWindow(object):
                     pass
             if self.CurrentStatus=="inputInformation":
                 
+#                ui = Ui_sample_information_input()
+#                ui.setupUi(Dialog , self)
+#                Dialog.show()
+#                #self.CurrentStatus="break"
+#                if Dialog.exec_():
+#                    pass
                 Dialog = QtGui.QDialog()
-                ui = Ui_sample_information_input()
-                ui.setupUi(Dialog , self)
-                Dialog.show()
-                #self.CurrentStatus="break"
+                ui = sample_information_input(Dialog, self)
+                ui.show()
                 if Dialog.exec_():
                     pass
             if self.CurrentStatus=="exit":

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'E:\WorkSpace\gloves_test\Program\Ui\sample_information_input.ui'
+# Form implementation generated from reading ui file 'C:\Users\yong\Desktop\glove_test\Ui\sample_information_input.ui'
 #
 # Created by: PyQt4 UI code generator 4.11.4
 #
@@ -23,16 +23,13 @@ except AttributeError:
         return QtGui.QApplication.translate(context, text, disambig)
 
 class Ui_sample_information_input(object):
-    def setupUi(self, sample_information_input, parent):
-        self.parent=parent
-        self.Form=sample_information_input
-    #def setupUi(self, sample_information_input):
+    def setupUi(self, sample_information_input):
         sample_information_input.setObjectName(_fromUtf8("sample_information_input"))
-        sample_information_input.resize(962, 631)
+        sample_information_input.resize(754, 571)
         self.verticalLayout = QtGui.QVBoxLayout(sample_information_input)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.label_13 = QtGui.QLabel(sample_information_input)
-        self.label_13.setMaximumSize(QtCore.QSize(700, 38))
+        self.label_13.setMaximumSize(QtCore.QSize(16777215, 31))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial Black"))
         font.setBold(False)
@@ -42,8 +39,8 @@ class Ui_sample_information_input(object):
         self.verticalLayout.addWidget(self.label_13)
         self.groupBox = QtGui.QGroupBox(sample_information_input)
         self.groupBox.setObjectName(_fromUtf8("groupBox"))
-        self.gridLayout_3 = QtGui.QGridLayout(self.groupBox)
-        self.gridLayout_3.setObjectName(_fromUtf8("gridLayout_3"))
+        self.horizontalLayout = QtGui.QHBoxLayout(self.groupBox)
+        self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         self.gridLayout = QtGui.QGridLayout()
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.label = QtGui.QLabel(self.groupBox)
@@ -87,12 +84,12 @@ class Ui_sample_information_input(object):
         self.cb_1_standard.addItem(_fromUtf8(""))
         self.cb_1_standard.addItem(_fromUtf8(""))
         self.gridLayout.addWidget(self.cb_1_standard, 2, 3, 1, 1)
-        self.gridLayout_3.addLayout(self.gridLayout, 0, 0, 1, 1)
+        self.horizontalLayout.addLayout(self.gridLayout)
         self.verticalLayout.addWidget(self.groupBox)
         self.groupBox_2 = QtGui.QGroupBox(sample_information_input)
         self.groupBox_2.setObjectName(_fromUtf8("groupBox_2"))
-        self.gridLayout_5 = QtGui.QGridLayout(self.groupBox_2)
-        self.gridLayout_5.setObjectName(_fromUtf8("gridLayout_5"))
+        self.horizontalLayout_2 = QtGui.QHBoxLayout(self.groupBox_2)
+        self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
         self.gridLayout_2 = QtGui.QGridLayout()
         self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
         self.label_7 = QtGui.QLabel(self.groupBox_2)
@@ -136,12 +133,12 @@ class Ui_sample_information_input(object):
         self.cb_2_standard.addItem(_fromUtf8(""))
         self.cb_2_standard.addItem(_fromUtf8(""))
         self.gridLayout_2.addWidget(self.cb_2_standard, 2, 3, 1, 1)
-        self.gridLayout_5.addLayout(self.gridLayout_2, 0, 0, 1, 1)
+        self.horizontalLayout_2.addLayout(self.gridLayout_2)
         self.verticalLayout.addWidget(self.groupBox_2)
         self.groupBox_3 = QtGui.QGroupBox(sample_information_input)
         self.groupBox_3.setObjectName(_fromUtf8("groupBox_3"))
-        self.gridLayout_6 = QtGui.QGridLayout(self.groupBox_3)
-        self.gridLayout_6.setObjectName(_fromUtf8("gridLayout_6"))
+        self.horizontalLayout_3 = QtGui.QHBoxLayout(self.groupBox_3)
+        self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
         self.gridLayout_4 = QtGui.QGridLayout()
         self.gridLayout_4.setObjectName(_fromUtf8("gridLayout_4"))
         self.label_19 = QtGui.QLabel(self.groupBox_3)
@@ -185,32 +182,33 @@ class Ui_sample_information_input(object):
         self.cb_3_standard.addItem(_fromUtf8(""))
         self.cb_3_standard.addItem(_fromUtf8(""))
         self.gridLayout_4.addWidget(self.cb_3_standard, 2, 3, 1, 1)
-        self.gridLayout_6.addLayout(self.gridLayout_4, 0, 0, 1, 1)
+        self.horizontalLayout_3.addLayout(self.gridLayout_4)
         self.verticalLayout.addWidget(self.groupBox_3)
-        self.horizontalLayout = QtGui.QHBoxLayout()
-        self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
+        self.horizontalLayout_4 = QtGui.QHBoxLayout()
+        self.horizontalLayout_4.setObjectName(_fromUtf8("horizontalLayout_4"))
         self.bt_last = QtGui.QPushButton(sample_information_input)
-        self.bt_last.setMaximumSize(QtCore.QSize(112, 35))
+        self.bt_last.setMaximumSize(QtCore.QSize(161, 41))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial Black"))
         font.setBold(True)
         font.setWeight(75)
         self.bt_last.setFont(font)
         self.bt_last.setObjectName(_fromUtf8("bt_last"))
-        self.horizontalLayout.addWidget(self.bt_last)
+        self.horizontalLayout_4.addWidget(self.bt_last)
         self.bt_next = QtGui.QPushButton(sample_information_input)
-        self.bt_next.setMaximumSize(QtCore.QSize(112, 35))
+        self.bt_next.setMaximumSize(QtCore.QSize(151, 41))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial Black"))
         font.setBold(True)
         font.setWeight(75)
         self.bt_next.setFont(font)
         self.bt_next.setObjectName(_fromUtf8("bt_next"))
-        self.horizontalLayout.addWidget(self.bt_next)
-        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.horizontalLayout_4.addWidget(self.bt_next)
+        self.verticalLayout.addLayout(self.horizontalLayout_4)
 
         self.retranslateUi(sample_information_input)
-        QtCore.QObject.connect(self.bt_next, QtCore.SIGNAL(_fromUtf8("clicked()")), self.NextStep)
+        QtCore.QObject.connect(self.bt_next, QtCore.SIGNAL(_fromUtf8("clicked()")), sample_information_input.close)
+        QtCore.QObject.connect(self.bt_next, QtCore.SIGNAL(_fromUtf8("clicked()")), sample_information_input.on_btnNextStep_clicked)
         QtCore.QMetaObject.connectSlotsByName(sample_information_input)
 
     def retranslateUi(self, sample_information_input):
@@ -243,50 +241,16 @@ class Ui_sample_information_input(object):
         self.label_24.setText(_translate("sample_information_input", "Standard: ", None))
         self.cb_3_standard.setItemText(0, _translate("sample_information_input", "EN374-4", None))
         self.cb_3_standard.setItemText(1, _translate("sample_information_input", "Other", None))
-        self.bt_last.setText(_translate("sample_information_input", "Last Step", None))
+        self.bt_last.setText(_translate("sample_information_input", "Privious Step", None))
         self.bt_next.setText(_translate("sample_information_input", "Next Step", None))
-        self.groupBox.setEnabled(True)
-        self.groupBox_2.setEnabled(True)
-        self.groupBox_3.setEnabled(True)
-        if self.parent and not self.parent.sample_1_enable:
-            self.groupBox.setEnabled(False)
-            self.le_1_name.setReadOnly(True)
-            self.le_1_color.setReadOnly(True)
-            self.le_1_mtype.setReadOnly(True)
-            self.le_1_ctype.setReadOnly(True)
-            self.le_1_thickness.setReadOnly(True)
-            #self.cb_1_standard.setReadOnly(True)
-
-        if self.parent and not self.parent.sample_2_enable:
-            self.groupBox_2.setEnabled(False)
-            self.le_2_name.setReadOnly(True)
-            self.le_2_color.setReadOnly(True)
-            self.le_2_mtype.setReadOnly(True)
-            self.le_2_ctype.setReadOnly(True)
-            self.le_2_thickness.setReadOnly(True)
-            #self.cb_2_standard.setReadOnly(True)
 
 
-        if self.parent and not self.parent.sample_3_enable:
-            self.groupBox_3.setEnabled(False)
-            self.le_3_name.setReadOnly(True)
-            self.le_3_color.setReadOnly(True)
-            self.le_3_mtype.setReadOnly(True)
-            self.le_3_ctype.setReadOnly(True)
-            self.le_3_thickness.setReadOnly(True)
-            #self.cb_3_standard.setReadOnly(True)
-
-
-    def NextStep(self):
-        self.Form.close()
-        self.parent.CurrentStatus="exit"
-        
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)
-    Form = QtGui.QWidget()
+    sample_information_input = QtGui.QWidget()
     ui = Ui_sample_information_input()
-    ui.setupUi(Form,None)
-    Form.show()
+    ui.setupUi(sample_information_input)
+    sample_information_input.show()
     sys.exit(app.exec_())
 

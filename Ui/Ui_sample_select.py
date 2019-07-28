@@ -69,7 +69,7 @@ class Ui_sample_select(object):
         if self.checkBox_1.isChecked():
             self.parent.sample_1_enable=True
         if self.checkBox_2.isChecked():
-            self.parent.sample_1_enable=True
+            self.parent.sample_2_enable=True
         if self.checkBox_3.isChecked():
             self.parent.sample_3_enable=True
         self.sample_select.close()

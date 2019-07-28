@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1441</width>
-    <height>674</height>
+    <width>923</width>
+    <height>693</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,11 +19,19 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QTableWidget" name="tableWidget">
+     <property name="font">
+      <font>
+       <pointsize>-1</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
      <property name="styleSheet">
       <string notr="true"> text-align : center;
    height : 30px;
    border-style: outset;
-   font : 30px</string>
+   font : 20px</string>
      </property>
      <property name="lineWidth">
       <number>1</number>
@@ -39,87 +47,92 @@
      </property>
      <row>
       <property name="text">
-       <string>1</string>
+       <string/>
       </property>
      </row>
      <row>
       <property name="text">
-       <string>3</string>
+       <string/>
       </property>
      </row>
      <row>
       <property name="text">
-       <string>4</string>
+       <string/>
       </property>
      </row>
      <row>
       <property name="text">
-       <string>5</string>
+       <string/>
       </property>
      </row>
      <row>
       <property name="text">
-       <string>6</string>
+       <string/>
       </property>
      </row>
      <row>
       <property name="text">
-       <string>7</string>
+       <string/>
       </property>
      </row>
      <row>
       <property name="text">
-       <string>8</string>
+       <string/>
       </property>
      </row>
      <row>
       <property name="text">
-       <string>9</string>
+       <string/>
       </property>
      </row>
      <row>
       <property name="text">
-       <string>10</string>
+       <string/>
       </property>
      </row>
      <row>
       <property name="text">
-       <string>11</string>
+       <string/>
       </property>
      </row>
      <row>
       <property name="text">
-       <string>12</string>
+       <string/>
       </property>
      </row>
      <row>
       <property name="text">
-       <string>13</string>
+       <string/>
       </property>
      </row>
      <row>
       <property name="text">
-       <string>14</string>
+       <string/>
       </property>
      </row>
      <row>
       <property name="text">
-       <string>15</string>
+       <string/>
       </property>
      </row>
      <row>
       <property name="text">
-       <string>16</string>
+       <string/>
       </property>
      </row>
      <row>
       <property name="text">
-       <string>17</string>
+       <string/>
       </property>
      </row>
      <row>
       <property name="text">
-       <string>18</string>
+       <string/>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string/>
       </property>
      </row>
      <column>
@@ -181,13 +194,30 @@
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="topMargin">
+      <number>20</number>
+     </property>
+     <property name="bottomMargin">
+      <number>20</number>
+     </property>
      <item>
       <widget class="QPushButton" name="btn_Privious">
-       <property name="maximumSize">
+       <property name="minimumSize">
         <size>
-         <width>201</width>
+         <width>151</width>
          <height>41</height>
         </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>151</width>
+         <height>41</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial Black</family>
+        </font>
        </property>
        <property name="text">
         <string>Privious Step</string>
@@ -196,11 +226,22 @@
      </item>
      <item>
       <widget class="QPushButton" name="btn_Next">
-       <property name="maximumSize">
+       <property name="minimumSize">
         <size>
-         <width>201</width>
+         <width>151</width>
          <height>41</height>
         </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>151</width>
+         <height>41</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial Black</family>
+        </font>
        </property>
        <property name="text">
         <string>Next Step</string>

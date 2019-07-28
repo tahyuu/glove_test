@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'E:\WorkSpace\gloves_test\Program\Ui\login.ui'
+# Form implementation generated from reading ui file 'C:\Users\yong\Desktop\glove_test\Ui\login.ui'
 #
 # Created by: PyQt4 UI code generator 4.11.4
 #
@@ -22,35 +22,31 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class Ui_Login(object):
-    def setupUi(self, Dialog, parent):
-        self.Dialog=Dialog
-        self.parent=parent
-        Dialog.setObjectName(_fromUtf8("Login"))
-        Dialog.resize(320, 153)
+class Ui_Dialog(object):
+    def setupUi(self, Dialog):
+        Dialog.setObjectName(_fromUtf8("Dialog"))
+        Dialog.resize(297, 153)
         Dialog.setSizeGripEnabled(True)
         self.label = QtGui.QLabel(Dialog)
-        self.label.setGeometry(QtCore.QRect(40, 30, 120, 21))
+        self.label.setGeometry(QtCore.QRect(40, 30, 81, 21))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial Black"))
         self.label.setFont(font)
         self.label.setObjectName(_fromUtf8("label"))
         self.label_2 = QtGui.QLabel(Dialog)
-        self.label_2.setGeometry(QtCore.QRect(50, 70, 120, 21))
+        self.label_2.setGeometry(QtCore.QRect(50, 70, 71, 21))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial Black"))
         self.label_2.setFont(font)
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.lineEdit = QtGui.QLineEdit(Dialog)
-        self.lineEdit.setGeometry(QtCore.QRect(160, 30, 123, 20))
+        self.lineEdit.setGeometry(QtCore.QRect(130, 30, 113, 20))
         self.lineEdit.setObjectName(_fromUtf8("lineEdit"))
         self.lineEdit_2 = QtGui.QLineEdit(Dialog)
-        self.lineEdit_2.setGeometry(QtCore.QRect(160, 70, 123, 20))
+        self.lineEdit_2.setGeometry(QtCore.QRect(130, 70, 113, 20))
         self.lineEdit_2.setObjectName(_fromUtf8("lineEdit_2"))
-        self.lineEdit_2.setEchoMode(QtGui.QLineEdit.Password) 
-
         self.pushButton = QtGui.QPushButton(Dialog)
-        self.pushButton.setGeometry(QtCore.QRect(200, 110, 81, 31))
+        self.pushButton.setGeometry(QtCore.QRect(150, 110, 81, 31))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Times New Roman"))
         font.setBold(True)
@@ -59,33 +55,22 @@ class Ui_Login(object):
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
 
         self.retranslateUi(Dialog)
-        QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.Login)
+        QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog.close)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
-        Dialog.setWindowTitle(_translate("Login", "Login", None))
-        self.label.setText(_translate("Login", "User Name:", None))
-        self.label_2.setText(_translate("Login", " Password:", None))
+        Dialog.setWindowTitle(_translate("Dialog", "Dialog", None))
+        self.label.setText(_translate("Dialog", "User Name:", None))
+        self.label_2.setText(_translate("Dialog", " Password:", None))
         self.pushButton.setText(_translate("Dialog", "Login", None))
-    def Login(self):
-        userName = self.lineEdit.text()
-        passWord = self.lineEdit_2.text()
-        if userName == 'admin' and passWord == 'admin': 
-            self.parent.userName=userName
-            self.parent.passWord=passWord
-            self.Dialog.close()
-        else: 
-            QtGui.QMessageBox.critical(self.Dialog, 'Error', 'User name or password not correct!', 0,0) 
- 
-        
 
 
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)
     Dialog = QtGui.QDialog()
-    ui = Ui_Login()
-    ui.setupUi(Dialog, None)
+    ui = Ui_Dialog()
+    ui.setupUi(Dialog)
     Dialog.show()
     sys.exit(app.exec_())
 

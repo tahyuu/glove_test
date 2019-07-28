@@ -11,7 +11,8 @@ from Ui_login import  *
 from Ui_sample_select import *
 from Ui_sample_information_input import *
 from sample_information_input import *
-#import gloves_resource_rc
+from sample_list import *
+
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -43,7 +44,7 @@ class Ui_MainWindow(object):
         self.samplesMenu = self.menuBar.addMenu("&Samples")
         self.usersMenu = self.menuBar.addMenu("&Users")
         createSameplsAction = self.createAction(
-                "&CreateSamepls", self.createSamples,
+                "&createSamepls", self.createSamples,
                 tip="Create Samples")
         LoginAction = self.createAction(
                 "&Login", self.Login,
@@ -66,6 +67,7 @@ class Ui_MainWindow(object):
 #        MainWindow.setWindowIcon(icon)
         #MainWindow.setStyleSheet(_fromUtf8("image: url(:/glove_pic/gloves.jpg);"))
         MainWindow.setStyleSheet(_fromUtf8("#MainWindow{background-image:url(:/glove_pic/gloves.jpg);}"))
+        import gloves_resource_rc
 #        palette=QtGui.QPalette()
 #        icon=QtGui.QPixmap('gloves.jpg')
 #        palette.setBrush(self.centralWidget.backgroundRole(), QtGui.QBrush(icon)) #添加背景图片
@@ -141,15 +143,19 @@ class Ui_MainWindow(object):
                     pass
             if self.CurrentStatus=="inputInformation":
                 
-#                ui = Ui_sample_information_input()
-#                ui.setupUi(Dialog , self)
-#                Dialog.show()
-#                #self.CurrentStatus="break"
-#                if Dialog.exec_():
-#                    pass
                 Dialog = QtGui.QDialog()
                 ui = sample_information_input(Dialog, self)
+                #ui.setupUi(Dialog , self)
                 ui.show()
+                #self.CurrentStatus="break"
+                if Dialog.exec_():
+                    pass
+            if self.CurrentStatus=="sample_list":
+                Dialog = QtGui.QDialog()
+                ui = sample_list(Dialog, self)
+                #ui.setupUi(Dialog , self)
+                ui.show()
+                #self.CurrentStatus="break"
                 if Dialog.exec_():
                     pass
             if self.CurrentStatus=="exit":

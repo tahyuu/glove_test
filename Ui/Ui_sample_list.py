@@ -111,6 +111,7 @@ class Ui_Dialog(object):
         self.verticalLayout.addLayout(self.horizontalLayout)
 
         self.retranslateUi(Dialog)
+        QtCore.QObject.connect(self.btn_Next, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog.on_btnNextStep_clicked)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):

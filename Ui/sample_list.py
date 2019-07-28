@@ -29,7 +29,7 @@ class sample_list(QDialog, Ui_Dialog):
     """
     Class documentation goes here.
     """
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, mainwindow=None):
         """
         Constructor
         
@@ -38,6 +38,9 @@ class sample_list(QDialog, Ui_Dialog):
         """
         QDialog.__init__(self, parent)
         self.setupUi(self)
+        self.mainwindow=mainwindow
+        self.parent=parent
+
         self.tableWidget.setSpan(0, 0, 6, 1)
         self.tableWidget.setSpan(0, 1, 6, 1)
         self.tableWidget.setSpan(0, 2, 6, 1)
@@ -136,7 +139,10 @@ class sample_list(QDialog, Ui_Dialog):
         self.tableWidget.horizontalHeader().setStyleSheet(stylesheet)
         self.tableWidget.resizeColumnsToContents()
 
-
+    @pyqtSignature("")
+    def on_btnNextStep_clicked(self):        
+        self.parent.close()
+        self.mainwindow.CurrentStatus="exit"
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)

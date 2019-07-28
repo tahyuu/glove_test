@@ -212,5 +212,25 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>btn_Next</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>on_btnNextStep_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>951</x>
+     <y>647</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>964</x>
+     <y>699</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>on_btnNextStep_clicked()</slot>
+ </slots>
 </ui>

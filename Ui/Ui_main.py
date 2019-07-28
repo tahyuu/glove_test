@@ -131,8 +131,9 @@ class Ui_MainWindow(object):
 
         self.CurrentStatus="selectSampels"
 #            return
-        print self.CurrentStatus
         while True:
+            print self.CurrentStatus
+
             if self.CurrentStatus=="selectSampels":
                 Dialog = QtGui.QDialog()
                 ui = Ui_sample_select()
@@ -158,6 +159,7 @@ class Ui_MainWindow(object):
                 #self.CurrentStatus="break"
                 if Dialog.exec_():
                     pass
+                print self.CurrentStatus
             if self.CurrentStatus=="exit":
                 break
 

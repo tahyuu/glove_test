@@ -252,6 +252,11 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>tableWidget</tabstop>
+  <tabstop>btn_Next</tabstop>
+  <tabstop>btn_Privious</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

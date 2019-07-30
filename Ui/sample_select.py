@@ -26,20 +26,44 @@ class sample_select(QWidget, Ui_sample_select):
         self.mainwindow=mainwindow
         self.parent=parent
         self.setupUi(self)
+        if self.mainwindow.sample_1_enable:
+            self.checkBox_1.setCheckState(2)
+        if self.mainwindow.sample_2_enable:
+            self.checkBox_2.setCheckState(2)
+        if self.mainwindow.sample_3_enable:
+            self.checkBox_3.setCheckState(2)
 
     @pyqtSignature("")
     def NextStep(self):
         self.parent.close()
-        self.mainwindow.CurrentStatus="inputInformation"
         #print  self.parent.CurrentStatus
         if self.checkBox_1.isChecked():
             self.mainwindow.sample_1_enable=True
+        else:
+            self.mainwindow.sample_1_enable=False
+            
         if self.checkBox_2.isChecked():
             self.mainwindow.sample_2_enable=True
+        else:
+            self.mainwindow.sample_2_enable=False
+
         if self.checkBox_3.isChecked():
             self.mainwindow.sample_3_enable=True
-        
-        
+        else:
+            self.mainwindow.sample_3_enable=False
+            
+        #to remove sample which not selected from sample list
+        tmp_samples=self.mainwindow.samples
+        for sample in self.mainwindow.samples:
+            if sample.s_slot==0 and  self.mainwindow.sample_1_enable:
+                tmp_samples.append(sample)
+            if sample.s_slot==1 and self.mainwindow.sample_2_enable:
+                tmp_samples.append(sample)
+            if sample.s_slot==2 and self.mainwindow.sample_3_enable:
+                tmp_samples.append(sample)
+        self.mainwindow.samples=tmp_samples
+        self.mainwindow.CurrentStatus="inputInformation"
+
         
 if __name__ == "__main__":
     import sys

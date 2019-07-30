@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\yong\Desktop\glove_test\Ui\sample_list.ui'
+# Form implementation generated from reading ui file 'E:\WorkSpace\gloves_test\Program\Ui\sample_list.ui'
 #
 # Created by: PyQt4 UI code generator 4.11.4
 #
@@ -25,14 +25,14 @@ except AttributeError:
 class Ui_sample_list(object):
     def setupUi(self, sample_list):
         sample_list.setObjectName(_fromUtf8("sample_list"))
-        sample_list.resize(968, 702)
-        self.verticalLayout = QtGui.QVBoxLayout(sample_list)
-        self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
+        sample_list.resize(903, 684)
+        self.gridLayout = QtGui.QGridLayout(sample_list)
+        self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.tableWidget = QtGui.QTableWidget(sample_list)
         self.tableWidget.setEnabled(True)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial"))
-        font.setPointSize(13)
+        font.setPointSize(12)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
@@ -105,7 +105,7 @@ class Ui_sample_list(object):
         self.tableWidget.setItem(0, 0, item)
         item = QtGui.QTableWidgetItem()
         self.tableWidget.setItem(10, 0, item)
-        self.verticalLayout.addWidget(self.tableWidget)
+        self.gridLayout.addWidget(self.tableWidget, 0, 0, 1, 1)
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setContentsMargins(-1, 20, -1, 20)
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
@@ -125,7 +125,7 @@ class Ui_sample_list(object):
         self.btn_Next.setFont(font)
         self.btn_Next.setObjectName(_fromUtf8("btn_Next"))
         self.horizontalLayout.addWidget(self.btn_Next)
-        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.gridLayout.addLayout(self.horizontalLayout, 1, 0, 1, 1)
 
         self.retranslateUi(sample_list)
         QtCore.QObject.connect(self.btn_Privious, QtCore.SIGNAL(_fromUtf8("clicked()")), sample_list.on_btnPrivStep_clicked)
@@ -133,6 +133,8 @@ class Ui_sample_list(object):
         QtCore.QObject.connect(self.btn_Next, QtCore.SIGNAL(_fromUtf8("clicked()")), sample_list.close)
         QtCore.QObject.connect(self.btn_Next, QtCore.SIGNAL(_fromUtf8("clicked()")), sample_list.on_btnNextStep_clicked)
         QtCore.QMetaObject.connectSlotsByName(sample_list)
+        sample_list.setTabOrder(self.tableWidget, self.btn_Next)
+        sample_list.setTabOrder(self.btn_Next, self.btn_Privious)
 
     def retranslateUi(self, sample_list):
         sample_list.setWindowTitle(_translate("sample_list", "Form", None))
@@ -141,9 +143,9 @@ class Ui_sample_list(object):
         item = self.tableWidget.horizontalHeaderItem(1)
         item.setText(_translate("sample_list", "Color", None))
         item = self.tableWidget.horizontalHeaderItem(2)
-        item.setText(_translate("sample_list", "Materia Type", None))
+        item.setText(_translate("sample_list", "Materia", None))
         item = self.tableWidget.horizontalHeaderItem(3)
-        item.setText(_translate("sample_list", "Chemistry Type", None))
+        item.setText(_translate("sample_list", "Chemistry", None))
         item = self.tableWidget.horizontalHeaderItem(4)
         item.setText(_translate("sample_list", "Thickness", None))
         item = self.tableWidget.horizontalHeaderItem(5)

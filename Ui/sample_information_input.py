@@ -11,7 +11,8 @@ from PyQt4 import QtCore, QtGui
 from Ui_sample_information_input import Ui_sample_information_input
 
 class Sample:
-    def __init(self):
+    def __init__(self, slot):
+        self.s_slot=slot
         self.s_name=""
         self.s_ctype=""
         self.s_mtype=""
@@ -62,8 +63,32 @@ class sample_information_input(QWidget, Ui_sample_information_input):
             self.le_3_thickness.setReadOnly(True)
             #self.cb_3_standard.setReadOnly(True)
         
+        #display the inputed data
+        for sample in self.mainwindow.samples:
+            if sample.s_slot==0:
+                self.le_1_name.setText(sample.s_name)
+                self.le_1_color.setText(sample.s_color)
+                self.le_1_mtype.setText(sample.s_mtype)
+                self.le_1_ctype.setText(sample.s_ctype)
+                self.le_1_thickness.setText(sample.s_thickness)
+
+            if sample.s_slot==1:
+                self.le_2_name.setText(sample.s_name)
+                self.le_2_color.setText(sample.s_color)
+                self.le_2_mtype.setText(sample.s_mtype)
+                self.le_2_ctype.setText(sample.s_ctype)
+                self.le_2_thickness.setText(sample.s_thickness)
+
+            if sample.s_slot==2:
+                self.le_3_name.setText(sample.s_name)
+                self.le_3_color.setText(sample.s_color)
+                self.le_3_mtype.setText(sample.s_mtype)
+                self.le_3_ctype.setText(sample.s_ctype)
+                self.le_3_thickness.setText(sample.s_thickness)
+
     @pyqtSignature("")
     def on_btnNextStep_clicked(self):
+        self.mainwindow.samples=[]
         if self.mainwindow.sample_1_enable:
             if self.le_1_name.text()=="":
                 self.le_1_name.setFocus()
@@ -86,7 +111,7 @@ class sample_information_input(QWidget, Ui_sample_information_input):
 
                 QtGui.QMessageBox.critical(self.parent, 'Error', 'Sample 1 Thickness can\'t be empty!', 0,0) 
                 return 
-            sample=Sample()
+            sample=Sample(0)
             sample.s_name=self.le_1_name.text()
             sample.s_color=self.le_1_color.text()
             sample.s_mtype=self.le_1_mtype.text()
@@ -120,7 +145,7 @@ class sample_information_input(QWidget, Ui_sample_information_input):
                 self.le_2_thickness.setFocus()
                 QtGui.QMessageBox.critical(self.parent, 'Error', 'Sample 2 Thickness can\'t be empty!', 0,0) 
                 return 
-            sample=Sample()
+            sample=Sample(1)
             sample.s_name=self.le_2_name.text()
             sample.s_color=self.le_2_color.text()
             sample.s_mtype=self.le_2_mtype.text()
@@ -154,7 +179,7 @@ class sample_information_input(QWidget, Ui_sample_information_input):
                 self.le_3_thickness.setFocus()
                 QtGui.QMessageBox.critical(self.parent, 'Error', 'Sample 3 Thickness can\'t be empty!', 0,0) 
                 return 
-            sample=Sample()
+            sample=Sample(2)
             sample.s_name=self.le_3_name.text()
             sample.s_color=self.le_3_color.text()
             sample.s_mtype=self.le_3_mtype.text()
@@ -168,9 +193,6 @@ class sample_information_input(QWidget, Ui_sample_information_input):
     @pyqtSignature("")
     def on_btnPrivStep_clicked(self):        
         self.parent.close()
-        self.mainwindow.sample_1_enable=False
-        self.mainwindow.sample_2_enable=False
-        self.mainwindow.sample_3_enable=False
         self.mainwindow.CurrentStatus="selectSampels"
 
 if __name__ == "__main__":

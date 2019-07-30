@@ -136,6 +136,7 @@ class sample_list(QWidget, Ui_sample_list):
 
         stylesheet = "::section{Background-color:#A640BF;border-radius:4px;}"
         self.tableWidget.horizontalHeader().setStyleSheet(stylesheet)
+
         
         self.tableWidget.setEditTriggers(QtGui.QTableWidget.NoEditTriggers)
 
@@ -143,6 +144,42 @@ class sample_list(QWidget, Ui_sample_list):
         self.tableWidget.setAlternatingRowColors(True)
         self.tableWidget.setSelectionMode(QtGui.QTableWidget.SingleSelection)
         self.tableWidget.resizeColumnsToContents()
+        
+        headerFont = QtGui.QFont()
+
+        headerFont.setPointSize(14)
+
+        headerFont.setFamily(_fromUtf8("Garamond"))
+
+        headerFont.setBold(True)
+        
+        self.tableWidget.setColumnWidth(0,100)
+
+        self.tableWidget.setColumnWidth(1,80)
+
+        self.tableWidget.setColumnWidth(2,100)
+
+        self.tableWidget.setColumnWidth(3,100)
+
+        self.tableWidget.setColumnWidth(4,100)
+
+        self.tableWidget.setColumnWidth(5,100)
+        
+        self.tableWidget.setColumnWidth(6,100)
+        
+        self.tableWidget.setColumnWidth(7,100)
+        #self.tableWidget.setColumnWidth(8,100)
+        self.tableWidget.horizontalHeader().setStretchLastSection(True)
+
+
+        
+        for x in range(self.tableWidget.columnCount()):  
+
+            headItem = self.tableWidget.horizontalHeaderItem(x)  
+
+            headItem.setFont(headerFont)
+
+        #headerFont.setWeight(25)
 
     @pyqtSignature("")
     def on_btnNextStep_clicked(self):        

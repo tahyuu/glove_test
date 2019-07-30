@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>968</width>
-    <height>702</height>
+    <width>903</width>
+    <height>684</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
     <widget class="QTableWidget" name="tableWidget">
      <property name="enabled">
       <bool>true</bool>
@@ -22,7 +22,7 @@
      <property name="font">
       <font>
        <family>Arial</family>
-       <pointsize>13</pointsize>
+       <pointsize>12</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -147,12 +147,12 @@
      </column>
      <column>
       <property name="text">
-       <string>Materia Type</string>
+       <string>Materia</string>
       </property>
      </column>
      <column>
       <property name="text">
-       <string>Chemistry Type</string>
+       <string>Chemistry</string>
       </property>
      </column>
      <column>
@@ -192,7 +192,7 @@
      </item>
     </widget>
    </item>
-   <item>
+   <item row="1" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <property name="topMargin">
       <number>20</number>

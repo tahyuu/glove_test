@@ -69,7 +69,7 @@ class Ui_MainWindow(object):
 #        MainWindow.setWindowIcon(icon)
         #MainWindow.setStyleSheet(_fromUtf8("image: url(:/glove_pic/gloves.jpg);"))
         MainWindow.setStyleSheet(_fromUtf8("#MainWindow{background-image:url(:/glove_pic/gloves.jpg);}"))
-        #import gloves_resource_rc
+        import gloves_resource_rc
 #        palette=QtGui.QPalette()
 #        icon=QtGui.QPixmap('gloves.jpg')
 #        palette.setBrush(self.centralWidget.backgroundRole(), QtGui.QBrush(icon)) #添加背景图片

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>754</width>
-    <height>573</height>
+    <height>623</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -368,24 +368,30 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>le_1_name</tabstop>
+  <tabstop>le_1_color</tabstop>
+  <tabstop>le_1_mtype</tabstop>
+  <tabstop>le_1_ctype</tabstop>
+  <tabstop>le_1_thickness</tabstop>
+  <tabstop>cb_1_standard</tabstop>
+  <tabstop>le_2_name</tabstop>
+  <tabstop>le_2_color</tabstop>
+  <tabstop>le_2_mtype</tabstop>
+  <tabstop>le_2_ctype</tabstop>
+  <tabstop>le_2_thickness</tabstop>
+  <tabstop>cb_2_standard</tabstop>
+  <tabstop>le_3_name</tabstop>
+  <tabstop>le_3_color</tabstop>
+  <tabstop>le_3_mtype</tabstop>
+  <tabstop>le_3_ctype</tabstop>
+  <tabstop>le_3_thickness</tabstop>
+  <tabstop>cb_3_standard</tabstop>
+  <tabstop>bt_next</tabstop>
+  <tabstop>bt_last</tabstop>
+ </tabstops>
  <resources/>
  <connections>
-  <connection>
-   <sender>bt_next</sender>
-   <signal>clicked()</signal>
-   <receiver>sample_information_input</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>604</x>
-     <y>558</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>418</x>
-     <y>572</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>bt_next</sender>
    <signal>clicked()</signal>
@@ -394,7 +400,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>475</x>
-     <y>531</y>
+     <y>568</y>
     </hint>
     <hint type="destinationlabel">
      <x>483</x>
@@ -410,7 +416,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>242</x>
-     <y>541</y>
+     <y>568</y>
     </hint>
     <hint type="destinationlabel">
      <x>243</x>

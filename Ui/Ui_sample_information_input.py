@@ -25,7 +25,7 @@ except AttributeError:
 class Ui_sample_information_input(object):
     def setupUi(self, sample_information_input):
         sample_information_input.setObjectName(_fromUtf8("sample_information_input"))
-        sample_information_input.resize(754, 573)
+        sample_information_input.resize(754, 623)
         self.verticalLayout = QtGui.QVBoxLayout(sample_information_input)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.label_13 = QtGui.QLabel(sample_information_input)
@@ -207,10 +207,28 @@ class Ui_sample_information_input(object):
         self.verticalLayout.addLayout(self.horizontalLayout_4)
 
         self.retranslateUi(sample_information_input)
-        QtCore.QObject.connect(self.bt_next, QtCore.SIGNAL(_fromUtf8("clicked()")), sample_information_input.close)
         QtCore.QObject.connect(self.bt_next, QtCore.SIGNAL(_fromUtf8("clicked()")), sample_information_input.on_btnNextStep_clicked)
         QtCore.QObject.connect(self.bt_last, QtCore.SIGNAL(_fromUtf8("clicked()")), sample_information_input.on_btnPrivStep_clicked)
         QtCore.QMetaObject.connectSlotsByName(sample_information_input)
+        sample_information_input.setTabOrder(self.le_1_name, self.le_1_color)
+        sample_information_input.setTabOrder(self.le_1_color, self.le_1_mtype)
+        sample_information_input.setTabOrder(self.le_1_mtype, self.le_1_ctype)
+        sample_information_input.setTabOrder(self.le_1_ctype, self.le_1_thickness)
+        sample_information_input.setTabOrder(self.le_1_thickness, self.cb_1_standard)
+        sample_information_input.setTabOrder(self.cb_1_standard, self.le_2_name)
+        sample_information_input.setTabOrder(self.le_2_name, self.le_2_color)
+        sample_information_input.setTabOrder(self.le_2_color, self.le_2_mtype)
+        sample_information_input.setTabOrder(self.le_2_mtype, self.le_2_ctype)
+        sample_information_input.setTabOrder(self.le_2_ctype, self.le_2_thickness)
+        sample_information_input.setTabOrder(self.le_2_thickness, self.cb_2_standard)
+        sample_information_input.setTabOrder(self.cb_2_standard, self.le_3_name)
+        sample_information_input.setTabOrder(self.le_3_name, self.le_3_color)
+        sample_information_input.setTabOrder(self.le_3_color, self.le_3_mtype)
+        sample_information_input.setTabOrder(self.le_3_mtype, self.le_3_ctype)
+        sample_information_input.setTabOrder(self.le_3_ctype, self.le_3_thickness)
+        sample_information_input.setTabOrder(self.le_3_thickness, self.cb_3_standard)
+        sample_information_input.setTabOrder(self.cb_3_standard, self.bt_next)
+        sample_information_input.setTabOrder(self.bt_next, self.bt_last)
 
     def retranslateUi(self, sample_information_input):
         sample_information_input.setWindowTitle(_translate("sample_information_input", "Sample information input", None))

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>sample_list</class>
+ <widget class="QDialog" name="sample_list">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -22,7 +22,7 @@
      <property name="font">
       <font>
        <family>Arial</family>
-       <pointsize>10</pointsize>
+       <pointsize>13</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -257,7 +257,7 @@
   <connection>
    <sender>btn_Next</sender>
    <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>sample_list</receiver>
    <slot>on_btnNextStep_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -273,7 +273,7 @@
   <connection>
    <sender>btn_Next</sender>
    <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>sample_list</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -289,7 +289,7 @@
   <connection>
    <sender>btn_Privious</sender>
    <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>sample_list</receiver>
    <slot>on_btnPrivStep_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -305,7 +305,7 @@
   <connection>
    <sender>btn_Privious</sender>
    <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>sample_list</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">

@@ -8,7 +8,7 @@ from PyQt4.QtCore import pyqtSignature
 from PyQt4.QtGui import QDialog
 from PyQt4 import QtCore, QtGui
 
-from Ui_sample_list import Ui_Dialog
+from Ui_sample_list import Ui_sample_list
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -25,7 +25,7 @@ except AttributeError:
         return QtGui.QApplication.translate(context, text, disambig)
 
 
-class sample_list(QDialog, Ui_Dialog):
+class sample_list(QDialog, Ui_sample_list):
     """
     Class documentation goes here.
     """
@@ -146,7 +146,7 @@ class sample_list(QDialog, Ui_Dialog):
 
     @pyqtSignature("")
     def on_btnNextStep_clicked(self):        
-        self.close()
+        #self.close()
         self.parent.close()
         self.mainwindow.CurrentStatus="exit"
     @pyqtSignature("")

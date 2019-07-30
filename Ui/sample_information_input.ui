@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>754</width>
-    <height>571</height>
+    <height>573</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -377,12 +377,12 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>685</x>
-     <y>533</y>
+     <x>604</x>
+     <y>558</y>
     </hint>
     <hint type="destinationlabel">
      <x>418</x>
-     <y>613</y>
+     <y>572</y>
     </hint>
    </hints>
   </connection>
@@ -398,12 +398,29 @@
     </hint>
     <hint type="destinationlabel">
      <x>483</x>
-     <y>591</y>
+     <y>572</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>bt_last</sender>
+   <signal>clicked()</signal>
+   <receiver>sample_information_input</receiver>
+   <slot>on_btnPrivStep_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>242</x>
+     <y>541</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>243</x>
+     <y>560</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
   <slot>on_btnNextStep_clicked()</slot>
+  <slot>on_btnPrivStep_clicked()</slot>
  </slots>
 </ui>

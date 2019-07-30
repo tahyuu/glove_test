@@ -149,6 +149,10 @@ class sample_list(QDialog, Ui_Dialog):
         self.close()
         self.parent.close()
         self.mainwindow.CurrentStatus="exit"
+    @pyqtSignature("")
+    def on_btnPrivStep_clicked(self):        
+        self.parent.close()
+        self.mainwindow.CurrentStatus="inputInformation"
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)

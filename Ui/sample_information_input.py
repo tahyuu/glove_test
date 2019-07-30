@@ -57,6 +57,10 @@ class sample_information_input(QWidget, Ui_sample_information_input):
     def on_btnNextStep_clicked(self):        
         self.parent.close()
         self.mainwindow.CurrentStatus="sample_list"
+    @pyqtSignature("")
+    def on_btnPrivStep_clicked(self):        
+        self.parent.close()
+        self.mainwindow.CurrentStatus="selectSampels"
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)

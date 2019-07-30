@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'E:\WorkSpace\gloves_test\Program\Ui\sample_list.ui'
+# Form implementation generated from reading ui file 'C:\Users\yong\Desktop\glove_test\Ui\sample_list.ui'
 #
 # Created by: PyQt4 UI code generator 4.11.4
 #
@@ -31,15 +31,15 @@ class Ui_Dialog(object):
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.tableWidget = QtGui.QTableWidget(Dialog)
         font = QtGui.QFont()
-        font.setPointSize(9)
+        font.setFamily(_fromUtf8("Arial"))
+        font.setPointSize(10)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
         self.tableWidget.setFont(font)
         self.tableWidget.setStyleSheet(_fromUtf8(" text-align : center;\n"
 "   height : 30px;\n"
-"   border-style: outset;\n"
-"   font : 20px"))
+"   border-style: outset;"))
         self.tableWidget.setLineWidth(1)
         self.tableWidget.setAutoScroll(True)
         self.tableWidget.setDragEnabled(True)
@@ -129,6 +129,9 @@ class Ui_Dialog(object):
 
         self.retranslateUi(Dialog)
         QtCore.QObject.connect(self.btn_Next, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog.on_btnNextStep_clicked)
+        QtCore.QObject.connect(self.btn_Next, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog.close)
+        QtCore.QObject.connect(self.btn_Privious, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog.on_btnPrivStep_clicked)
+        QtCore.QObject.connect(self.btn_Privious, QtCore.SIGNAL(_fromUtf8("clicked()")), Dialog.close)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):

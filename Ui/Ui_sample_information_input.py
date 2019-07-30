@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'E:\WorkSpace\gloves_test\Program\Ui\sample_information_input.ui'
+# Form implementation generated from reading ui file 'C:\Users\yong\Desktop\glove_test\Ui\sample_information_input.ui'
 #
 # Created by: PyQt4 UI code generator 4.11.4
 #
@@ -25,7 +25,7 @@ except AttributeError:
 class Ui_sample_information_input(object):
     def setupUi(self, sample_information_input):
         sample_information_input.setObjectName(_fromUtf8("sample_information_input"))
-        sample_information_input.resize(754, 571)
+        sample_information_input.resize(754, 573)
         self.verticalLayout = QtGui.QVBoxLayout(sample_information_input)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.label_13 = QtGui.QLabel(sample_information_input)
@@ -209,6 +209,7 @@ class Ui_sample_information_input(object):
         self.retranslateUi(sample_information_input)
         QtCore.QObject.connect(self.bt_next, QtCore.SIGNAL(_fromUtf8("clicked()")), sample_information_input.close)
         QtCore.QObject.connect(self.bt_next, QtCore.SIGNAL(_fromUtf8("clicked()")), sample_information_input.on_btnNextStep_clicked)
+        QtCore.QObject.connect(self.bt_last, QtCore.SIGNAL(_fromUtf8("clicked()")), sample_information_input.on_btnPrivStep_clicked)
         QtCore.QMetaObject.connectSlotsByName(sample_information_input)
 
     def retranslateUi(self, sample_information_input):

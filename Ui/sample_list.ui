@@ -21,7 +21,8 @@
     <widget class="QTableWidget" name="tableWidget">
      <property name="font">
       <font>
-       <pointsize>-1</pointsize>
+       <family>Arial</family>
+       <pointsize>10</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -30,8 +31,7 @@
      <property name="styleSheet">
       <string notr="true"> text-align : center;
    height : 30px;
-   border-style: outset;
-   font : 20px</string>
+   border-style: outset;</string>
      </property>
      <property name="lineWidth">
       <number>1</number>
@@ -261,8 +261,8 @@
    <slot>on_btnNextStep_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>951</x>
-     <y>647</y>
+     <x>712</x>
+     <y>659</y>
     </hint>
     <hint type="destinationlabel">
      <x>964</x>
@@ -270,8 +270,57 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>btn_Next</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>620</x>
+     <y>633</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>627</x>
+     <y>674</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_Privious</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>on_btnPrivStep_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>322</x>
+     <y>642</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>322</x>
+     <y>675</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_Privious</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>280</x>
+     <y>640</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>280</x>
+     <y>675</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>on_btnNextStep_clicked()</slot>
+  <slot>on_btnPrivStep_clicked()</slot>
  </slots>
 </ui>

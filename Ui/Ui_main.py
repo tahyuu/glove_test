@@ -12,6 +12,8 @@ from Ui_sample_select import *
 from Ui_sample_information_input import *
 from sample_information_input import *
 from sample_list import *
+from sample_select import *
+
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -67,7 +69,7 @@ class Ui_MainWindow(object):
 #        MainWindow.setWindowIcon(icon)
         #MainWindow.setStyleSheet(_fromUtf8("image: url(:/glove_pic/gloves.jpg);"))
         MainWindow.setStyleSheet(_fromUtf8("#MainWindow{background-image:url(:/glove_pic/gloves.jpg);}"))
-        import gloves_resource_rc
+        #import gloves_resource_rc
 #        palette=QtGui.QPalette()
 #        icon=QtGui.QPixmap('gloves.jpg')
 #        palette.setBrush(self.centralWidget.backgroundRole(), QtGui.QBrush(icon)) #添加背景图片
@@ -120,11 +122,11 @@ class Ui_MainWindow(object):
         if self.userName=="" and self.passWord=="":
             self.Login()
             return False
-            return False
         else:
             return True
     def createSamples(self):
         self.CheckLogin()
+        self.samples=[]
         self.sample_1_enable=False
         self.sample_2_enable=False
         self.sample_3_enable=False
@@ -133,20 +135,27 @@ class Ui_MainWindow(object):
 #            return
         while True:
             print self.CurrentStatus
-
             if self.CurrentStatus=="selectSampels":
+#                Dialog = QtGui.QDialog()
+#                ui = Ui_sample_select()
+#                ui.setupUi(Dialog , self)
+#                Dialog.show()
+#                #self.CurrentStatus="inputInformation"
+#                if Dialog.exec_():
+#                    pass
                 Dialog = QtGui.QDialog()
-                ui = Ui_sample_select()
-                ui.setupUi(Dialog , self)
-                Dialog.show()
-                #self.CurrentStatus="inputInformation"
+                ui = sample_select(Dialog, self)
+                #ui.setupUi(Dialog , self)
+                #Dialog.close()
+                ui.show()
+                #self.CurrentStatus="break"
                 if Dialog.exec_():
                     pass
             if self.CurrentStatus=="inputInformation":
-                
                 Dialog = QtGui.QDialog()
                 ui = sample_information_input(Dialog, self)
                 #ui.setupUi(Dialog , self)
+                #Dialog.hide()
                 ui.show()
                 #self.CurrentStatus="break"
                 if Dialog.exec_():
@@ -159,7 +168,7 @@ class Ui_MainWindow(object):
                 #self.CurrentStatus="break"
                 if Dialog.exec_():
                     pass
-                print self.CurrentStatus
+
             if self.CurrentStatus=="exit":
                 break
 

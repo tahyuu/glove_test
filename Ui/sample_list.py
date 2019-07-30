@@ -5,7 +5,7 @@ Module implementing Dialog.
 """
 
 from PyQt4.QtCore import pyqtSignature
-from PyQt4.QtGui import QDialog
+from PyQt4.QtGui import QWidget
 from PyQt4 import QtCore, QtGui
 
 from Ui_sample_list import Ui_sample_list
@@ -25,7 +25,7 @@ except AttributeError:
         return QtGui.QApplication.translate(context, text, disambig)
 
 
-class sample_list(QDialog, Ui_sample_list):
+class sample_list(QWidget, Ui_sample_list):
     """
     Class documentation goes here.
     """
@@ -36,7 +36,7 @@ class sample_list(QDialog, Ui_sample_list):
         @param parent reference to the parent widget
         @type QWidget
         """
-        QDialog.__init__(self, parent)
+        QWidget.__init__(self, parent)
         self.setupUi(self)
         self.parent=parent
         self.mainwindow=mainwindow

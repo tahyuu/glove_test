@@ -7,6 +7,7 @@ Module implementing sample_information_input.
 from PyQt4.QtCore import pyqtSignature
 from PyQt4.QtGui import QWidget
 from PyQt4 import QtCore, QtGui
+
 from Ui_sample_information_input import Ui_sample_information_input
 
 class Sample:

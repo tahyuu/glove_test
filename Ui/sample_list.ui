@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>sample_list</class>
- <widget class="QDialog" name="sample_list">
+ <widget class="QWidget" name="sample_list">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>923</width>
-    <height>693</height>
+    <width>968</width>
+    <height>702</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
-  </property>
-  <property name="sizeGripEnabled">
-   <bool>true</bool>
+   <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QTableWidget" name="tableWidget">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="font">
       <font>
        <family>Arial</family>
@@ -255,50 +255,18 @@
  <resources/>
  <connections>
   <connection>
-   <sender>btn_Next</sender>
-   <signal>clicked()</signal>
-   <receiver>sample_list</receiver>
-   <slot>on_btnNextStep_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>712</x>
-     <y>659</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>964</x>
-     <y>699</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_Next</sender>
-   <signal>clicked()</signal>
-   <receiver>sample_list</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>620</x>
-     <y>633</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>627</x>
-     <y>674</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>btn_Privious</sender>
    <signal>clicked()</signal>
    <receiver>sample_list</receiver>
    <slot>on_btnPrivStep_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>322</x>
-     <y>642</y>
+     <x>300</x>
+     <y>655</y>
     </hint>
     <hint type="destinationlabel">
-     <x>322</x>
-     <y>675</y>
+     <x>304</x>
+     <y>694</y>
     </hint>
    </hints>
   </connection>
@@ -309,18 +277,50 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>280</x>
-     <y>640</y>
+     <x>275</x>
+     <y>658</y>
     </hint>
     <hint type="destinationlabel">
-     <x>280</x>
-     <y>675</y>
+     <x>277</x>
+     <y>689</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_Next</sender>
+   <signal>clicked()</signal>
+   <receiver>sample_list</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>667</x>
+     <y>663</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>671</x>
+     <y>689</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_Next</sender>
+   <signal>clicked()</signal>
+   <receiver>sample_list</receiver>
+   <slot>on_btnNextStep_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>737</x>
+     <y>662</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>738</x>
+     <y>706</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
-  <slot>on_btnNextStep_clicked()</slot>
   <slot>on_btnPrivStep_clicked()</slot>
+  <slot>on_btnNextStep_clicked()</slot>
  </slots>
 </ui>

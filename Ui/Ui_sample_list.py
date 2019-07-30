@@ -25,11 +25,11 @@ except AttributeError:
 class Ui_sample_list(object):
     def setupUi(self, sample_list):
         sample_list.setObjectName(_fromUtf8("sample_list"))
-        sample_list.resize(923, 693)
-        sample_list.setSizeGripEnabled(True)
+        sample_list.resize(968, 702)
         self.verticalLayout = QtGui.QVBoxLayout(sample_list)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.tableWidget = QtGui.QTableWidget(sample_list)
+        self.tableWidget.setEnabled(True)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial"))
         font.setPointSize(13)
@@ -128,14 +128,14 @@ class Ui_sample_list(object):
         self.verticalLayout.addLayout(self.horizontalLayout)
 
         self.retranslateUi(sample_list)
-        QtCore.QObject.connect(self.btn_Next, QtCore.SIGNAL(_fromUtf8("clicked()")), sample_list.on_btnNextStep_clicked)
-        QtCore.QObject.connect(self.btn_Next, QtCore.SIGNAL(_fromUtf8("clicked()")), sample_list.close)
         QtCore.QObject.connect(self.btn_Privious, QtCore.SIGNAL(_fromUtf8("clicked()")), sample_list.on_btnPrivStep_clicked)
         QtCore.QObject.connect(self.btn_Privious, QtCore.SIGNAL(_fromUtf8("clicked()")), sample_list.close)
+        QtCore.QObject.connect(self.btn_Next, QtCore.SIGNAL(_fromUtf8("clicked()")), sample_list.close)
+        QtCore.QObject.connect(self.btn_Next, QtCore.SIGNAL(_fromUtf8("clicked()")), sample_list.on_btnNextStep_clicked)
         QtCore.QMetaObject.connectSlotsByName(sample_list)
 
     def retranslateUi(self, sample_list):
-        sample_list.setWindowTitle(_translate("sample_list", "Dialog", None))
+        sample_list.setWindowTitle(_translate("sample_list", "Form", None))
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("sample_list", "Name", None))
         item = self.tableWidget.horizontalHeaderItem(1)
@@ -164,7 +164,7 @@ class Ui_sample_list(object):
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)
-    sample_list = QtGui.QDialog()
+    sample_list = QtGui.QWidget()
     ui = Ui_sample_list()
     ui.setupUi(sample_list)
     sample_list.show()

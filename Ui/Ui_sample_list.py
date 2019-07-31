@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'E:\WorkSpace\gloves_test\Program\Ui\sample_list.ui'
+# Form implementation generated from reading ui file 'C:\Users\yong\Desktop\glove_test\Ui\sample_list.ui'
 #
 # Created by: PyQt4 UI code generator 4.11.4
 #
@@ -25,7 +25,8 @@ except AttributeError:
 class Ui_sample_list(object):
     def setupUi(self, sample_list):
         sample_list.setObjectName(_fromUtf8("sample_list"))
-        sample_list.resize(903, 684)
+        sample_list.resize(910, 660)
+
         self.gridLayout = QtGui.QGridLayout(sample_list)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.tableWidget = QtGui.QTableWidget(sample_list)
@@ -130,7 +131,6 @@ class Ui_sample_list(object):
         self.retranslateUi(sample_list)
         QtCore.QObject.connect(self.btn_Privious, QtCore.SIGNAL(_fromUtf8("clicked()")), sample_list.on_btnPrivStep_clicked)
         QtCore.QObject.connect(self.btn_Privious, QtCore.SIGNAL(_fromUtf8("clicked()")), sample_list.close)
-        QtCore.QObject.connect(self.btn_Next, QtCore.SIGNAL(_fromUtf8("clicked()")), sample_list.close)
         QtCore.QObject.connect(self.btn_Next, QtCore.SIGNAL(_fromUtf8("clicked()")), sample_list.on_btnNextStep_clicked)
         QtCore.QMetaObject.connectSlotsByName(sample_list)
         sample_list.setTabOrder(self.tableWidget, self.btn_Next)

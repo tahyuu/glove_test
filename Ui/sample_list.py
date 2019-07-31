@@ -4,9 +4,12 @@
 Module implementing Dialog.
 """
 
-from PyQt4.QtCore import pyqtSignature
-from PyQt4.QtGui import QWidget
+from PyQt4.QtCore import pyqtSignature, QThread, pyqtSignal
+from PyQt4.QtGui import QWidget, QMessageBox, QTextBrowser
 from PyQt4 import QtCore, QtGui
+import time
+import random
+
 
 from Ui_sample_list import Ui_sample_list
 
@@ -37,9 +40,24 @@ class sample_list(QWidget, Ui_sample_list):
         @type QWidget
         """
         QWidget.__init__(self, parent)
+
         self.setupUi(self)
         self.parent=parent
         self.mainwindow=mainwindow
+        #self.timer_tv = QTextBrowser(self)
+
+        self.btn_Next.setText("Start")
+#        #self.connect(self.thread, QtCore.SIGNAL("updateDisplay"), self.updateDisplay)
+#        self.timer = QtCore.QTimer(self)
+#        self.work = WorkThread(parent)
+
+        self.timer_t = TimeThread()
+        self.timer_t.signal_time.connect(self.update_timer_tv)
+        #self.timer_t.signal_time.connect(self.update_timer_tv)
+        #self.timer.timeout.connect(self.work.Test)
+        #self.work.trigger.connect(self.updateDisplay)
+        #self.connect(self.work, QtCore.SIGNAL("updateDisplay"), self.updateDisplay)
+
         self.tableWidget.setSpan(0, 0, 6, 1)
         self.tableWidget.setSpan(0, 1, 6, 1)
         self.tableWidget.setSpan(0, 2, 6, 1)
@@ -147,7 +165,7 @@ class sample_list(QWidget, Ui_sample_list):
         
         headerFont = QtGui.QFont()
 
-        headerFont.setPointSize(14)
+        headerFont.setPointSize(10)
 
         headerFont.setFamily(_fromUtf8("Garamond"))
 
@@ -207,13 +225,111 @@ class sample_list(QWidget, Ui_sample_list):
 
     @pyqtSignature("")
     def on_btnNextStep_clicked(self):        
-        #self.close()
-        self.parent.close()
-        self.mainwindow.CurrentStatus="exit"
+
+
+        if self.btn_Next.text()=="Start": 
+            reply=QMessageBox.question(self.parent,"Confirm Information","please confirm the test sample are fixed in correct test slot!",QMessageBox.Yes|QMessageBox.No,QMessageBox.Yes)
+            if reply==QtGui.QMessageBox.No:
+                return
+            else:
+                pass
+            reply=QMessageBox.question(self.parent,"Confirm Information","please double confirm the test sample are fixed in correct test slot! test will start once you push the OK button",QMessageBox.Yes|QMessageBox.No,QMessageBox.Yes)
+            if reply==QtGui.QMessageBox.No:
+                return
+            else:
+                if self.btn_Next.text()=="Start":
+                    self.btn_Next.setText("Stop")
+                    self.btn_Privious.setEnabled(False)
+                else:
+                    self.btn_Next.setText("Start")
+                    self.btn_Privious.setEnabled(True)
+                for i in xrange(17):
+                    self.tableWidget.setItem(i,8 , QtGui.QTableWidgetItem(_fromUtf8(str("".encode("utf-8")))))    
+
+                amount=0
+                if self.mainwindow.sample_1_enable:
+                    amount=amount+6
+                if self.mainwindow.sample_2_enable:
+                    amount=amount+6
+                if self.mainwindow.sample_3_enable:
+                    amount=amount+6
+                self.timer_t.amount=amount
+                self.timer_t.start_timer()
+
+                #self.timer.start(1000)
+                #self.work.start()
+
+    
+                
+        elif self.btn_Next.text()=="Stop": 
+            reply=QMessageBox.question(self.parent,"Confirm Information","Would you like to stop the test!",QMessageBox.Yes|QMessageBox.No,QMessageBox.Yes)
+            if reply==QtGui.QMessageBox.No:
+                return
+            else:
+                pass
+                if self.btn_Next.text()=="Start":
+                    self.btn_Next.setText("Stop")
+                    self.btn_Privious.setEnabled(False)
+
+                else:
+                    self.btn_Next.setText("Start")
+                    self.btn_Privious.setEnabled(True)
+                self.timer_t.stop()
+                #self.timer.stop()
+                #self.timer_t.stop()
+                #self.timer.stop()
+        #self.parent.close()
+        #self.mainwindow.CurrentStatus="exit"
     @pyqtSignature("")
     def on_btnPrivStep_clicked(self):        
         self.parent.close()
         self.mainwindow.CurrentStatus="inputInformation"
+    
+    #@pyqtSignature("")
+    def updateDisplay(self, text):
+        #get the latest date
+        #move to current position
+        for i in range(10):
+            time.sleep(1)
+            print self.parent.mainwindow.CurrentStatus
+            print "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+    def update_timer_tv(self, value, number):
+        self.tableWidget.setItem(number,8 , QtGui.QTableWidgetItem(_fromUtf8(str(str(value).encode("utf-8")))))    
+        if not self.timer_t.working:
+            self.btn_Next.setText("Start")
+            self.btn_Privious.setEnabled(True)
+        #self.timer_tv.setText(self.tr(text + " " + str(number)))
+
+class TimeThread(QThread):
+  signal_time = pyqtSignal(float, int) # 信号
+ 
+  def __init__(self, parent=None):
+    super(TimeThread, self).__init__(parent)
+    self.working = True
+    self.amount=0
+    self.num = 0
+ 
+  def start_timer(self):
+    self.num = 0
+    self.working=True
+
+    self.start()
+ 
+  def run(self):
+    while self.working and self.num<self.amount:
+    
+       
+      print "Working", self.thread()
+      self.signal_time.emit(random.random(), self.num) # 发送信号
+      self.num += 1
+      self.sleep(1)
+      if self.num==self.amount-1:
+        self.working=False
+        self.signal_time.emit(random.random(), self.num) # 发送信号
+
+  def stop(self):
+    self.working=False
+    
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)

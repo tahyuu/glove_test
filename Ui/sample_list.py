@@ -165,7 +165,7 @@ class sample_list(QWidget, Ui_sample_list):
         
         headerFont = QtGui.QFont()
 
-        headerFont.setPointSize(10)
+        headerFont.setPointSize(14)
 
         headerFont.setFamily(_fromUtf8("Garamond"))
 
@@ -243,7 +243,7 @@ class sample_list(QWidget, Ui_sample_list):
                 else:
                     self.btn_Next.setText("Start")
                     self.btn_Privious.setEnabled(True)
-                for i in xrange(17):
+                for i in xrange(18):
                     self.tableWidget.setItem(i,8 , QtGui.QTableWidgetItem(_fromUtf8(str("".encode("utf-8")))))    
 
                 amount=0

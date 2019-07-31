@@ -53,7 +53,7 @@ class sample_select(QWidget, Ui_sample_select):
             self.mainwindow.sample_3_enable=False
             
         #to remove sample which not selected from sample list
-        tmp_samples=self.mainwindow.samples
+        tmp_samples=[]
         for sample in self.mainwindow.samples:
             if sample.s_slot==0 and  self.mainwindow.sample_1_enable:
                 tmp_samples.append(sample)

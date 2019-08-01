@@ -199,6 +199,8 @@ class sample_list(QWidget, Ui_sample_list):
         
         #init data
         i=0
+        if not self.mainwindow:
+            return
         for sample in self.mainwindow.samples:
             #sample basic information
             self.tableWidget.setItem(i*6, 0, QtGui.QTableWidgetItem(_fromUtf8(str(str(sample.s_name).encode("utf-8")))))
@@ -226,6 +228,7 @@ class sample_list(QWidget, Ui_sample_list):
     @pyqtSignature("")
     def on_btnNextStep_clicked(self):        
 
+        #self.mainwindow.nextpushed=True
 
         if self.btn_Next.text()=="Start": 
             reply=QMessageBox.question(self.parent,"Confirm Information","please confirm the test sample are fixed in correct test slot!",QMessageBox.Yes|QMessageBox.No,QMessageBox.Yes)
@@ -281,7 +284,8 @@ class sample_list(QWidget, Ui_sample_list):
         #self.parent.close()
         #self.mainwindow.CurrentStatus="exit"
     @pyqtSignature("")
-    def on_btnPrivStep_clicked(self):        
+    def on_btnPrivStep_clicked(self): 
+        self.mainwindow.nextpushed=True       
         self.parent.close()
         self.mainwindow.CurrentStatus="inputInformation"
     
@@ -299,6 +303,14 @@ class sample_list(QWidget, Ui_sample_list):
             self.btn_Next.setText("Start")
             self.btn_Privious.setEnabled(True)
         #self.timer_tv.setText(self.tr(text + " " + str(number)))
+#    def closeEvent(self,event):
+#
+#        reply = QtGui.QMessageBox.question(self,'Message',"Are you sure to quit?", QtGui.QMessageBox.Yes|QtGui.QMessageBox.No, QtGui.QMessageBox.No)
+#
+#        if reply == QtGui.QMessageBox.Yes:
+#            event.accept()
+#        else:
+#            event.ignore()
 
 class TimeThread(QThread):
   signal_time = pyqtSignal(float, int) # 信号

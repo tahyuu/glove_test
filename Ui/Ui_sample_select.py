@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\yong\Desktop\glove_test\Ui\sample_select.ui'
+# Form implementation generated from reading ui file 'E:\WorkSpace\gloves_test\Program\Ui\sample_select.ui'
 #
 # Created by: PyQt4 UI code generator 4.11.4
 #
@@ -51,6 +51,7 @@ class Ui_sample_select(object):
 
         self.retranslateUi(sample_select)
         QtCore.QObject.connect(self.next_step, QtCore.SIGNAL(_fromUtf8("clicked()")), sample_select.NextStep)
+        QtCore.QObject.connect(self.next_step, QtCore.SIGNAL(_fromUtf8("clicked()")), sample_select.close)
         QtCore.QMetaObject.connectSlotsByName(sample_select)
 
     def retranslateUi(self, sample_select):

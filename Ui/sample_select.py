@@ -26,15 +26,17 @@ class sample_select(QWidget, Ui_sample_select):
         self.mainwindow=mainwindow
         self.parent=parent
         self.setupUi(self)
-        if self.mainwindow.sample_1_enable:
-            self.checkBox_1.setCheckState(2)
-        if self.mainwindow.sample_2_enable:
-            self.checkBox_2.setCheckState(2)
-        if self.mainwindow.sample_3_enable:
-            self.checkBox_3.setCheckState(2)
+        if self.mainwindow:
+            if self.mainwindow.sample_1_enable:
+                self.checkBox_1.setCheckState(2)
+            if self.mainwindow.sample_2_enable:
+                self.checkBox_2.setCheckState(2)
+            if self.mainwindow.sample_3_enable:
+                self.checkBox_3.setCheckState(2)
 
     @pyqtSignature("")
     def NextStep(self):
+        self.mainwindow.nextpushed=True
         self.parent.close()
         #print  self.parent.CurrentStatus
         if self.checkBox_1.isChecked():
@@ -63,7 +65,14 @@ class sample_select(QWidget, Ui_sample_select):
                 tmp_samples.append(sample)
         self.mainwindow.samples=tmp_samples
         self.mainwindow.CurrentStatus="inputInformation"
-
+#    def closeEvent(self,event):
+#        
+#        reply = QtGui.QMessageBox.question(self,'Message',"Are you sure to quit?", QtGui.QMessageBox.Yes|QtGui.QMessageBox.No, QtGui.QMessageBox.No)
+#
+#        if reply == QtGui.QMessageBox.Yes:
+#            event.accept()
+#        else:
+#            event.ignore()
         
 if __name__ == "__main__":
     import sys

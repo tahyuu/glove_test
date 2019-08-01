@@ -13,6 +13,7 @@ from Ui_sample_information_input import *
 from sample_information_input import *
 from sample_list import *
 from sample_select import *
+import time
 
 
 try:
@@ -132,10 +133,14 @@ class Ui_MainWindow(object):
         self.sample_3_enable=False
 
         self.CurrentStatus="selectSampels"
-#            return
-        while True:
+        self.nextpushed=True
+        while self.nextpushed:
             print self.CurrentStatus
             if self.CurrentStatus=="selectSampels":
+                self.nextpushed=False
+
+#                if time.time()-self.time<2:
+#                    break
 #                Dialog = QtGui.QDialog()
 #                ui = Ui_sample_select()
 #                ui.setupUi(Dialog , self)
@@ -152,6 +157,7 @@ class Ui_MainWindow(object):
                 if Dialog.exec_():
                     pass
             if self.CurrentStatus=="inputInformation":
+                self.nextpushed=False
                 Dialog = QtGui.QDialog()
                 ui = sample_information_input(Dialog, self)
                 #ui.setupUi(Dialog , self)
@@ -161,6 +167,7 @@ class Ui_MainWindow(object):
                 if Dialog.exec_():
                     pass
             if self.CurrentStatus=="sample_list":
+                self.nextpushed=False
                 Dialog = QtGui.QDialog()
                 ui = sample_list(Dialog, self)
                 #ui.setupUi(Dialog , self)
@@ -168,10 +175,16 @@ class Ui_MainWindow(object):
                 #self.CurrentStatus="break"
                 if Dialog.exec_():
                     pass
-
-            if self.CurrentStatus=="exit":
-                break
-
+#            if self.CurrentStatus=="exit":
+#                break
+#    def closeEvent(self,event):
+#
+#        reply = QtGui.QMessageBox.question(self,'Message',"Are you sure to quit?", QtGui.QMessageBox.Yes|QtGui.QMessageBox.No, QtGui.QMessageBox.No)
+#
+#        if reply == QtGui.QMessageBox.Yes:
+#            event.accept()
+#        else:
+#            event.ignore()
 
 if __name__ == "__main__":
     import sys

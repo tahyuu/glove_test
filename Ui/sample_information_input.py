@@ -64,6 +64,8 @@ class sample_information_input(QWidget, Ui_sample_information_input):
             #self.cb_3_standard.setReadOnly(True)
         
         #display the inputed data
+        if not self.mainwindow:
+            return
         for sample in self.mainwindow.samples:
             if sample.s_slot==0:
                 self.le_1_name.setText(sample.s_name)
@@ -88,6 +90,8 @@ class sample_information_input(QWidget, Ui_sample_information_input):
 
     @pyqtSignature("")
     def on_btnNextStep_clicked(self):
+        self.mainwindow.nextpushed=True
+
         self.mainwindow.samples=[]
         if self.mainwindow.sample_1_enable:
             if self.le_1_name.text()=="":
@@ -191,9 +195,19 @@ class sample_information_input(QWidget, Ui_sample_information_input):
         self.parent.close()
         self.mainwindow.CurrentStatus="sample_list"
     @pyqtSignature("")
-    def on_btnPrivStep_clicked(self):        
+    def on_btnPrivStep_clicked(self):
+        self.mainwindow.nextpushed=True        
         self.parent.close()
         self.mainwindow.CurrentStatus="selectSampels"
+        
+#    def closeEvent(self,event):
+#
+#        reply = QtGui.QMessageBox.question(self,'Message',"Are you sure to quit?", QtGui.QMessageBox.Yes|QtGui.QMessageBox.No, QtGui.QMessageBox.No)
+#
+#        if reply == QtGui.QMessageBox.Yes:
+#            event.accept()
+#        else:
+#            event.ignore()
 
 if __name__ == "__main__":
     import sys

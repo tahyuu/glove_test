@@ -5,4 +5,7 @@
   <qresource prefix="hw_log">
     <file>logo.gif</file>
   </qresource>
+  <qresource prefix="icon">
+    <file>log.ico</file>
+  </qresource>
 </RCC>

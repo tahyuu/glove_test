@@ -6,14 +6,72 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>910</width>
-    <height>660</height>
+    <width>1031</width>
+    <height>687</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="topMargin">
+      <number>20</number>
+     </property>
+     <property name="bottomMargin">
+      <number>20</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="btn_Privious">
+       <property name="minimumSize">
+        <size>
+         <width>151</width>
+         <height>41</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>151</width>
+         <height>41</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial Black</family>
+        </font>
+       </property>
+       <property name="text">
+        <string>Privious Step</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_Next">
+       <property name="minimumSize">
+        <size>
+         <width>151</width>
+         <height>41</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>151</width>
+         <height>41</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial Black</family>
+        </font>
+       </property>
+       <property name="text">
+        <string>Next Step</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
    <item row="0" column="0">
     <widget class="QTableWidget" name="tableWidget">
      <property name="enabled">
@@ -167,7 +225,7 @@
      </column>
      <column>
       <property name="text">
-       <string>Zone</string>
+       <string>Specimen</string>
       </property>
      </column>
      <column>
@@ -177,7 +235,17 @@
      </column>
      <column>
       <property name="text">
-       <string>Value(N)</string>
+       <string>APF(N)</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>DRx</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>DR</string>
       </property>
      </column>
      <item row="0" column="0">
@@ -191,64 +259,6 @@
       </property>
      </item>
     </widget>
-   </item>
-   <item row="1" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <property name="topMargin">
-      <number>20</number>
-     </property>
-     <property name="bottomMargin">
-      <number>20</number>
-     </property>
-     <item>
-      <widget class="QPushButton" name="btn_Privious">
-       <property name="minimumSize">
-        <size>
-         <width>151</width>
-         <height>41</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>151</width>
-         <height>41</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial Black</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Privious Step</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="btn_Next">
-       <property name="minimumSize">
-        <size>
-         <width>151</width>
-         <height>41</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>151</width>
-         <height>41</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial Black</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Next Step</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </item>
   </layout>
  </widget>

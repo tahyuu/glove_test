@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Sample information input</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="gloves_resource.qrc">
+    <normaloff>:/icon/log.ico</normaloff>:/icon/log.ico</iconset>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QLabel" name="label_13">
@@ -390,7 +394,9 @@
   <tabstop>bt_next</tabstop>
   <tabstop>bt_last</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="gloves_resource.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>bt_next</sender>

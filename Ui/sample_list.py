@@ -51,7 +51,7 @@ class sample_list(QWidget, Ui_sample_list):
 #        self.timer = QtCore.QTimer(self)
 #        self.work = WorkThread(parent)
 
-        self.timer_t = TimeThread()
+        self.timer_t = TimeThread(self)
         self.timer_t.signal_time.connect(self.update_timer_tv)
         #self.timer_t.signal_time.connect(self.update_timer_tv)
         #self.timer.timeout.connect(self.work.Test)
@@ -64,10 +64,15 @@ class sample_list(QWidget, Ui_sample_list):
         self.tableWidget.setSpan(0, 3, 6, 1)
         self.tableWidget.setSpan(0, 4, 6, 1)
         self.tableWidget.setSpan(0, 5, 6, 1)
+        self.tableWidget.setSpan(0, 10, 6, 1)
         
         self.tableWidget.setSpan(0, 6, 2, 1)
         self.tableWidget.setSpan(2, 6, 2, 1)
         self.tableWidget.setSpan(4, 6, 2, 1)
+
+        self.tableWidget.setSpan(0, 9, 2, 1)
+        self.tableWidget.setSpan(2, 9, 2, 1)
+        self.tableWidget.setSpan(4, 9, 2, 1)
 
         #self.tableWidget.setSpan(0, 6, 6, 1)
 
@@ -77,10 +82,15 @@ class sample_list(QWidget, Ui_sample_list):
         self.tableWidget.setSpan(6, 3, 6, 1)
         self.tableWidget.setSpan(6, 4, 6, 1)
         self.tableWidget.setSpan(6, 5, 6, 1)
+        self.tableWidget.setSpan(6, 10, 6, 1)
         
         self.tableWidget.setSpan(6, 6, 2, 1)
         self.tableWidget.setSpan(8, 6, 2, 1)
         self.tableWidget.setSpan(10, 6, 2, 1)
+        
+        self.tableWidget.setSpan(6, 9, 2, 1)
+        self.tableWidget.setSpan(8, 9, 2, 1)
+        self.tableWidget.setSpan(10, 9, 2, 1)
         
         self.tableWidget.setSpan(12, 0, 6, 1)
         self.tableWidget.setSpan(12, 1, 6, 1)
@@ -88,10 +98,16 @@ class sample_list(QWidget, Ui_sample_list):
         self.tableWidget.setSpan(12, 3, 6, 1)
         self.tableWidget.setSpan(12, 4, 6, 1)
         self.tableWidget.setSpan(12, 5, 6, 1)
+        self.tableWidget.setSpan(12, 10, 6, 1)
         
         self.tableWidget.setSpan(12, 6, 2, 1)
         self.tableWidget.setSpan(14, 6, 2, 1)
         self.tableWidget.setSpan(16, 6, 2, 1)
+        
+        self.tableWidget.setSpan(12, 9, 2, 1)
+        self.tableWidget.setSpan(14, 9, 2, 1)
+        self.tableWidget.setSpan(16, 9, 2, 1)
+
         
 #        item = self.tableWidget.item(0, 0)
 #        item.setText(_translate("Dialog", "Sample1", None))
@@ -185,7 +201,10 @@ class sample_list(QWidget, Ui_sample_list):
         
         self.tableWidget.setColumnWidth(6,100)
         
-        self.tableWidget.setColumnWidth(7,100)
+        self.tableWidget.setColumnWidth(7,60)
+        self.tableWidget.setColumnWidth(8,80)
+        self.tableWidget.setColumnWidth(9,80)
+        self.tableWidget.setColumnWidth(10,80)
         #self.tableWidget.setColumnWidth(8,100)
         self.tableWidget.horizontalHeader().setStretchLastSection(True)
         
@@ -211,19 +230,18 @@ class sample_list(QWidget, Ui_sample_list):
             self.tableWidget.setItem(i*6, 5, QtGui.QTableWidgetItem(_fromUtf8(str(str(sample.s_standard).encode("utf-8")))))
 
             #sample detail information
-            self.tableWidget.setItem(i*6, 6, QtGui.QTableWidgetItem(_fromUtf8(str("Zone1".encode("utf-8")))))
-            self.tableWidget.setItem(i*6+2, 6, QtGui.QTableWidgetItem(_fromUtf8(str("Zone2".encode("utf-8")))))
-            self.tableWidget.setItem(i*6+4, 6, QtGui.QTableWidgetItem(_fromUtf8(str("Zone3".encode("utf-8")))))   
+            self.tableWidget.setItem(i*6, 6, QtGui.QTableWidgetItem(_fromUtf8(str("Specimen1".encode("utf-8")))))
+            self.tableWidget.setItem(i*6+2, 6, QtGui.QTableWidgetItem(_fromUtf8(str("Specimen2".encode("utf-8")))))
+            self.tableWidget.setItem(i*6+4, 6, QtGui.QTableWidgetItem(_fromUtf8(str("Specimen3".encode("utf-8")))))   
             #self.tableWidget.setItem(0, 0, QtGui.QTableWidgetItem(_fromUtf8(str(sample.s_name.encode("utf-8")))))
-            self.tableWidget.setItem(i*6, 7, QtGui.QTableWidgetItem(_fromUtf8(str("original".encode("utf-8")))))
-            self.tableWidget.setItem(i*6+1, 7, QtGui.QTableWidgetItem(_fromUtf8(str("corroded".encode("utf-8")))))
-            self.tableWidget.setItem(i*6+2, 7, QtGui.QTableWidgetItem(_fromUtf8(str("original".encode("utf-8")))))       
-            self.tableWidget.setItem(i*6+3, 7, QtGui.QTableWidgetItem(_fromUtf8(str("corroded".encode("utf-8")))))
-            self.tableWidget.setItem(i*6+4, 7, QtGui.QTableWidgetItem(_fromUtf8(str("original".encode("utf-8")))))
-            self.tableWidget.setItem(i*6+5, 7, QtGui.QTableWidgetItem(_fromUtf8(str("corroded".encode("utf-8"))))) 
+            self.tableWidget.setItem(i*6, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("OP0" ).encode("utf-8")))))
+            self.tableWidget.setItem(i*6+1, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("DP0" ).encode("utf-8")))))
+            self.tableWidget.setItem(i*6+2, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("OP1" ).encode("utf-8")))))       
+            self.tableWidget.setItem(i*6+3, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("DP1" ).encode("utf-8")))))
+            self.tableWidget.setItem(i*6+4, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("OP2").encode("utf-8")))))
+            self.tableWidget.setItem(i*6+5, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("DP2" ).encode("utf-8"))))) 
             
             i=i+1
-
 
     @pyqtSignature("")
     def on_btnNextStep_clicked(self):        
@@ -248,7 +266,11 @@ class sample_list(QWidget, Ui_sample_list):
                     self.btn_Privious.setEnabled(True)
                 for i in xrange(18):
                     self.tableWidget.setItem(i,8 , QtGui.QTableWidgetItem(_fromUtf8(str("".encode("utf-8")))))    
-
+                    self.tableWidget.setItem(i,9 , QtGui.QTableWidgetItem(_fromUtf8(str("".encode("utf-8")))))    
+                    self.tableWidget.setItem(i,10 , QtGui.QTableWidgetItem(_fromUtf8(str("".encode("utf-8")))))    
+                #clean the data in samples
+                for sample in self.mainwindow.samples:
+                    sample.clean()
                 amount=0
                 if self.mainwindow.sample_1_enable:
                     amount=amount+6
@@ -261,8 +283,6 @@ class sample_list(QWidget, Ui_sample_list):
 
                 #self.timer.start(1000)
                 #self.work.start()
-
-    
                 
         elif self.btn_Next.text()=="Stop": 
             reply=QMessageBox.question(self.parent,"Confirm Information","Would you like to stop the test!",QMessageBox.Yes|QMessageBox.No,QMessageBox.Yes)
@@ -298,7 +318,22 @@ class sample_list(QWidget, Ui_sample_list):
             print self.parent.mainwindow.CurrentStatus
             print "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
     def update_timer_tv(self, value, number):
-        self.tableWidget.setItem(number,8 , QtGui.QTableWidgetItem(_fromUtf8(str(str(value).encode("utf-8")))))    
+        i=0
+        self.tableWidget.setItem(number,8 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.3f" %value).encode("utf-8")))))   
+
+        for sample in self.mainwindow.samples:
+            
+            if not sample.dr1==0.0:
+              self.tableWidget.setItem(i*6,9 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr1*100))).encode("utf-8"))))    
+            if not sample.dr2==0.0:
+              self.tableWidget.setItem(i*6+2,9 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr2*100))).encode("utf-8"))))    
+            if not sample.dr3==0.0:
+              self.tableWidget.setItem(i*6+4,9 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr3*100))).encode("utf-8"))))    
+            if not sample.dr==0.0:
+              self.tableWidget.setItem(i*6,10 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr*100))).encode("utf-8"))))    
+                                           
+              
+            i=i+1
         if not self.timer_t.working:
             self.btn_Next.setText("Start")
             self.btn_Privious.setEnabled(True)
@@ -320,6 +355,7 @@ class TimeThread(QThread):
     self.working = True
     self.amount=0
     self.num = 0
+    self.parent=parent
  
   def start_timer(self):
     self.num = 0
@@ -328,16 +364,36 @@ class TimeThread(QThread):
     self.start()
  
   def run(self):
+    self.num = 0
+    px=1
     while self.working and self.num<self.amount:
-    
-       
+      if self.num%6==0:
+          px=1
+      px=px-random.random()/10
       print "Working", self.thread()
-      self.signal_time.emit(random.random(), self.num) # 发送信号
-      self.num += 1
+      print "self number is: %s" %(self.num)
+      self.index=self.num/6
+      print "self index is: %s" %(self.index)
+      print len(self.parent.mainwindow.samples)
+      if self.num%6==0:
+        self.parent.mainwindow.samples[self.index].op1=px
+      if self.num%6==1:
+        self.parent.mainwindow.samples[self.index].rp1=px
+      if self.num%6==2:
+        self.parent.mainwindow.samples[self.index].op2=px
+      if self.num%6==3:
+        self.parent.mainwindow.samples[self.index].rp2=px
+      if self.num%6==4:
+        self.parent.mainwindow.samples[self.index].op3=px
+      if self.num%6==5:
+        self.parent.mainwindow.samples[self.index].rp3=px
+      self.parent.mainwindow.samples[self.index].calculate()
+      self.signal_time.emit(px, self.num) # 发送信号
       self.sleep(1)
       if self.num==self.amount-1:
         self.working=False
-        self.signal_time.emit(random.random(), self.num) # 发送信号
+        self.signal_time.emit(px, self.num) # 发送信号
+      self.num += 1
 
   def stop(self):
     self.working=False

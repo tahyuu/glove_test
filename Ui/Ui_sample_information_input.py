@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\yong\Desktop\glove_test\Ui\sample_information_input.ui'
+# Form implementation generated from reading ui file 'E:\WorkSpace\gloves_test\Program\Ui\sample_information_input.ui'
 #
 # Created by: PyQt4 UI code generator 4.11.4
 #
@@ -26,6 +26,9 @@ class Ui_sample_information_input(object):
     def setupUi(self, sample_information_input):
         sample_information_input.setObjectName(_fromUtf8("sample_information_input"))
         sample_information_input.resize(754, 623)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/icon/log.ico")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        sample_information_input.setWindowIcon(icon)
         self.verticalLayout = QtGui.QVBoxLayout(sample_information_input)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.label_13 = QtGui.QLabel(sample_information_input)
@@ -263,6 +266,7 @@ class Ui_sample_information_input(object):
         self.bt_last.setText(_translate("sample_information_input", "Privious Step", None))
         self.bt_next.setText(_translate("sample_information_input", "Next Step", None))
 
+import gloves_resource_rc
 
 if __name__ == "__main__":
     import sys

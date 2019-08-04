@@ -70,6 +70,26 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="maximumSize">
+        <size>
+         <width>151</width>
+         <height>41</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial Black</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Export Result</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item row="0" column="0">
@@ -264,7 +284,6 @@
  </widget>
  <tabstops>
   <tabstop>tableWidget</tabstop>
-  <tabstop>btn_Next</tabstop>
   <tabstop>btn_Privious</tabstop>
  </tabstops>
  <resources/>
@@ -276,8 +295,8 @@
    <slot>on_btnPrivStep_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>352</x>
-     <y>616</y>
+     <x>296</x>
+     <y>657</y>
     </hint>
     <hint type="destinationlabel">
      <x>304</x>
@@ -292,8 +311,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>352</x>
-     <y>616</y>
+     <x>296</x>
+     <y>657</y>
     </hint>
     <hint type="destinationlabel">
      <x>277</x>
@@ -308,8 +327,8 @@
    <slot>on_btnNextStep_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>700</x>
-     <y>616</y>
+     <x>589</x>
+     <y>657</y>
     </hint>
     <hint type="destinationlabel">
      <x>738</x>
@@ -317,9 +336,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>sample_list</receiver>
+   <slot>on_btnExport_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>802</x>
+     <y>637</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>804</x>
+     <y>678</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>on_btnPrivStep_clicked()</slot>
   <slot>on_btnNextStep_clicked()</slot>
+  <slot>on_btnExport_clicked()</slot>
  </slots>
 </ui>

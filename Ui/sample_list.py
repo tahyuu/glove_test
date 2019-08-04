@@ -9,6 +9,7 @@ from PyQt4.QtGui import QWidget, QMessageBox, QTextBrowser
 from PyQt4 import QtCore, QtGui
 import time
 import random
+import xlrd,xlwt,xlutils
 
 
 from Ui_sample_list import Ui_sample_list
@@ -308,6 +309,15 @@ class sample_list(QWidget, Ui_sample_list):
         self.mainwindow.nextpushed=True       
         self.parent.close()
         self.mainwindow.CurrentStatus="inputInformation"
+        
+    @pyqtSignature("")
+    def on_btnExport_clicked(self): 
+        
+        self.write_excel("Results\\Excel\abc.xlsx", [["a", "b", "c"], ["aa", "bb", "cc"]])
+        
+        #reply=QMessageBox.question(self.parent,"Confirm ","Would you like to stop the test!",QMessageBox.Yes|QMessageBox.No,QMessageBox.Yes)
+        reply=QMessageBox.information(self.parent,"Information","Result Create Sucess!",QMessageBox.Yes|QMessageBox.No,QMessageBox.Yes)
+
     
     #@pyqtSignature("")
     def updateDisplay(self, text):
@@ -337,6 +347,16 @@ class sample_list(QWidget, Ui_sample_list):
         if not self.timer_t.working:
             self.btn_Next.setText("Start")
             self.btn_Privious.setEnabled(True)
+            
+    def write_excel(self, filename, data):
+        book = xlwt.Workbook()            #创建excel对象
+        sheet = book.add_sheet('sheet1')  #添加一个表
+        c = 0  #保存当前列
+        for d in data: #取出data中的每一个元组存到表格的每一行
+            for index in range(len(d)):   #将每一个元组中的每一个单元存到每一列
+                sheet.write(c,index,d[index])
+            c += 1
+        book.save(filename) #保存excel
         #self.timer_tv.setText(self.tr(text + " " + str(number)))
 #    def closeEvent(self,event):
 #

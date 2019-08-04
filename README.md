@@ -22,6 +22,7 @@ config project as below.
 #### download pkg from 
 ```
 pip download -i https://pypi.tuna.tsinghua.edu.cn/simple -d \home\packs pywin32 xlwt xlrd xlutils
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pywin32 xlwt xlrd xlutils
 pip download -i https://pypi.tuna.tsinghua.edu.cn/simple -d \home\packs -r requirement.txt
 ```
 

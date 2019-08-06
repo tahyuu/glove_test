@@ -24,6 +24,8 @@ class sample_select(QWidget, Ui_sample_select):
         """
         QWidget.__init__(self, parent)
         self.mainwindow=mainwindow
+        if not self.mainwindow.CheckLogin():
+            return
         self.parent=parent
         self.setupUi(self)
         if self.mainwindow:

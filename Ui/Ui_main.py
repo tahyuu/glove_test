@@ -13,6 +13,8 @@ from Ui_sample_information_input import *
 from sample_information_input import *
 from sample_list import *
 from sample_select import *
+from UpdatePassword import *
+
 import time
 
 
@@ -58,8 +60,11 @@ class Ui_MainWindow(object):
         UserMangerAction = self.createAction(
                 "&UserManager", self.Login,
                 tip="Users Manager")
+        updatePasswordAction = self.createAction(
+                "&UpdatePassword", self.UpdatePassword,
+                tip="Update Password")
         self.addActions(self.samplesMenu , (createSameplsAction, ))
-        self.addActions(self.usersMenu , (LoginAction,UserMangerAction ,LogoutAction ))
+        self.addActions(self.usersMenu , (LoginAction,UserMangerAction, updatePasswordAction,LogoutAction ))
 
         self.retranslateUi(MainWindow)
 
@@ -119,6 +124,21 @@ class Ui_MainWindow(object):
         Dialog.show()
         if Dialog.exec_():
             pass
+            
+    def UpdatePassword(self):
+        if not self.CheckLogin():
+            return
+#        self.userName=""
+#        self.passWord=""
+        Dialog = QtGui.QDialog()
+        ui = UpdatePassword(Dialog, self)
+        #ui.setupUi(Dialog , self)
+        #Dialog.close()
+        ui.show()
+        #self.CurrentStatus="break"
+        if Dialog.exec_():
+            pass
+            
     def CheckLogin(self):
         if self.userName=="" and self.passWord=="":
             self.Login()
@@ -126,7 +146,8 @@ class Ui_MainWindow(object):
         else:
             return True
     def createSamples(self):
-        self.CheckLogin()
+        if not self.CheckLogin():
+            return
         self.samples=[]
         self.sample_1_enable=False
         self.sample_2_enable=False

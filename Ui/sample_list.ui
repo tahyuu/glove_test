@@ -71,7 +71,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="btn_Export">
        <property name="maximumSize">
         <size>
          <width>151</width>
@@ -337,7 +337,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton</sender>
+   <sender>btn_Export</sender>
    <signal>clicked()</signal>
    <receiver>sample_list</receiver>
    <slot>on_btnExport_clicked()</slot>

@@ -10,6 +10,7 @@ from PyQt4 import QtCore, QtGui
 import time
 import random
 import xlrd,xlwt,xlutils
+from html2pdf import *
 
 
 from Ui_sample_list import Ui_sample_list
@@ -171,6 +172,7 @@ class sample_list(QWidget, Ui_sample_list):
 
         stylesheet = "::section{Background-color:#A640BF;border-radius:4px;}"
         self.tableWidget.horizontalHeader().setStyleSheet(stylesheet)
+        self.btn_Export.setEnabled(False)
 
         
         self.tableWidget.setEditTriggers(QtGui.QTableWidget.NoEditTriggers)
@@ -262,9 +264,13 @@ class sample_list(QWidget, Ui_sample_list):
                 if self.btn_Next.text()=="Start":
                     self.btn_Next.setText("Stop")
                     self.btn_Privious.setEnabled(False)
+                    self.btn_Export.setEnabled(False)
+
                 else:
                     self.btn_Next.setText("Start")
                     self.btn_Privious.setEnabled(True)
+                    self.btn_Export.setEnabled(True)
+
                 for i in xrange(18):
                     self.tableWidget.setItem(i,8 , QtGui.QTableWidgetItem(_fromUtf8(str("".encode("utf-8")))))    
                     self.tableWidget.setItem(i,9 , QtGui.QTableWidgetItem(_fromUtf8(str("".encode("utf-8")))))    
@@ -294,10 +300,12 @@ class sample_list(QWidget, Ui_sample_list):
                 if self.btn_Next.text()=="Start":
                     self.btn_Next.setText("Stop")
                     self.btn_Privious.setEnabled(False)
+                    self.btn_Export.setEnabled(False)
 
                 else:
                     self.btn_Next.setText("Start")
                     self.btn_Privious.setEnabled(True)
+                    self.btn_Export.setEnabled(True)
                 self.timer_t.stop()
                 #self.timer.stop()
                 #self.timer_t.stop()
@@ -312,11 +320,14 @@ class sample_list(QWidget, Ui_sample_list):
         
     @pyqtSignature("")
     def on_btnExport_clicked(self): 
-        
-        self.write_excel("Results\\Excel\abc.xlsx", [["a", "b", "c"], ["aa", "bb", "cc"]])
-        
+        ResultDir=os.getcwd()+"\\Results\\"+str(self.mainwindow.userName)
+        Result=html2pdf(ResultDir, self.mainwindow.samples)
+        if Result[0]:
+        #self.write_excel("Results\\Excel\abc.xlsx", [["a", "b", "c"], ["aa", "bb", "cc"]])
         #reply=QMessageBox.question(self.parent,"Confirm ","Would you like to stop the test!",QMessageBox.Yes|QMessageBox.No,QMessageBox.Yes)
-        reply=QMessageBox.information(self.parent,"Information","Result Create Sucess!",QMessageBox.Yes|QMessageBox.No,QMessageBox.Yes)
+            reply=QMessageBox.information(self.parent,"Information","Result file Create Success!\n%s" %Result[1],QMessageBox.Yes,QMessageBox.Yes)
+        else:
+            reply=QMessageBox.information(self.parent,"Information","Result file(%s) Create Failed!" %Result[1],QMessageBox.Yes,QMessageBox.Yes)
 
     
     #@pyqtSignature("")
@@ -347,6 +358,8 @@ class sample_list(QWidget, Ui_sample_list):
         if not self.timer_t.working:
             self.btn_Next.setText("Start")
             self.btn_Privious.setEnabled(True)
+            self.btn_Export.setEnabled(True)
+
             
     def write_excel(self, filename, data):
         book = xlwt.Workbook()            #创建excel对象

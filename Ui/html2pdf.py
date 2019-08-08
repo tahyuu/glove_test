@@ -2,6 +2,8 @@ import pdfkit
 import time
 import os
 from sample_information_input import Sample
+import matplotlib.pyplot as plt
+import numpy
 
 
 def html2pdf(dirs, samples):
@@ -156,6 +158,29 @@ def html2pdf(dirs, samples):
         return (True, dirs+"\\"+fileName)
     else:
         return (False, dirs+"\\"+fileName)
+        
+def CharCreate():
+#    fig  = plt.figure()
+#    ax = fig.add_subplot(1,1,1)
+#    ax.plot([1,2,3,4],[2,3,4,5])
+#    plt.title("Matplotlib demo") 
+#    plt.xlabel("x axis caption") 
+#    plt.ylabel("y axis caption")
+#    plt.show()
+
+    fig=plt.figure(figsize=(6, 3))
+    plt.plot([1,2,3,4],[2,3,4,5], c='red',)
+    plt.plot([1,2,3,4],[1,3,3,5], c='blue',)
+    plt.plot([1,2,3,4],[1,2,3,3], c='green', )
+    plt.plot([1,2,3,4],[1,2,2, 0], c='skyblue', )
+    plt.plot([1,2,3,4],[1,2,1, 0], c='yellow', )
+    plt.plot([1,2,3,4],[1,1,1, 0], c='pink', )
+
+    plt.legend(('op1', 'rp1', 'op2', 'rp2', 'op3', 'rp3')) 
+    plt.show()
+
+
     #pdfkit.from_url('http://google.com', 'out.pdf', options=options)
 if __name__=="__main__":
-    html2pdf("E:\\WorkSpace\\gloves_test\\Program\\Ui\\Results\\admin", "test.pdf")
+    #html2pdf("E:\\WorkSpace\\gloves_test\\Program\\Ui\\Results\\admin", "test.pdf")
+    CharCreate()

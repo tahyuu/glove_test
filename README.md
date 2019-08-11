@@ -33,3 +33,7 @@ pip download -i https://pypi.tuna.tsinghua.edu.cn/simple -d \home\packs -r requi
 3, Eric Build form
 4, Eric add Resource --> build Resource
 ```
+
+```
+https://gitee.com/Richard_Hu/HslCommunication  SCADA
+```

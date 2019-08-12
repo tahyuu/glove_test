@@ -170,7 +170,7 @@ class Ui_sample_list(object):
         item = self.tableWidget.horizontalHeaderItem(7)
         item.setText(_translate("sample_list", "Status", None))
         item = self.tableWidget.horizontalHeaderItem(8)
-        item.setText(_translate("sample_list", "APF(N)", None))
+        item.setText(_translate("sample_list", "F(N)", None))
         item = self.tableWidget.horizontalHeaderItem(9)
         item.setText(_translate("sample_list", "DRx", None))
         item = self.tableWidget.horizontalHeaderItem(10)

@@ -4,6 +4,7 @@ import os
 from sample_information_input import Sample
 import matplotlib.pyplot as plt
 import numpy
+import random
 
 
 def html2pdf(dirs, samples):
@@ -25,10 +26,15 @@ def html2pdf(dirs, samples):
     'quiet': ''
 }
     str_list=""
+    html_image_list=""
     #update table for report 
     i=0
     for sample in samples:
         #for op1
+        ResultDir=os.getcwd()
+        print "current Dir is %s" %ResultDir
+        html_image_list=html_image_list+"<div class=\"Imgs\"><br><br>Sameple %s <br><hr><img src=\"%s//Figure_1.png\" width=\"650\" height=\"400\" alt=\"\"/></div>" %(i,ResultDir)
+
         str_list=str_list+"<tr>"
         str_list=str_list+"<th scope=\"row\">&nbsp;%s</th>" %sample.s_slot
         #str_list=str_list+"<td>&nbsp;Sample %s</td>" %sample.s_slot
@@ -139,6 +145,7 @@ def html2pdf(dirs, samples):
         for line in lines:
             html_str=html_str+line
     html_str=html_str.replace('$SampleList$',str_list)
+    html_str=html_str.replace('$ImageList$',html_image_list)
 
     html_str=html_str.replace('$UserName$',"Admin")
     data = time.time()
@@ -158,8 +165,22 @@ def html2pdf(dirs, samples):
         return (True, dirs+"\\"+fileName)
     else:
         return (False, dirs+"\\"+fileName)
+def GetData():
+    data = []
+    for i in range(6):
+        li =[]
+        rate =random.random()
+        fu = random.random()
+        for j in range(10):
+            y1=rate*j*random.uniform(1.0,1.2)+fu
+            li.append(y1)
+        data.append(li)
+    return data
+def Move(x, y):
+   print "move sensor to Poing(%s,%x)" %(x, y) 
+ 
         
-def CharCreate():
+def CharCreate(data):
 #    fig  = plt.figure()
 #    ax = fig.add_subplot(1,1,1)
 #    ax.plot([1,2,3,4],[2,3,4,5])
@@ -167,14 +188,19 @@ def CharCreate():
 #    plt.xlabel("x axis caption") 
 #    plt.ylabel("y axis caption")
 #    plt.show()
-
     fig=plt.figure(figsize=(6, 3))
-    plt.plot([1,2,3,4],[2,3,4,5], c='red',)
-    plt.plot([1,2,3,4],[1,3,3,5], c='blue',)
-    plt.plot([1,2,3,4],[1,2,3,3], c='green', )
-    plt.plot([1,2,3,4],[1,2,2, 0], c='skyblue', )
-    plt.plot([1,2,3,4],[1,2,1, 0], c='yellow', )
-    plt.plot([1,2,3,4],[1,1,1, 0], c='pink', )
+    color=["blue", "green", "skyblue", "yellow", "pink", "red"]
+
+    i=0
+
+    for li in data:
+        plt.plot(range(1, len(data[0])+1),li, c=color[i],)
+        i=i+1
+#        plt.plot([1,2,3,4],[1,3,3,5], c='blue',)
+#        plt.plot([1,2,3,4],[1,2,3,3], c='green', )
+#        plt.plot([1,2,3,4],[1,2,2, 0], c='skyblue', )
+#        plt.plot([1,2,3,4],[1,2,1, 0], c='yellow', )
+#        plt.plot([1,2,3,4],[1,1,1, 0], c='pink', )
 
     plt.legend(('op1', 'rp1', 'op2', 'rp2', 'op3', 'rp3')) 
     plt.show()
@@ -183,4 +209,5 @@ def CharCreate():
     #pdfkit.from_url('http://google.com', 'out.pdf', options=options)
 if __name__=="__main__":
     #html2pdf("E:\\WorkSpace\\gloves_test\\Program\\Ui\\Results\\admin", "test.pdf")
-    CharCreate()
+    data =CreateSample()
+    CharCreate(data)

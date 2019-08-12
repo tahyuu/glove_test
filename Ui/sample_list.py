@@ -9,7 +9,7 @@ from PyQt4.QtGui import QWidget, QMessageBox, QTextBrowser
 from PyQt4 import QtCore, QtGui
 import time
 import random
-import xlrd,xlwt,xlutils
+#import xlrd,xlwt,xlutils
 from html2pdf import *
 
 
@@ -237,12 +237,12 @@ class sample_list(QWidget, Ui_sample_list):
             self.tableWidget.setItem(i*6+2, 6, QtGui.QTableWidgetItem(_fromUtf8(str("Specimen2".encode("utf-8")))))
             self.tableWidget.setItem(i*6+4, 6, QtGui.QTableWidgetItem(_fromUtf8(str("Specimen3".encode("utf-8")))))   
             #self.tableWidget.setItem(0, 0, QtGui.QTableWidgetItem(_fromUtf8(str(sample.s_name.encode("utf-8")))))
-            self.tableWidget.setItem(i*6, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("OP0" ).encode("utf-8")))))
-            self.tableWidget.setItem(i*6+1, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("DP0" ).encode("utf-8")))))
-            self.tableWidget.setItem(i*6+2, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("OP1" ).encode("utf-8")))))       
-            self.tableWidget.setItem(i*6+3, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("DP1" ).encode("utf-8")))))
-            self.tableWidget.setItem(i*6+4, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("OP2").encode("utf-8")))))
-            self.tableWidget.setItem(i*6+5, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("DP2" ).encode("utf-8"))))) 
+            self.tableWidget.setItem(i*6, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("OP%s-1" %(i+1)  ).encode("utf-8")))))
+            self.tableWidget.setItem(i*6+1, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("RP%s-1" %(i+1) ).encode("utf-8")))))
+            self.tableWidget.setItem(i*6+2, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("OP%s-2" %(i+1)  ).encode("utf-8")))))       
+            self.tableWidget.setItem(i*6+3, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("RP%s-2" %(i+1) ).encode("utf-8")))))
+            self.tableWidget.setItem(i*6+4, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("OP%s-3" %(i+1) ).encode("utf-8")))))
+            self.tableWidget.setItem(i*6+5, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("RP%s-3" %(i+1)  ).encode("utf-8"))))) 
             
             i=i+1
 
@@ -320,7 +320,10 @@ class sample_list(QWidget, Ui_sample_list):
         
     @pyqtSignature("")
     def on_btnExport_clicked(self): 
-        ResultDir=os.getcwd()+"\\Results\\"+str(self.mainwindow.userName)
+        data = time.time()
+        timeArray = time.localtime(data)
+        time_str=time.strftime('%Y%m%d',timeArray)
+        ResultDir=os.getcwd()+"\\Results\\"+str(self.mainwindow.userName)+"\\%s" %time_str
         Result=html2pdf(ResultDir, self.mainwindow.samples)
         if Result[0]:
         #self.write_excel("Results\\Excel\abc.xlsx", [["a", "b", "c"], ["aa", "bb", "cc"]])
@@ -343,7 +346,6 @@ class sample_list(QWidget, Ui_sample_list):
         self.tableWidget.setItem(number,8 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.3f" %value).encode("utf-8")))))   
 
         for sample in self.mainwindow.samples:
-            
             if not sample.dr1==0.0:
               self.tableWidget.setItem(i*6,9 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr1*100))).encode("utf-8"))))    
             if not sample.dr2==0.0:

@@ -14,6 +14,8 @@ from sample_information_input import *
 from sample_list import *
 from sample_select import *
 from UpdatePassword import *
+import gloves_resource_rc
+
 
 import time
 
@@ -75,7 +77,6 @@ class Ui_MainWindow(object):
 #        MainWindow.setWindowIcon(icon)
         #MainWindow.setStyleSheet(_fromUtf8("image: url(:/glove_pic/gloves.jpg);"))
         MainWindow.setStyleSheet(_fromUtf8("#MainWindow{background-image:url(:/glove_pic/gloves.jpg);}"))
-        import gloves_resource_rc
 #        palette=QtGui.QPalette()
 #        icon=QtGui.QPixmap('gloves.jpg')
 #        palette.setBrush(self.centralWidget.backgroundRole(), QtGui.QBrush(icon)) #添加背景图片

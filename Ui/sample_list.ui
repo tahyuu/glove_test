@@ -255,7 +255,7 @@
      </column>
      <column>
       <property name="text">
-       <string>APF(N)</string>
+       <string>F(N)</string>
       </property>
      </column>
      <column>

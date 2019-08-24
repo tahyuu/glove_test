@@ -19,6 +19,8 @@ class Sample:
         self.s_color=""
         self.s_thickness=""
         self.s_standard=""
+        self.s_exp_time=""
+
         self.op1=0.0
         self.rp1=0.0
         self.op2=0.0
@@ -78,6 +80,11 @@ class sample_information_input(QWidget, Ui_sample_information_input):
             self.le_1_mtype.setReadOnly(True)
             self.le_1_ctype.setReadOnly(True)
             self.le_1_thickness.setReadOnly(True)
+            self.le_1_exp_time.setReadOnly(True)
+        else:
+            self.le_1_exp_time.setText("60")
+
+
             #self.cb_1_standard.setReadOnly(True)
 
         if self.mainwindow and not self.mainwindow.sample_2_enable:
@@ -87,6 +94,9 @@ class sample_information_input(QWidget, Ui_sample_information_input):
             self.le_2_mtype.setReadOnly(True)
             self.le_2_ctype.setReadOnly(True)
             self.le_2_thickness.setReadOnly(True)
+            self.le_2_exp_time.setReadOnly(True)
+        else:
+            self.le_2_exp_time.setText("60")
             #self.cb_2_standard.setReadOnly(True)
 
 
@@ -97,6 +107,9 @@ class sample_information_input(QWidget, Ui_sample_information_input):
             self.le_3_mtype.setReadOnly(True)
             self.le_3_ctype.setReadOnly(True)
             self.le_3_thickness.setReadOnly(True)
+            self.le_3_exp_time.setReadOnly(True)
+        else:
+            self.le_3_exp_time.setText("60")
             #self.cb_3_standard.setReadOnly(True)
         
         #display the inputed data
@@ -109,21 +122,21 @@ class sample_information_input(QWidget, Ui_sample_information_input):
                 self.le_1_mtype.setText(sample.s_mtype)
                 self.le_1_ctype.setText(sample.s_ctype)
                 self.le_1_thickness.setText(sample.s_thickness)
-
+                self.le_1_exp_time.setText(sample.s_exp_time)
             if sample.s_slot==1:
                 self.le_2_name.setText(sample.s_name)
                 self.le_2_color.setText(sample.s_color)
                 self.le_2_mtype.setText(sample.s_mtype)
                 self.le_2_ctype.setText(sample.s_ctype)
                 self.le_2_thickness.setText(sample.s_thickness)
-
+                self.le_2_exp_time.setText(sample.s_exp_time)
             if sample.s_slot==2:
                 self.le_3_name.setText(sample.s_name)
                 self.le_3_color.setText(sample.s_color)
                 self.le_3_mtype.setText(sample.s_mtype)
                 self.le_3_ctype.setText(sample.s_ctype)
                 self.le_3_thickness.setText(sample.s_thickness)
-
+                self.le_3_exp_time.setText(sample.s_exp_time)
     @pyqtSignature("")
     def on_btnNextStep_clicked(self):
         self.mainwindow.nextpushed=True
@@ -151,6 +164,11 @@ class sample_information_input(QWidget, Ui_sample_information_input):
 
                 QtGui.QMessageBox.critical(self.parent, 'Error', 'Sample 1 Thickness can\'t be empty!', 0,0) 
                 return 
+            if self.le_1_exp_time.text()=="":
+                self.le_1_exp_time.setFocus()
+
+                QtGui.QMessageBox.critical(self.parent, 'Error', 'Sample 1 Expsed Time can\'t be empty!', 0,0) 
+                return 
             sample=Sample(0)
             sample.s_name=self.le_1_name.text()
             sample.s_color=self.le_1_color.text()
@@ -158,6 +176,7 @@ class sample_information_input(QWidget, Ui_sample_information_input):
             sample.s_ctype=self.le_1_ctype.text()
             sample.s_thickness=self.le_1_thickness.text()
             sample.s_standard=self.cb_1_standard.currentText()
+            sample.s_exp_time=self.le_1_exp_time.text()
 
             self.mainwindow.samples.append(sample)
         if self.mainwindow.sample_2_enable:
@@ -185,6 +204,12 @@ class sample_information_input(QWidget, Ui_sample_information_input):
                 self.le_2_thickness.setFocus()
                 QtGui.QMessageBox.critical(self.parent, 'Error', 'Sample 2 Thickness can\'t be empty!', 0,0) 
                 return 
+                
+            if self.le_2_exp_time.text()=="":
+                self.le_2_exp_time.setFocus()
+
+                QtGui.QMessageBox.critical(self.parent, 'Error', 'Sample 2 Expsed Time can\'t be empty!', 0,0) 
+                return             
             sample=Sample(1)
             sample.s_name=self.le_2_name.text()
             sample.s_color=self.le_2_color.text()
@@ -192,6 +217,7 @@ class sample_information_input(QWidget, Ui_sample_information_input):
             sample.s_ctype=self.le_2_ctype.text()
             sample.s_thickness=self.le_2_thickness.text()
             sample.s_standard=self.cb_2_standard.currentText()
+            sample.s_exp_time=self.le_2_exp_time.text()
 
             self.mainwindow.samples.append(sample)
         if self.mainwindow.sample_3_enable:
@@ -219,6 +245,11 @@ class sample_information_input(QWidget, Ui_sample_information_input):
                 self.le_3_thickness.setFocus()
                 QtGui.QMessageBox.critical(self.parent, 'Error', 'Sample 3 Thickness can\'t be empty!', 0,0) 
                 return 
+            if self.le_3_exp_time.text()=="":
+                self.le_3_exp_time.setFocus()
+
+                QtGui.QMessageBox.critical(self.parent, 'Error', 'Sample 3 Expsed Time can\'t be empty!', 0,0) 
+                return    
             sample=Sample(2)
             sample.s_name=self.le_3_name.text()
             sample.s_color=self.le_3_color.text()
@@ -226,6 +257,7 @@ class sample_information_input(QWidget, Ui_sample_information_input):
             sample.s_ctype=self.le_3_ctype.text()
             sample.s_thickness=self.le_3_thickness.text()
             sample.s_standard=self.cb_3_standard.currentText()
+            sample.s_exp_time=self.le_3_exp_time.text()
 
             self.mainwindow.samples.append(sample)
         self.parent.close()

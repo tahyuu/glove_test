@@ -60,55 +60,136 @@ class sample_list(QWidget, Ui_sample_list):
         #self.work.trigger.connect(self.updateDisplay)
         #self.connect(self.work, QtCore.SIGNAL("updateDisplay"), self.updateDisplay)
 
-        self.tableWidget.setSpan(0, 0, 6, 1)
-        self.tableWidget.setSpan(0, 1, 6, 1)
-        self.tableWidget.setSpan(0, 2, 6, 1)
-        self.tableWidget.setSpan(0, 3, 6, 1)
-        self.tableWidget.setSpan(0, 4, 6, 1)
-        self.tableWidget.setSpan(0, 5, 6, 1)
-        self.tableWidget.setSpan(0, 10, 6, 1)
-        
+        #set header
+        self.tableWidget.setItem(0, 0, QtGui.QTableWidgetItem(_fromUtf8(str(str("Name").encode("utf-8")))))
+        self.tableWidget.setItem(0, 1, QtGui.QTableWidgetItem(_fromUtf8(str(str("Color").encode("utf-8")))))
+        self.tableWidget.setItem(0, 2, QtGui.QTableWidgetItem(_fromUtf8(str(str("Materia").encode("utf-8")))))
+        self.tableWidget.setItem(0, 3, QtGui.QTableWidgetItem(_fromUtf8(str(str("Chemistry").encode("utf-8")))))
+        self.tableWidget.setItem(0, 4, QtGui.QTableWidgetItem(_fromUtf8(str(str("Thickness").encode("utf-8")))))
+        self.tableWidget.setItem(0, 5, QtGui.QTableWidgetItem(_fromUtf8(str(str("Standard").encode("utf-8")))))
+        self.tableWidget.setItem(0, 6, QtGui.QTableWidgetItem(_fromUtf8(str(str("Exposed\nTime").encode("utf-8")))))
+        self.tableWidget.setItem(0, 7, QtGui.QTableWidgetItem(_fromUtf8(str(str("Specimen").encode("utf-8")))))
+        self.tableWidget.setItem(0, 8, QtGui.QTableWidgetItem(_fromUtf8(str(str("\t\t\t\tTest Data").encode("utf-8")))))
+        self.tableWidget.setItem(1, 8, QtGui.QTableWidgetItem(_fromUtf8(str(str("Unexposed Puncture Force - OPx/N").encode("utf-8")))))
+        self.tableWidget.setItem(1, 10, QtGui.QTableWidgetItem(_fromUtf8(str(str("Exposed Puncture Force - RPx/N").encode("utf-8")))))
+        self.tableWidget.setItem(1, 12, QtGui.QTableWidgetItem(_fromUtf8(str(str("Degradation against chemical- DRx/%").encode("utf-8")))))
+        self.tableWidget.setItem(1, 13, QtGui.QTableWidgetItem(_fromUtf8(str(str("Average Degradation - DR").encode("utf-8")))))
+
+        self.tableWidget.setSpan(0, 0, 2, 1)
+        self.tableWidget.setSpan(0, 1, 2, 1)
+        self.tableWidget.setSpan(0, 2, 2, 1)
+        self.tableWidget.setSpan(0, 3, 2, 1)
+        self.tableWidget.setSpan(0, 4, 2, 1)
+        self.tableWidget.setSpan(0, 5, 2, 1)
         self.tableWidget.setSpan(0, 6, 2, 1)
-        self.tableWidget.setSpan(2, 6, 2, 1)
-        self.tableWidget.setSpan(4, 6, 2, 1)
+        self.tableWidget.setSpan(0, 7, 2, 1)
+        self.tableWidget.setSpan(0, 8, 1, 6)
+        self.tableWidget.setSpan(1, 8, 1, 2)
+        self.tableWidget.setSpan(1, 10, 1, 2)
 
-        self.tableWidget.setSpan(0, 9, 2, 1)
-        self.tableWidget.setSpan(2, 9, 2, 1)
-        self.tableWidget.setSpan(4, 9, 2, 1)
+        #self.tableWidget.setSpan(0, 9, 1, 4)
+        #self.tableWidget.setSpan(0, 10, 1, 4)
 
-        #self.tableWidget.setSpan(0, 6, 6, 1)
 
-        self.tableWidget.setSpan(6, 0, 6, 1)
-        self.tableWidget.setSpan(6, 1, 6, 1)
-        self.tableWidget.setSpan(6, 2, 6, 1)
-        self.tableWidget.setSpan(6, 3, 6, 1)
-        self.tableWidget.setSpan(6, 4, 6, 1)
-        self.tableWidget.setSpan(6, 5, 6, 1)
-        self.tableWidget.setSpan(6, 10, 6, 1)
-        
-        self.tableWidget.setSpan(6, 6, 2, 1)
-        self.tableWidget.setSpan(8, 6, 2, 1)
-        self.tableWidget.setSpan(10, 6, 2, 1)
-        
-        self.tableWidget.setSpan(6, 9, 2, 1)
-        self.tableWidget.setSpan(8, 9, 2, 1)
-        self.tableWidget.setSpan(10, 9, 2, 1)
-        
-        self.tableWidget.setSpan(12, 0, 6, 1)
-        self.tableWidget.setSpan(12, 1, 6, 1)
-        self.tableWidget.setSpan(12, 2, 6, 1)
-        self.tableWidget.setSpan(12, 3, 6, 1)
-        self.tableWidget.setSpan(12, 4, 6, 1)
-        self.tableWidget.setSpan(12, 5, 6, 1)
-        self.tableWidget.setSpan(12, 10, 6, 1)
-        
-        self.tableWidget.setSpan(12, 6, 2, 1)
-        self.tableWidget.setSpan(14, 6, 2, 1)
-        self.tableWidget.setSpan(16, 6, 2, 1)
-        
-        self.tableWidget.setSpan(12, 9, 2, 1)
-        self.tableWidget.setSpan(14, 9, 2, 1)
-        self.tableWidget.setSpan(16, 9, 2, 1)
+        self.tableWidget.setSpan(2, 0, 3, 1)
+        self.tableWidget.setSpan(2, 1, 3, 1)
+        self.tableWidget.setSpan(2, 2, 3, 1)
+        self.tableWidget.setSpan(2, 3, 3, 1)
+        self.tableWidget.setSpan(2, 4, 3, 1)
+        self.tableWidget.setSpan(2, 5, 3, 1)
+        self.tableWidget.setSpan(2, 6, 3, 1)
+        self.tableWidget.setSpan(2, 7, 3, 1)
+#
+#        self.tableWidget.setSpan(0, 11, 3, 1)
+# 
+        self.tableWidget.setSpan(5, 0, 3, 1)
+        self.tableWidget.setSpan(5, 1, 3, 1)
+        self.tableWidget.setSpan(5, 2, 3, 1)
+        self.tableWidget.setSpan(5, 3, 3, 1)
+        self.tableWidget.setSpan(5, 4, 3, 1)
+        self.tableWidget.setSpan(5, 5, 3, 1)
+        self.tableWidget.setSpan(5, 6, 3, 1)
+        self.tableWidget.setSpan(5, 7, 3, 1)
+#
+#        self.tableWidget.setSpan(3, 11, 3, 1)
+# 
+        self.tableWidget.setSpan(8, 0, 3, 1)
+        self.tableWidget.setSpan(8, 1, 3, 1)
+        self.tableWidget.setSpan(8, 2, 3, 1)
+        self.tableWidget.setSpan(8, 3, 3, 1)
+        self.tableWidget.setSpan(8, 4, 3, 1)
+        self.tableWidget.setSpan(8, 5, 3, 1)
+        self.tableWidget.setSpan(8, 6, 3, 1)
+        self.tableWidget.setSpan(8, 7, 3, 1)
+#
+#        self.tableWidget.setSpan(6, 11, 3, 1)
+ 
+ 
+ 
+#        self.tableWidget.setSpan(0, 8, 2, 1)
+#        self.tableWidget.setSpan(2, 8, 2, 1)
+#        self.tableWidget.setSpan(4, 8, 2, 1)
+
+
+
+#        self.tableWidget.setSpan(0, 0, 6, 1)
+#        self.tableWidget.setSpan(0, 1, 6, 1)
+#        self.tableWidget.setSpan(0, 2, 6, 1)
+#        self.tableWidget.setSpan(0, 3, 6, 1)
+#        self.tableWidget.setSpan(0, 4, 6, 1)
+#        self.tableWidget.setSpan(0, 5, 6, 1)
+#        self.tableWidget.setSpan(0, 6, 6, 1)
+#        self.tableWidget.setSpan(0, 7, 6, 1)
+#
+#        self.tableWidget.setSpan(0, 11, 6, 1)
+#        
+#        self.tableWidget.setSpan(0, 8, 2, 1)
+#        self.tableWidget.setSpan(2, 8, 2, 1)
+#        self.tableWidget.setSpan(4, 8, 2, 1)
+#
+#        self.tableWidget.setSpan(0, 9, 2, 1)
+#        self.tableWidget.setSpan(2, 9, 2, 1)
+#        self.tableWidget.setSpan(4, 9, 2, 1)
+#
+#        #self.tableWidget.setSpan(0, 6, 6, 1)
+#
+#        self.tableWidget.setSpan(6, 0, 6, 1)
+#        self.tableWidget.setSpan(6, 1, 6, 1)
+#        self.tableWidget.setSpan(6, 2, 6, 1)
+#        self.tableWidget.setSpan(6, 3, 6, 1)
+#        self.tableWidget.setSpan(6, 4, 6, 1)
+#        self.tableWidget.setSpan(6, 5, 6, 1)
+#        self.tableWidget.setSpan(6, 6, 6, 1)
+#        self.tableWidget.setSpan(6, 7, 6, 1)
+#
+#        self.tableWidget.setSpan(6, 11, 6, 1)
+#        
+#        self.tableWidget.setSpan(6, 8, 2, 1)
+#        self.tableWidget.setSpan(8, 8, 2, 1)
+#        self.tableWidget.setSpan(10, 8, 2, 1)
+#        
+#        self.tableWidget.setSpan(6, 9, 2, 1)
+#        self.tableWidget.setSpan(8, 9, 2, 1)
+#        self.tableWidget.setSpan(10, 9, 2, 1)
+#        
+#        self.tableWidget.setSpan(12, 0, 6, 1)
+#        self.tableWidget.setSpan(12, 1, 6, 1)
+#        self.tableWidget.setSpan(12, 2, 6, 1)
+#        self.tableWidget.setSpan(12, 3, 6, 1)
+#        self.tableWidget.setSpan(12, 4, 6, 1)
+#        self.tableWidget.setSpan(12, 5, 6, 1)
+#        self.tableWidget.setSpan(12, 6, 6, 1)
+#        self.tableWidget.setSpan(12, 7, 6, 1)
+#
+#        self.tableWidget.setSpan(12, 11, 6, 1)
+#        
+#        self.tableWidget.setSpan(12, 8, 2, 1)
+#        self.tableWidget.setSpan(14, 8, 2, 1)
+#        self.tableWidget.setSpan(16, 8, 2, 1)
+#        
+#        self.tableWidget.setSpan(12, 9, 2, 1)
+#        self.tableWidget.setSpan(14, 9, 2, 1)
+#        self.tableWidget.setSpan(16, 9, 2, 1)
 
         
 #        item = self.tableWidget.item(0, 0)
@@ -190,32 +271,52 @@ class sample_list(QWidget, Ui_sample_list):
 
         headerFont.setBold(True)
         
-        self.tableWidget.setColumnWidth(0,100)
+        self.tableWidget.setColumnWidth(0,80)
 
         self.tableWidget.setColumnWidth(1,80)
 
-        self.tableWidget.setColumnWidth(2,100)
+        self.tableWidget.setColumnWidth(2,90)
 
         self.tableWidget.setColumnWidth(3,100)
 
         self.tableWidget.setColumnWidth(4,100)
 
-        self.tableWidget.setColumnWidth(5,100)
+        self.tableWidget.setColumnWidth(5,90)
         
         self.tableWidget.setColumnWidth(6,100)
         
-        self.tableWidget.setColumnWidth(7,60)
-        self.tableWidget.setColumnWidth(8,80)
-        self.tableWidget.setColumnWidth(9,80)
-        self.tableWidget.setColumnWidth(10,80)
+        self.tableWidget.setColumnWidth(7,100)
+        self.tableWidget.setColumnWidth(8,100)
+        self.tableWidget.setColumnWidth(9,100)
+        self.tableWidget.setColumnWidth(10,100)
+        self.tableWidget.setColumnWidth(11,100)
+        self.tableWidget.setColumnWidth(12,200)
+        self.tableWidget.setColumnWidth(13,200)
+        self.tableWidget.setRowHeight(1,80)
+        self.tableWidget.setRowHeight(2,50)
+        self.tableWidget.setRowHeight(3,50)
+        self.tableWidget.setRowHeight(4,50)
+        self.tableWidget.setRowHeight(5,50)
+        self.tableWidget.setRowHeight(6,50)
+        self.tableWidget.setRowHeight(7,50)
+        self.tableWidget.setRowHeight(8,50)
+        self.tableWidget.setRowHeight(9,50)
+        self.tableWidget.setRowHeight(10,50)
+
+        
+
         #self.tableWidget.setColumnWidth(8,100)
-        self.tableWidget.horizontalHeader().setStretchLastSection(True)
+        #horizontalHeader()->setVisible(false);
+        #self.tableWidget.horizontalHeader().setStretchLastSection(True)
+
+        self.tableWidget.horizontalHeader().setVisible(False)
         
         for x in range(self.tableWidget.columnCount()):  
+            pass
 
-            headItem = self.tableWidget.horizontalHeaderItem(x)  
+            #headItem = self.tableWidget.horizontalHeaderItem(x)  
 
-            headItem.setFont(headerFont)
+            #headItem.setFont(headerFont)
 
         #headerFont.setWeight(25)
         
@@ -225,26 +326,37 @@ class sample_list(QWidget, Ui_sample_list):
             return
         for sample in self.mainwindow.samples:
             #sample basic information
-            self.tableWidget.setItem(i*6, 0, QtGui.QTableWidgetItem(_fromUtf8(str(str(sample.s_name).encode("utf-8")))))
-            self.tableWidget.setItem(i*6, 1, QtGui.QTableWidgetItem(_fromUtf8(str(str(sample.s_color).encode("utf-8")))))
-            self.tableWidget.setItem(i*6, 2, QtGui.QTableWidgetItem(_fromUtf8(str(str(sample.s_mtype).encode("utf-8")))))
-            self.tableWidget.setItem(i*6, 3, QtGui.QTableWidgetItem(_fromUtf8(str(str(sample.s_ctype).encode("utf-8")))))
-            self.tableWidget.setItem(i*6, 4, QtGui.QTableWidgetItem(_fromUtf8(str(str(sample.s_thickness).encode("utf-8")))))
-            self.tableWidget.setItem(i*6, 5, QtGui.QTableWidgetItem(_fromUtf8(str(str(sample.s_standard).encode("utf-8")))))
+            self.tableWidget.setItem(i*3+2, 0, QtGui.QTableWidgetItem(_fromUtf8(str(str(sample.s_name).encode("utf-8")))))
+            self.tableWidget.setItem(i*3+2, 1, QtGui.QTableWidgetItem(_fromUtf8(str(str(sample.s_color).encode("utf-8")))))
+            self.tableWidget.setItem(i*3+2, 2, QtGui.QTableWidgetItem(_fromUtf8(str(str(sample.s_mtype).encode("utf-8")))))
+            self.tableWidget.setItem(i*3+2, 3, QtGui.QTableWidgetItem(_fromUtf8(str(str(sample.s_ctype).encode("utf-8")))))
+            self.tableWidget.setItem(i*3+2, 4, QtGui.QTableWidgetItem(_fromUtf8(str(str(sample.s_thickness).encode("utf-8")))))
+            self.tableWidget.setItem(i*3+2, 5, QtGui.QTableWidgetItem(_fromUtf8(str(str(sample.s_standard).encode("utf-8")))))
 
             #sample detail information
-            self.tableWidget.setItem(i*6, 6, QtGui.QTableWidgetItem(_fromUtf8(str("Specimen1".encode("utf-8")))))
-            self.tableWidget.setItem(i*6+2, 6, QtGui.QTableWidgetItem(_fromUtf8(str("Specimen2".encode("utf-8")))))
-            self.tableWidget.setItem(i*6+4, 6, QtGui.QTableWidgetItem(_fromUtf8(str("Specimen3".encode("utf-8")))))   
+            self.tableWidget.setItem(i*3+2, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("%s" %(i+1)).encode("utf-8")))))
+#            self.tableWidget.setItem(i*3+4, 7, QtGui.QTableWidgetItem(_fromUtf8(str("2".encode("utf-8")))))
+#            self.tableWidget.setItem(i*3+6, 7, QtGui.QTableWidgetItem(_fromUtf8(str("3".encode("utf-8")))))   
             #self.tableWidget.setItem(0, 0, QtGui.QTableWidgetItem(_fromUtf8(str(sample.s_name.encode("utf-8")))))
-            self.tableWidget.setItem(i*6, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("OP%s-1" %(i+1)  ).encode("utf-8")))))
-            self.tableWidget.setItem(i*6+1, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("RP%s-1" %(i+1) ).encode("utf-8")))))
-            self.tableWidget.setItem(i*6+2, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("OP%s-2" %(i+1)  ).encode("utf-8")))))       
-            self.tableWidget.setItem(i*6+3, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("RP%s-2" %(i+1) ).encode("utf-8")))))
-            self.tableWidget.setItem(i*6+4, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("OP%s-3" %(i+1) ).encode("utf-8")))))
-            self.tableWidget.setItem(i*6+5, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("RP%s-3" %(i+1)  ).encode("utf-8"))))) 
-            
+#            self.tableWidget.setItem(i*3+2, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("OP%s-1" %(i+1)  ).encode("utf-8")))))
+#            self.tableWidget.setItem(i*3+3, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("RP%s-1" %(i+1) ).encode("utf-8")))))
+#            self.tableWidget.setItem(i*3+4, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("OP%s-2" %(i+1)  ).encode("utf-8")))))       
+#            self.tableWidget.setItem(i*3+5, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("RP%s-2" %(i+1) ).encode("utf-8")))))
+#            self.tableWidget.setItem(i*3+6, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("OP%s-3" %(i+1) ).encode("utf-8")))))
+#            self.tableWidget.setItem(i*3+7, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("RP%s-3" %(i+1)  ).encode("utf-8"))))) 
+            self.tableWidget.setItem(i*3+2, 8, QtGui.QTableWidgetItem(_fromUtf8(str(("OP%s-1" %(i+1) ).encode("utf-8")))))
+            self.tableWidget.setItem(i*3+2, 10, QtGui.QTableWidgetItem(_fromUtf8(str(("RP%s-1" %(i+1)  ).encode("utf-8"))))) 
+            self.tableWidget.setItem(i*3+3, 8, QtGui.QTableWidgetItem(_fromUtf8(str(("OP%s-2" %(i+1) ).encode("utf-8")))))
+            self.tableWidget.setItem(i*3+3, 10, QtGui.QTableWidgetItem(_fromUtf8(str(("RP%s-2" %(i+1)  ).encode("utf-8"))))) 
+            self.tableWidget.setItem(i*3+4, 8, QtGui.QTableWidgetItem(_fromUtf8(str(("OP%s-3" %(i+1) ).encode("utf-8")))))
+            self.tableWidget.setItem(i*3+4, 10, QtGui.QTableWidgetItem(_fromUtf8(str(("RP%s-3" %(i+1)  ).encode("utf-8"))))) 
+              
             i=i+1
+            
+            
+#        item = QtGui.QTableWidgetItem()
+#        item.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter|QtCore.Qt.AlignCenter)
+#        self.tableWidget.setItem(0, 10, item)
 
     @pyqtSignature("")
     def on_btnNextStep_clicked(self):        

@@ -2,8 +2,8 @@ import pdfkit
 import time
 import os
 from sample_information_input import Sample
-import matplotlib.pyplot as plt
-import numpy
+#import matplotlib.pyplot as plt
+#import numpy
 import random
 
 

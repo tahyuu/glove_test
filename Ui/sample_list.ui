@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1600</width>
+    <width>1301</width>
     <height>720</height>
    </rect>
   </property>
@@ -36,12 +36,12 @@
          </font>
         </property>
         <property name="text">
-         <string>                                                                                                                                                                                                Please select specimen for calculating Average Degradation - DR</string>
+         <string>                                                                                                                                    Please select specimen for calculating Average Degradation - DR</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox">
+       <widget class="QCheckBox" name="checkBox1">
         <property name="maximumSize">
          <size>
           <width>89</width>
@@ -51,10 +51,13 @@
         <property name="text">
          <string>specimen1</string>
         </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_3">
+       <widget class="QCheckBox" name="checkBox2">
         <property name="maximumSize">
          <size>
           <width>88</width>
@@ -64,10 +67,13 @@
         <property name="text">
          <string>specimen2</string>
         </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_2">
+       <widget class="QCheckBox" name="checkBox3">
         <property name="maximumSize">
          <size>
           <width>88</width>
@@ -76,6 +82,9 @@
         </property>
         <property name="text">
          <string>specimen3</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
         </property>
        </widget>
       </item>

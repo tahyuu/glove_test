@@ -48,11 +48,11 @@ class Ui_MainWindow(object):
         self.menuBar =   self.MainWindow.menuBar()
         #self.menuBar.setGeometry(QtCore.QRect(0, 0, 800, 23))
         #self.menuBar.setObjectName(_fromUtf8("menuBar"))
-        self.samplesMenu = self.menuBar.addMenu("&Samples")
+        self.samplesMenu = self.menuBar.addMenu("&Specimen")
         self.usersMenu = self.menuBar.addMenu("&Users")
         createSameplsAction = self.createAction(
-                "&createSamepls", self.createSamples,
-                tip="Create Samples")
+                "&Create Specimens", self.createSamples,
+                tip="Creat Specimen")
         LoginAction = self.createAction(
                 "&Login", self.Login,
                 tip="Login")

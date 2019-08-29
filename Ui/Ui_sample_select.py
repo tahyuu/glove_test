@@ -57,10 +57,10 @@ class Ui_sample_select(object):
     def retranslateUi(self, sample_select):
         sample_select.setWindowTitle(_translate("sample_select", "Form", None))
         self.next_step.setText(_translate("sample_select", "Next Step", None))
-        self.checkBox_3.setText(_translate("sample_select", "Sample3", None))
-        self.checkBox_1.setText(_translate("sample_select", "Sample1", None))
-        self.checkBox_2.setText(_translate("sample_select", "Sample2", None))
-        self.label.setText(_translate("sample_select", "Step1:  Select test samples", None))
+        self.checkBox_3.setText(_translate("sample_select", "Specimen3", None))
+        self.checkBox_1.setText(_translate("sample_select", "Specimen1", None))
+        self.checkBox_2.setText(_translate("sample_select", "Specimen2", None))
+        self.label.setText(_translate("sample_select", "Step1:  Select test Specimen", None))
 
 
 if __name__ == "__main__":

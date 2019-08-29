@@ -34,16 +34,16 @@
       </font>
      </property>
      <property name="text">
-      <string>Step2: Input Samples information</string>
+      <string>Step2: Input Specimen information</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Information for sample 1</string>
+      <string>Information for Specimen 1</string>
      </property>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -56,7 +56,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>Sample Name:</string>
+          <string>Specimen Name:</string>
          </property>
         </widget>
        </item>
@@ -66,7 +66,7 @@
        <item row="0" column="2">
         <widget class="QLabel" name="label_4">
          <property name="text">
-          <string>Sample Color:</string>
+          <string>Specimen Color:</string>
          </property>
         </widget>
        </item>
@@ -104,7 +104,7 @@
        <item row="2" column="0">
         <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>Sample Thickness:</string>
+          <string>Specimen Thickness:</string>
          </property>
         </widget>
        </item>
@@ -157,9 +157,9 @@
    <item>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
-      <string>Information for sample 2</string>
+      <string>Information for Specimen 2</string>
      </property>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>11</x>
@@ -172,7 +172,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label_7">
          <property name="text">
-          <string>Sample Name:</string>
+          <string>Specimen Name:</string>
          </property>
         </widget>
        </item>
@@ -182,7 +182,7 @@
        <item row="0" column="2">
         <widget class="QLabel" name="label_8">
          <property name="text">
-          <string>Sample Color:</string>
+          <string>Specimen Color:</string>
          </property>
         </widget>
        </item>
@@ -220,7 +220,7 @@
        <item row="2" column="0">
         <widget class="QLabel" name="label_11">
          <property name="text">
-          <string>Sample Thickness:</string>
+          <string>Specimen Thickness:</string>
          </property>
         </widget>
        </item>
@@ -273,9 +273,9 @@
    <item>
     <widget class="QGroupBox" name="groupBox_3">
      <property name="title">
-      <string>Information for sample 3</string>
+      <string>Information for Specimen 3</string>
      </property>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -288,7 +288,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label_19">
          <property name="text">
-          <string>Sample Name:</string>
+          <string>Specimen Name:</string>
          </property>
         </widget>
        </item>
@@ -298,7 +298,7 @@
        <item row="0" column="2">
         <widget class="QLabel" name="label_20">
          <property name="text">
-          <string>Sample Color:</string>
+          <string>Specimen Color:</string>
          </property>
         </widget>
        </item>
@@ -336,7 +336,7 @@
        <item row="2" column="0">
         <widget class="QLabel" name="label_23">
          <property name="text">
-          <string>Sample Thickness:</string>
+          <string>Specimen Thickness:</string>
          </property>
         </widget>
        </item>

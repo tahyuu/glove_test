@@ -121,6 +121,11 @@ class sample_list(QWidget, Ui_sample_list):
         self.tableWidget.setSpan(8, 5, 3, 1)
         self.tableWidget.setSpan(8, 6, 3, 1)
         self.tableWidget.setSpan(8, 7, 3, 1)
+        
+        
+        self.tableWidget.setSpan(2, 13, 3, 1)
+        self.tableWidget.setSpan(5, 13, 3, 1)
+        self.tableWidget.setSpan(8, 13, 3, 1)
 #
 #        self.tableWidget.setSpan(6, 11, 3, 1)
  
@@ -271,27 +276,27 @@ class sample_list(QWidget, Ui_sample_list):
 
         headerFont.setBold(True)
         
-        self.tableWidget.setColumnWidth(0,80)
+        self.tableWidget.setColumnWidth(0,70)
 
-        self.tableWidget.setColumnWidth(1,80)
+        self.tableWidget.setColumnWidth(1,70)
 
-        self.tableWidget.setColumnWidth(2,90)
+        self.tableWidget.setColumnWidth(2,70)
 
-        self.tableWidget.setColumnWidth(3,100)
+        self.tableWidget.setColumnWidth(3,80)
 
-        self.tableWidget.setColumnWidth(4,100)
+        self.tableWidget.setColumnWidth(4,80)
 
-        self.tableWidget.setColumnWidth(5,90)
+        self.tableWidget.setColumnWidth(5,80)
         
-        self.tableWidget.setColumnWidth(6,100)
+        self.tableWidget.setColumnWidth(6,80)
         
-        self.tableWidget.setColumnWidth(7,100)
+        self.tableWidget.setColumnWidth(7,80)
         self.tableWidget.setColumnWidth(8,100)
         self.tableWidget.setColumnWidth(9,100)
         self.tableWidget.setColumnWidth(10,100)
         self.tableWidget.setColumnWidth(11,100)
-        self.tableWidget.setColumnWidth(12,200)
-        self.tableWidget.setColumnWidth(13,200)
+        self.tableWidget.setColumnWidth(12,130)
+        self.tableWidget.setColumnWidth(13,130)
         self.tableWidget.setRowHeight(1,80)
         self.tableWidget.setRowHeight(2,50)
         self.tableWidget.setRowHeight(3,50)
@@ -383,10 +388,12 @@ class sample_list(QWidget, Ui_sample_list):
                     self.btn_Privious.setEnabled(True)
                     self.btn_Export.setEnabled(True)
 
-                for i in xrange(18):
-                    self.tableWidget.setItem(i,8 , QtGui.QTableWidgetItem(_fromUtf8(str("".encode("utf-8")))))    
-                    self.tableWidget.setItem(i,9 , QtGui.QTableWidgetItem(_fromUtf8(str("".encode("utf-8")))))    
-                    self.tableWidget.setItem(i,10 , QtGui.QTableWidgetItem(_fromUtf8(str("".encode("utf-8")))))    
+                for i in xrange(9):
+                    self.tableWidget.setItem(i+2,9 , QtGui.QTableWidgetItem(_fromUtf8(str("".encode("utf-8")))))    
+                    self.tableWidget.setItem(i+2,11 , QtGui.QTableWidgetItem(_fromUtf8(str("".encode("utf-8")))))    
+                    self.tableWidget.setItem(i+2,12 , QtGui.QTableWidgetItem(_fromUtf8(str("".encode("utf-8")))))    
+                    self.tableWidget.setItem(i+2,13 , QtGui.QTableWidgetItem(_fromUtf8(str("".encode("utf-8")))))    
+
                 #clean the data in samples
                 for sample in self.mainwindow.samples:
                     sample.clean()
@@ -455,17 +462,20 @@ class sample_list(QWidget, Ui_sample_list):
             print "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
     def update_timer_tv(self, value, number):
         i=0
-        self.tableWidget.setItem(number,8 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.3f" %value).encode("utf-8")))))   
+        if number%2==0:
+            self.tableWidget.setItem(number/2+2,9 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.3f" %value).encode("utf-8")))))   
+        else:
+            self.tableWidget.setItem(number/2+2,11 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.3f" %value).encode("utf-8")))))   
 
         for sample in self.mainwindow.samples:
             if not sample.dr1==0.0:
-              self.tableWidget.setItem(i*6,9 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr1*100))).encode("utf-8"))))    
+              self.tableWidget.setItem(i*3+2,12 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr1*100))).encode("utf-8"))))    
             if not sample.dr2==0.0:
-              self.tableWidget.setItem(i*6+2,9 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr2*100))).encode("utf-8"))))    
+              self.tableWidget.setItem(i*3+3,12 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr2*100))).encode("utf-8"))))    
             if not sample.dr3==0.0:
-              self.tableWidget.setItem(i*6+4,9 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr3*100))).encode("utf-8"))))    
+              self.tableWidget.setItem(i*3+4,12 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr3*100))).encode("utf-8"))))    
             if not sample.dr==0.0:
-              self.tableWidget.setItem(i*6,10 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr*100))).encode("utf-8"))))    
+              self.tableWidget.setItem(i*3+2,13 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr*100))).encode("utf-8"))))    
                                            
               
             i=i+1

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\yong\Desktop\glove_test\Ui\sample_list.ui'
+# Form implementation generated from reading ui file 'D:\WorkSpace\gloves_test\Program\Ui\sample_list.ui'
 #
 # Created by: PyQt4 UI code generator 4.11.4
 #
@@ -25,7 +25,7 @@ except AttributeError:
 class Ui_sample_list(object):
     def setupUi(self, sample_list):
         sample_list.setObjectName(_fromUtf8("sample_list"))
-        sample_list.resize(1580, 720)
+        sample_list.resize(1301, 720)
         self.verticalLayout = QtGui.QVBoxLayout(sample_list)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.groupBox = QtGui.QGroupBox(sample_list)
@@ -42,18 +42,21 @@ class Ui_sample_list(object):
         self.label.setFont(font)
         self.label.setObjectName(_fromUtf8("label"))
         self.horizontalLayout_2.addWidget(self.label)
-        self.checkBox = QtGui.QCheckBox(self.groupBox)
-        self.checkBox.setMaximumSize(QtCore.QSize(89, 20))
-        self.checkBox.setObjectName(_fromUtf8("checkBox"))
-        self.horizontalLayout_2.addWidget(self.checkBox)
-        self.checkBox_3 = QtGui.QCheckBox(self.groupBox)
-        self.checkBox_3.setMaximumSize(QtCore.QSize(88, 20))
-        self.checkBox_3.setObjectName(_fromUtf8("checkBox_3"))
-        self.horizontalLayout_2.addWidget(self.checkBox_3)
-        self.checkBox_2 = QtGui.QCheckBox(self.groupBox)
-        self.checkBox_2.setMaximumSize(QtCore.QSize(88, 20))
-        self.checkBox_2.setObjectName(_fromUtf8("checkBox_2"))
-        self.horizontalLayout_2.addWidget(self.checkBox_2)
+        self.checkBox1 = QtGui.QCheckBox(self.groupBox)
+        self.checkBox1.setMaximumSize(QtCore.QSize(89, 20))
+        self.checkBox1.setChecked(True)
+        self.checkBox1.setObjectName(_fromUtf8("checkBox1"))
+        self.horizontalLayout_2.addWidget(self.checkBox1)
+        self.checkBox2 = QtGui.QCheckBox(self.groupBox)
+        self.checkBox2.setMaximumSize(QtCore.QSize(88, 20))
+        self.checkBox2.setChecked(True)
+        self.checkBox2.setObjectName(_fromUtf8("checkBox2"))
+        self.horizontalLayout_2.addWidget(self.checkBox2)
+        self.checkBox3 = QtGui.QCheckBox(self.groupBox)
+        self.checkBox3.setMaximumSize(QtCore.QSize(88, 20))
+        self.checkBox3.setChecked(True)
+        self.checkBox3.setObjectName(_fromUtf8("checkBox3"))
+        self.horizontalLayout_2.addWidget(self.checkBox3)
         self.verticalLayout.addWidget(self.groupBox)
         self.tableWidget = QtGui.QTableWidget(sample_list)
         self.tableWidget.setEnabled(True)
@@ -172,10 +175,10 @@ class Ui_sample_list(object):
 
     def retranslateUi(self, sample_list):
         sample_list.setWindowTitle(_translate("sample_list", "Form", None))
-        self.label.setText(_translate("sample_list", "                                                                                                                                                                                                Please select specimen for calculating Average Degradation - DR", None))
-        self.checkBox.setText(_translate("sample_list", "specimen1", None))
-        self.checkBox_3.setText(_translate("sample_list", "specimen2", None))
-        self.checkBox_2.setText(_translate("sample_list", "specimen3", None))
+        self.label.setText(_translate("sample_list", "                                                                                                                                    Please select specimen for calculating Average Degradation - DR", None))
+        self.checkBox1.setText(_translate("sample_list", "specimen1", None))
+        self.checkBox2.setText(_translate("sample_list", "specimen2", None))
+        self.checkBox3.setText(_translate("sample_list", "specimen3", None))
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("sample_list", "Name", None))
         item = self.tableWidget.horizontalHeaderItem(1)

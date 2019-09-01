@@ -44,3 +44,10 @@ Git for window download URL
 ```
 http://npm.taobao.org/mirrors/git-for-windows/v2.23.0.windows.1/
 ```
+
+How to intall ADT-8940A1 Driver
+```
+1, Install ADT8940A1_setup(English for XP and WIN7).exe
+2, 设置-->跟新-->恢复-->立即重启-->疑难解决--> 高级选项--> 重启设置-->重启--> 禁止驱动强制签名
+3，设备管理器-->找到运动控制卡-->右键-->跟新驱动-->浏览我计算机-->C:\Program Files (x86)\ADT8940A1 SDK\Driver --> 确认
+```

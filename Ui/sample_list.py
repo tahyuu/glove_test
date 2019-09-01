@@ -11,6 +11,7 @@ import time
 import random
 #import xlrd,xlwt,xlutils
 from html2pdf import *
+from C8940A1 import *
 
 
 from Ui_sample_list import Ui_sample_list
@@ -46,6 +47,7 @@ class sample_list(QWidget, Ui_sample_list):
         self.setupUi(self)
         self.parent=parent
         self.mainwindow=mainwindow
+
         #self.timer_tv = QTextBrowser(self)
 
         self.btn_Next.setText("Start")
@@ -406,7 +408,7 @@ class sample_list(QWidget, Ui_sample_list):
                     amount=amount+6
                 self.timer_t.amount=amount
                 self.timer_t.start_timer()
-
+                #self.c8940a1.Start()
                 #self.timer.start(1000)
                 #self.work.start()
                 
@@ -513,6 +515,7 @@ class TimeThread(QThread):
     self.amount=0
     self.num = 0
     self.parent=parent
+    self.c8940a1=C8940A1()
  
   def start_timer(self):
     self.num = 0
@@ -523,38 +526,89 @@ class TimeThread(QThread):
   def run(self):
     self.num = 0
     px=1
-    while self.working and self.num<self.amount:
-      if self.num%6==0:
-          px=1
-      px=px-random.random()/10
-      print "Working", self.thread()
-      print "self number is: %s" %(self.num)
-      self.index=self.num/6
-      print "self index is: %s" %(self.index)
-      print len(self.parent.mainwindow.samples)
-      if self.num%6==0:
-        self.parent.mainwindow.samples[self.index].op1=px
-      if self.num%6==1:
-        self.parent.mainwindow.samples[self.index].rp1=px
-      if self.num%6==2:
-        self.parent.mainwindow.samples[self.index].op2=px
-      if self.num%6==3:
-        self.parent.mainwindow.samples[self.index].rp2=px
-      if self.num%6==4:
-        self.parent.mainwindow.samples[self.index].op3=px
-      if self.num%6==5:
-        self.parent.mainwindow.samples[self.index].rp3=px
-      self.parent.mainwindow.samples[self.index].calculate()
-      self.signal_time.emit(px, self.num) # 发送信号
-      self.sleep(1)
-      if self.num==self.amount-1:
-        self.working=False
+#    while self.working and self.num<self.amount:
+#
+#        print "Working", self.thread()
+#        print "self number is: %s" %(self.num)
+#        self.index=self.num/6
+#        print "self index is: %s" %(self.index)
+#        print len(self.parent.mainwindow.samples)
+#        #      if self.num%6==0:
+#        self.parent.mainwindow.samples[self.index].op1=px
+#      if self.num%6==1:
+#        self.parent.mainwindow.samples[self.index].rp1=px
+#      if self.num%6==2:
+#        self.parent.mainwindow.samples[self.index].op2=px
+#      if self.num%6==3:
+#        self.parent.mainwindow.samples[self.index].rp2=px
+#      if self.num%6==4:
+#        self.parent.mainwindow.samples[self.index].op3=px
+#      if self.num%6==5:
+#        self.parent.mainwindow.samples[self.index].rp3=px
+
+
+
+    print "Moving to Point 1"
+        #c8940a1.MoveSingleAxis(1,100000)
+        #time.sleep(5)
+
+
+    Axislist =[(5000,3000),(1000,0),(1000,0),(1000,0),(1000,0),(1000,0),
+                   (-5000,3000),(1000,0),(1000,0),(1000,0),(1000,0),(1000,0),
+                   (-5000,3000),(1000,0),(1000,0),(1000,0),(1000,0),(1000,0)]
+    self.c8940a1.Set8940A1(1,1000,1000)
+    self.c8940a1.Set8940A1(2,1000,1000)
+    self.c8940a1.Set8940A1(3,50,50)
+    for al in Axislist:
+        if self.num%6==0:
+            px=1
+        px=px-random.random()/10
+        #c8940a1.MoveSingleAxis(2,100000)
+        #print "Moving to XY"
+        if not self.working:
+            break
+        self.c8940a1.MoveMultiAxis(al[0],al[1])
+        if not self.working:
+            break
+        #print "Moving to Z"
+        self.c8940a1.MoveSingleAxis(3,300,True)
+        if not self.working:
+            break
+        #return Zero for Z
+        self.c8940a1.MoveSingleAxis(3,-300,True)
+        if not self.working:
+            break
+        if self.num%6==0:
+            self.parent.mainwindow.samples[self.index].op1=px
+        if self.num%6==1:
+            self.parent.mainwindow.samples[self.index].rp1=px
+        if self.num%6==2:
+            self.parent.mainwindow.samples[self.index].op2=px
+        if self.num%6==3:
+            self.parent.mainwindow.samples[self.index].rp2=px
+        if self.num%6==4:
+            self.parent.mainwindow.samples[self.index].op3=px
+        if self.num%6==5:
+            self.parent.mainwindow.samples[self.index].rp3=px
+        
+        self.parent.mainwindow.samples[self.index].calculate()
         self.signal_time.emit(px, self.num) # 发送信号
-      self.num += 1
+        self.sleep(1)
+        if self.num==self.amount-1:
+            self.working=False
+        self.signal_time.emit(px, self.num) # 发送信号
+        self.num += 1
+        if not self.working:
+            break
+    if self.working:
+        self.c8940a1.MoveMultiAxis(-10000,-9000,True)
+
+
 
   def stop(self):
     self.working=False
-    
+
+
 if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)

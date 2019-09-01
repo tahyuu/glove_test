@@ -37,3 +37,10 @@ pip download -i https://pypi.tuna.tsinghua.edu.cn/simple -d \home\packs -r requi
 ```
 https://gitee.com/Richard_Hu/HslCommunication  SCADA
 ```
+
+
+Git for window download URL 
+
+```
+http://npm.taobao.org/mirrors/git-for-windows/v2.23.0.windows.1/
+```

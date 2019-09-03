@@ -559,6 +559,9 @@ class TimeThread(QThread):
     self.c8940a1.Set8940A1(1,1000,1000)
     self.c8940a1.Set8940A1(2,1000,1000)
     self.c8940a1.Set8940A1(3,50,50)
+    x_length=0
+    y_length=0
+    z_length=0
     for al in Axislist:
         if self.num%6==0:
             px=1
@@ -567,17 +570,29 @@ class TimeThread(QThread):
         #print "Moving to XY"
         if not self.working:
             break
-        self.c8940a1.MoveMultiAxis(al[0],al[1])
+        xymoved=1
+        xymoved=self.c8940a1.MoveMultiAxis(al[0],al[1])
+#        print xymoved
+#        if xymoved==0:
+        x_length+=al[0]
+        y_length+=al[1]
         if not self.working:
             break
         #print "Moving to Z"
-        self.c8940a1.MoveSingleAxis(3,300,True)
+        zmoved=1
+        zmoved=self.c8940a1.MoveSingleAxis(3,300,True)
+        z_length+=300
         if not self.working:
             break
         #return Zero for Z
-        self.c8940a1.MoveSingleAxis(3,-300,True)
+        zmoved=1
+        zmoved=self.c8940a1.MoveSingleAxis(3,-300,True)
+#        print zmoved
+#        if zmoved==0:
+        z_length+=-300
         if not self.working:
             break
+        self.index=self.num/6
         if self.num%6==0:
             self.parent.mainwindow.samples[self.index].op1=px
         if self.num%6==1:
@@ -600,8 +615,9 @@ class TimeThread(QThread):
         self.num += 1
         if not self.working:
             break
-    if self.working:
-        self.c8940a1.MoveMultiAxis(-10000,-9000,True)
+    #if self.working:
+    self.c8940a1.MoveSingleAxis(3,-z_length,True)
+    self.c8940a1.MoveMultiAxis(-x_length,-y_length,True)
 
 
 

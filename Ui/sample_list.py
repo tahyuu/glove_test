@@ -47,6 +47,7 @@ class sample_list(QWidget, Ui_sample_list):
         self.setupUi(self)
         self.parent=parent
         self.mainwindow=mainwindow
+        self.Debug=True
 
         #self.timer_tv = QTextBrowser(self)
 
@@ -57,7 +58,8 @@ class sample_list(QWidget, Ui_sample_list):
 
         self.timer_t = TimeThread(self)
         self.timer_t.signal_time.connect(self.update_timer_tv)
-        #self.timer_t.signal_time.connect(self.update_timer_tv)
+        self.comm232=Com232Thread(self)
+        self.comm232.signal_com232.connect(self.update_punctual)
         #self.timer.timeout.connect(self.work.Test)
         #self.work.trigger.connect(self.updateDisplay)
         #self.connect(self.work, QtCore.SIGNAL("updateDisplay"), self.updateDisplay)
@@ -462,6 +464,9 @@ class sample_list(QWidget, Ui_sample_list):
             time.sleep(1)
             print self.parent.mainwindow.CurrentStatus
             print "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+    def update_punctual(self, value, number):
+        print "%s = %s" %(value, number)
+        pass
     def update_timer_tv(self, value, number):
         i=0
         if number%2==0:
@@ -515,7 +520,8 @@ class TimeThread(QThread):
     self.amount=0
     self.num = 0
     self.parent=parent
-    self.c8940a1=C8940A1()
+    if self.parent.Debug:
+        self.c8940a1=C8940A1()
  
   def start_timer(self):
     self.num = 0
@@ -556,9 +562,10 @@ class TimeThread(QThread):
     Axislist =[(5000,3000),(1000,0),(1000,0),(1000,0),(1000,0),(1000,0),
                    (-5000,3000),(1000,0),(1000,0),(1000,0),(1000,0),(1000,0),
                    (-5000,3000),(1000,0),(1000,0),(1000,0),(1000,0),(1000,0)]
-    self.c8940a1.Set8940A1(1,1000,1000)
-    self.c8940a1.Set8940A1(2,1000,1000)
-    self.c8940a1.Set8940A1(3,50,50)
+    if self.parent.Debug:
+        self.c8940a1.Set8940A1(1,1000,1000)
+        self.c8940a1.Set8940A1(2,1000,1000)
+        self.c8940a1.Set8940A1(3,50,50)
     x_length=0
     y_length=0
     z_length=0
@@ -570,8 +577,8 @@ class TimeThread(QThread):
         #print "Moving to XY"
         if not self.working:
             break
-        xymoved=1
-        xymoved=self.c8940a1.MoveMultiAxis(al[0],al[1])
+        if self.parent.Debug:
+            self.c8940a1.MoveMultiAxis(al[0],al[1])
 #        print xymoved
 #        if xymoved==0:
         x_length+=al[0]
@@ -579,14 +586,14 @@ class TimeThread(QThread):
         if not self.working:
             break
         #print "Moving to Z"
-        zmoved=1
-        zmoved=self.c8940a1.MoveSingleAxis(3,300,True)
+        if self.parent.Debug:
+            self.c8940a1.MoveSingleAxis(3,300,True)
         z_length+=300
         if not self.working:
             break
         #return Zero for Z
-        zmoved=1
-        zmoved=self.c8940a1.MoveSingleAxis(3,-300,True)
+        if self.parent.Debug:
+            self.c8940a1.MoveSingleAxis(3,-300,True)
 #        print zmoved
 #        if zmoved==0:
         z_length+=-300
@@ -616,9 +623,31 @@ class TimeThread(QThread):
         if not self.working:
             break
     #if self.working:
-    self.c8940a1.MoveSingleAxis(3,-z_length,True)
-    self.c8940a1.MoveMultiAxis(-x_length,-y_length,True)
+    if self.parent.Debug:
+        self.c8940a1.MoveSingleAxis(3,-z_length,True)
+        self.c8940a1.MoveMultiAxis(-x_length,-y_length,True)
 
+
+
+  def stop(self):
+    self.working=False
+
+
+class Com232Thread(QThread):
+  signal_com232 = pyqtSignal(float, int) # 信号
+ 
+  def __init__(self, parent=None):
+    super(Com232Thread, self).__init__(parent)
+    self.working = True
+
+  def start_com232(self):
+    self.working=True
+    self.start()
+ 
+  def run(self):
+      px=px-random.random()/10
+      self.parent.mainwindow.samples[0].rp3=px
+      #return """"
 
 
   def stop(self):

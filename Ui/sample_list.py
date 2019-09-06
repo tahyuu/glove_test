@@ -47,7 +47,9 @@ class sample_list(QWidget, Ui_sample_list):
         self.setupUi(self)
         self.parent=parent
         self.mainwindow=mainwindow
-        self.Debug=True
+        self.Debug=False
+        self.Comm232ReadFlag=False
+        self.puncual=[]
 
         #self.timer_tv = QTextBrowser(self)
 
@@ -410,6 +412,8 @@ class sample_list(QWidget, Ui_sample_list):
                     amount=amount+6
                 self.timer_t.amount=amount
                 self.timer_t.start_timer()
+                self.comm232.start_com232()
+
                 #self.c8940a1.Start()
                 #self.timer.start(1000)
                 #self.work.start()
@@ -587,7 +591,15 @@ class TimeThread(QThread):
             break
         #print "Moving to Z"
         if self.parent.Debug:
+            self.parent.mainwindow.puncual=[]
+            self.parent.Comm232ReadFlag=True
             self.c8940a1.MoveSingleAxis(3,300,True)
+            self.parent.Comm232ReadFlag=False
+        else:
+            self.parent.mainwindow.puncual=[]
+            self.parent.Comm232ReadFlag=True
+            time.sleep(3)
+            self.parent.Comm232ReadFlag=False
         z_length+=300
         if not self.working:
             break
@@ -639,14 +651,42 @@ class Com232Thread(QThread):
   def __init__(self, parent=None):
     super(Com232Thread, self).__init__(parent)
     self.working = True
+    self.parent=parent
+    print "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+
 
   def start_com232(self):
     self.working=True
+    self.punctual=[]
     self.start()
+    print "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
+
  
   def run(self):
-      px=px-random.random()/10
-      self.parent.mainwindow.samples[0].rp3=px
+    #print self.parent.Comm232ReadFlag
+    while True:
+        #print self.parent.Comm232ReadFlag
+        #print  self.parent.puncual
+        px=2
+        if self.parent.Comm232ReadFlag:
+            time.sleep(0.1)
+            px=px-random.random()/10
+            #self.punctual.append(px)
+            self.parent.puncual.append(px)
+            print  self.parent.puncual
+        else:
+            pass
+            #print self.parent.Comm232ReadFlag
+#    if self.working==True:
+#        for i in xrange(10):
+#
+#            px=px-random.random()/10
+#            self.parent.mainwindow.puncual.append(px)
+#            self.punctual.append(px)
+#    print self.parent.punctual
+    
+#    px=px-random.random()/10
+#    self.parent.mainwindow.samples[0].rp3=px
       #return """"
 
 

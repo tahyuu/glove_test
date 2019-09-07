@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'D:\WorkSpace\gloves_test\Program\Ui\sample_list.ui'
+# Form implementation generated from reading ui file 'D:\gloves_test\Program\Ui\sample_list.ui'
 #
 # Created by: PyQt4 UI code generator 4.11.4
 #
@@ -25,7 +25,7 @@ except AttributeError:
 class Ui_sample_list(object):
     def setupUi(self, sample_list):
         sample_list.setObjectName(_fromUtf8("sample_list"))
-        sample_list.resize(1301, 720)
+        sample_list.resize(1301, 851)
         self.verticalLayout = QtGui.QVBoxLayout(sample_list)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.groupBox = QtGui.QGroupBox(sample_list)
@@ -58,6 +58,11 @@ class Ui_sample_list(object):
         self.checkBox3.setObjectName(_fromUtf8("checkBox3"))
         self.horizontalLayout_2.addWidget(self.checkBox3)
         self.verticalLayout.addWidget(self.groupBox)
+        self.grPlot = PlotWidget(sample_list, "#FFFF")
+        self.grPlot.setMaximumSize(QtCore.QSize(16777215, 200))
+        self.grPlot.setAutoFillBackground(False)
+        self.grPlot.setObjectName(_fromUtf8("grPlot"))
+        self.verticalLayout.addWidget(self.grPlot)
         self.tableWidget = QtGui.QTableWidget(sample_list)
         self.tableWidget.setEnabled(True)
         font = QtGui.QFont()
@@ -214,6 +219,7 @@ class Ui_sample_list(object):
         self.btn_Next.setText(_translate("sample_list", "Next Step", None))
         self.btn_Export.setText(_translate("sample_list", "Export Result", None))
 
+from pyqtgraph import PlotWidget
 
 if __name__ == "__main__":
     import sys

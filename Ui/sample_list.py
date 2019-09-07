@@ -12,7 +12,9 @@ import random
 #import xlrd,xlwt,xlutils
 from html2pdf import *
 from C8940A1 import *
-
+import numpy as np
+import pyqtgraph
+import pylab
 
 from Ui_sample_list import Ui_sample_list
 
@@ -49,7 +51,7 @@ class sample_list(QWidget, Ui_sample_list):
         self.mainwindow=mainwindow
         self.Debug=False
         self.Comm232ReadFlag=False
-        self.puncual=[]
+        self.puncual=np.arange(1)
 
         #self.timer_tv = QTextBrowser(self)
 
@@ -62,6 +64,24 @@ class sample_list(QWidget, Ui_sample_list):
         self.timer_t.signal_time.connect(self.update_timer_tv)
         self.comm232=Com232Thread(self)
         self.comm232.signal_com232.connect(self.update_punctual)
+        self.comm232.update_graf.connect(self.UpdateGraf)
+        self.grPlot.plotItem.showGrid(True, True, 0.7)
+        self.grPlot.setYRange(0, 5)
+        pen=pyqtgraph.mkPen("#FF0000",width=2)
+        
+#        points=100 #number of data points
+#        X=np.arange(points)
+#        #print np.sin(np.arange(points))
+#        Y=np.sin(np.arange(points)*3*np.pi+time.time())
+#        #print np.arange(points)
+#        #print np.arange(points)/points*3*np.pi+time.time()
+#        #Y=np.sin(np.arange(points)/points*3*np.pi+time.time())
+#        #print Y
+#        #C=pyqtgraph.hsvColor("130",alpha=.5)
+#        pen=pyqtgraph.mkPen("#FF0000",width=2)
+#        self.grPlot.plot(X,Y,pen=pen,clear=True)
+        
+        
         #self.timer.timeout.connect(self.work.Test)
         #self.work.trigger.connect(self.updateDisplay)
         #self.connect(self.work, QtCore.SIGNAL("updateDisplay"), self.updateDisplay)
@@ -459,6 +479,22 @@ class sample_list(QWidget, Ui_sample_list):
         else:
             reply=QMessageBox.information(self.parent,"Information","Result file(%s) Create Failed!" %Result[1],QMessageBox.Yes,QMessageBox.Yes)
 
+    def UpdateGraf(self):
+        #        points=100 #number of data points
+        X=np.arange(len(self.puncual))
+        print len(self.puncual)
+        #print np.sin(np.arange(points))
+        #Y=np.sin(np.arange(points)*3*np.pi+time.time())
+        Y=self.puncual
+        #print np.arange(points)
+        #print np.arange(points)/points*3*np.pi+time.time()
+        #Y=np.sin(np.arange(points)/points*3*np.pi+time.time())
+        #print Y
+        #C=pyqtgraph.hsvColor("130",alpha=.5)
+        pen=pyqtgraph.mkPen("#FF0000",width=2)
+        self.grPlot.plot(X,Y,pen=pen,clear=True)
+
+
     
     #@pyqtSignature("")
     def updateDisplay(self, text):
@@ -591,12 +627,12 @@ class TimeThread(QThread):
             break
         #print "Moving to Z"
         if self.parent.Debug:
-            self.parent.mainwindow.puncual=[]
+            self.parent.puncual=np.arange(1)
             self.parent.Comm232ReadFlag=True
             self.c8940a1.MoveSingleAxis(3,300,True)
             self.parent.Comm232ReadFlag=False
         else:
-            self.parent.mainwindow.puncual=[]
+            self.parent.puncual=np.arange(1)
             self.parent.Comm232ReadFlag=True
             time.sleep(3)
             self.parent.Comm232ReadFlag=False
@@ -647,7 +683,8 @@ class TimeThread(QThread):
 
 class Com232Thread(QThread):
   signal_com232 = pyqtSignal(float, int) # 信号
- 
+  update_graf = pyqtSignal() # 信号
+
   def __init__(self, parent=None):
     super(Com232Thread, self).__init__(parent)
     self.working = True
@@ -672,8 +709,10 @@ class Com232Thread(QThread):
             time.sleep(0.1)
             px=px-random.random()/10
             #self.punctual.append(px)
-            self.parent.puncual.append(px)
-            print  self.parent.puncual
+            self.parent.puncual=np.append(self.parent.puncual, px)
+            self.update_graf.emit() # 发送信号
+
+            #print  self.parent.puncual
         else:
             pass
             #print self.parent.Comm232ReadFlag

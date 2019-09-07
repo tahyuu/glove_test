@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1301</width>
-    <height>720</height>
+    <height>851</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -89,6 +89,19 @@
        </widget>
       </item>
      </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="PlotWidget" name="grPlot">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>200</height>
+      </size>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
     </widget>
    </item>
    <item>
@@ -351,6 +364,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PlotWidget</class>
+   <extends>QGraphicsView</extends>
+   <header>pyqtgraph</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>tableWidget</tabstop>
   <tabstop>btn_Privious</tabstop>

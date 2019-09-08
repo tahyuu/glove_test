@@ -49,7 +49,7 @@ class sample_list(QWidget, Ui_sample_list):
         self.setupUi(self)
         self.parent=parent
         self.mainwindow=mainwindow
-        self.Debug=False
+        self.Debug=True
         self.Comm232ReadFlag=False
         self.puncual=np.arange(1)
 
@@ -321,8 +321,8 @@ class sample_list(QWidget, Ui_sample_list):
         self.tableWidget.setColumnWidth(9,100)
         self.tableWidget.setColumnWidth(10,100)
         self.tableWidget.setColumnWidth(11,100)
-        self.tableWidget.setColumnWidth(12,130)
-        self.tableWidget.setColumnWidth(13,130)
+        self.tableWidget.setColumnWidth(12,110)
+        self.tableWidget.setColumnWidth(13,110)
         self.tableWidget.setRowHeight(1,80)
         self.tableWidget.setRowHeight(2,50)
         self.tableWidget.setRowHeight(3,50)
@@ -492,6 +492,7 @@ class sample_list(QWidget, Ui_sample_list):
         #print Y
         #C=pyqtgraph.hsvColor("130",alpha=.5)
         pen=pyqtgraph.mkPen("#FF0000",width=2)
+        self.grPlot.setXRange(0, 60)
         self.grPlot.plot(X,Y,pen=pen,clear=True)
 
 

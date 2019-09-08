@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="glove_pic">
+    <file>glv_high.png</file>
     <file>gloves.jpg</file>
   </qresource>
   <qresource prefix="hw_log">

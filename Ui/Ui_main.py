@@ -76,7 +76,8 @@ class Ui_MainWindow(object):
 #        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/hw_log/logo.gif")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 #        MainWindow.setWindowIcon(icon)
         #MainWindow.setStyleSheet(_fromUtf8("image: url(:/glove_pic/gloves.jpg);"))
-        MainWindow.setStyleSheet(_fromUtf8("#MainWindow{background-image:url(:/glove_pic/gloves.jpg);}"))
+        MainWindow.setStyleSheet(_fromUtf8("#MainWindow{background-image:url(:/glove_pic/glv_high.png);}"))
+        MainWindow.showMaximized()
 #        palette=QtGui.QPalette()
 #        icon=QtGui.QPixmap('gloves.jpg')
 #        palette.setBrush(self.centralWidget.backgroundRole(), QtGui.QBrush(icon)) #添加背景图片

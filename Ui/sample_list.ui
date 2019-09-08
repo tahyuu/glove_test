@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1301</width>
-    <height>851</height>
+    <width>1259</width>
+    <height>920</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -102,6 +102,24 @@
      <property name="autoFillBackground">
       <bool>false</bool>
      </property>
+     <property name="backgroundBrush">
+      <brush brushstyle="NoBrush">
+       <color alpha="255">
+        <red>85</red>
+        <green>255</green>
+        <blue>255</blue>
+       </color>
+      </brush>
+     </property>
+     <property name="foregroundBrush">
+      <brush brushstyle="NoBrush">
+       <color alpha="255">
+        <red>255</red>
+        <green>85</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </property>
     </widget>
    </item>
    <item>
@@ -121,7 +139,7 @@
      <property name="styleSheet">
       <string notr="true"> text-align : center;
    height : 80px;
-   border-style: outset;</string>
+   border-style: outset 2px;</string>
      </property>
      <property name="lineWidth">
       <number>1</number>
@@ -130,10 +148,13 @@
       <bool>true</bool>
      </property>
      <property name="dragEnabled">
-      <bool>true</bool>
+      <bool>false</bool>
+     </property>
+     <property name="dragDropOverwriteMode">
+      <bool>false</bool>
      </property>
      <property name="dragDropMode">
-      <enum>QAbstractItemView::DragDrop</enum>
+      <enum>QAbstractItemView::NoDragDrop</enum>
      </property>
      <property name="rowCount">
       <number>11</number>

@@ -7,7 +7,8 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
-
+import ConfigParser
+import os
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -61,6 +62,10 @@ class Ui_Login(object):
         self.retranslateUi(Dialog)
         QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.Login)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.cf=ConfigParser.ConfigParser()
+        currentDir=os.getcwd()
+        #print currentDir
+        self.cf.read("%s\Config.ini" %currentDir)
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(_translate("Login", "Login", None))
@@ -68,12 +73,18 @@ class Ui_Login(object):
         self.label_2.setText(_translate("Login", " Password:", None))
         self.pushButton.setText(_translate("Dialog", "Login", None))
     def Login(self):
+        Login_Status=False
         userName = self.lineEdit.text()
         passWord = self.lineEdit_2.text()
-        if userName == 'admin' and passWord == 'admin': 
-            self.parent.userName=userName
-            self.parent.passWord=passWord
-            self.Dialog.close()
+        for (Key, value) in self.cf.items("UserConfig"):
+            if value.find("|")>0 and value.split("|")[0]==userName and passWord==value.split("|")[1]:
+                Login_Status=True
+                break
+            #print value
+        if Login_Status: 
+                self.parent.userName=userName
+                self.parent.passWord=passWord
+                self.Dialog.close()
         else: 
             QtGui.QMessageBox.critical(self.Dialog, 'Error', 'User name or password not correct!', 0,0) 
  

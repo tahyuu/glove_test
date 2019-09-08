@@ -36,7 +36,7 @@ def html2pdf(dirs, samples):
         html_image_list=html_image_list+"<div class=\"Imgs\"><br><br>Sameple %s <br><hr><img src=\"%s//Figure_1.png\" width=\"650\" height=\"400\" alt=\"\"/></div>" %(i,ResultDir)
 
         str_list=str_list+"<tr>"
-        str_list=str_list+"<th scope=\"row\">&nbsp;%s</th>" %sample.s_slot
+        str_list=str_list+"<th scope=\"row\">&nbsp;%s</th>" %(int(sample.s_slot)+1)
         #str_list=str_list+"<td>&nbsp;Sample %s</td>" %sample.s_slot
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_name
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_mtype
@@ -51,7 +51,7 @@ def html2pdf(dirs, samples):
         
         #for rp1
         str_list=str_list+"<tr>"
-        str_list=str_list+"<th scope=\"row\">&nbsp;%s</th>" %sample.s_slot
+        str_list=str_list+"<th scope=\"row\">&nbsp;%s</th>" %(int(sample.s_slot)+1)
         #str_list=str_list+"<td>&nbsp;Sample %s</td>" %sample.s_slot 
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_name
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_mtype
@@ -66,7 +66,7 @@ def html2pdf(dirs, samples):
 
         #for op2
         str_list=str_list+"<tr>"
-        str_list=str_list+"<th scope=\"row\">&nbsp;%s</th>" %sample.s_slot
+        str_list=str_list+"<th scope=\"row\">&nbsp;%s</th>" %(int(sample.s_slot)+1)
         #str_list=str_list+"<td>&nbsp;Sample %s</td>" %sample.s_slot 
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_name
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_mtype
@@ -81,7 +81,7 @@ def html2pdf(dirs, samples):
         
         #for rp2
         str_list=str_list+"<tr>"
-        str_list=str_list+"<th scope=\"row\">&nbsp;%s</th>" %sample.s_slot
+        str_list=str_list+"<th scope=\"row\">&nbsp;%s</th>" %(int(sample.s_slot)+1)
         #str_list=str_list+"<td>&nbsp;Sample %s</td>" %sample.s_slot 
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_name
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_mtype
@@ -96,7 +96,7 @@ def html2pdf(dirs, samples):
 
         #for op3
         str_list=str_list+"<tr>"
-        str_list=str_list+"<th scope=\"row\">&nbsp;%s</th>" %sample.s_slot
+        str_list=str_list+"<th scope=\"row\">&nbsp;%s</th>" %(int(sample.s_slot)+1)
         #str_list=str_list+"<td>&nbsp;Sample %s</td>" %sample.s_slot
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_name
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_mtype
@@ -111,7 +111,7 @@ def html2pdf(dirs, samples):
 
          #for rp3
         str_list=str_list+"<tr>"
-        str_list=str_list+"<th scope=\"row\">&nbsp;%s</th>" %sample.s_slot
+        str_list=str_list+"<th scope=\"row\">&nbsp;%s</th>" %(int(sample.s_slot)+1)
         #str_list=str_list+"<td>&nbsp;Sample %s</td>" %sample.s_slot 
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_name
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_mtype

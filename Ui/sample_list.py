@@ -15,6 +15,8 @@ from C8940A1 import *
 import numpy as np
 import pyqtgraph
 import pylab
+import re
+import serial
 
 from Ui_sample_list import Ui_sample_list
 
@@ -49,7 +51,7 @@ class sample_list(QWidget, Ui_sample_list):
         self.setupUi(self)
         self.parent=parent
         self.mainwindow=mainwindow
-        self.Debug=True
+        self.Debug=False
         self.Comm232ReadFlag=False
         self.puncual=np.arange(1)
 
@@ -64,7 +66,10 @@ class sample_list(QWidget, Ui_sample_list):
         self.timer_t.signal_time.connect(self.update_timer_tv)
         self.comm232=Com232Thread(self)
         self.comm232.signal_com232.connect(self.update_punctual)
-        self.comm232.update_graf.connect(self.UpdateGraf)
+        #self.comm232.update_graf.connect(self.UpdateGraf)
+        
+        self.grafthread=GrafThread(self)
+        self.grafthread.update_graf.connect(self.UpdateGraf)
         self.grPlot.plotItem.showGrid(True, True, 0.7)
         self.grPlot.setYRange(0, 5)
         pen=pyqtgraph.mkPen("#FF0000",width=2)
@@ -433,6 +438,7 @@ class sample_list(QWidget, Ui_sample_list):
                 self.timer_t.amount=amount
                 self.timer_t.start_timer()
                 self.comm232.start_com232()
+                self.grafthread.start_Graf_show()
 
                 #self.c8940a1.Start()
                 #self.timer.start(1000)
@@ -481,18 +487,19 @@ class sample_list(QWidget, Ui_sample_list):
 
     def UpdateGraf(self):
         #        points=100 #number of data points
-        X=np.arange(len(self.puncual))
-        print len(self.puncual)
+        tmp_punctual = self.puncual
+        X=np.arange(len(tmp_punctual))
+        print len(tmp_punctual)
         #print np.sin(np.arange(points))
         #Y=np.sin(np.arange(points)*3*np.pi+time.time())
-        Y=self.puncual
+        Y=tmp_punctual
         #print np.arange(points)
         #print np.arange(points)/points*3*np.pi+time.time()
         #Y=np.sin(np.arange(points)/points*3*np.pi+time.time())
         #print Y
         #C=pyqtgraph.hsvColor("130",alpha=.5)
         pen=pyqtgraph.mkPen("#FF0000",width=2)
-        self.grPlot.setXRange(0, 60)
+        #self.grPlot.setXRange(0, 60)
         self.grPlot.plot(X,Y,pen=pen,clear=True)
 
 
@@ -504,7 +511,7 @@ class sample_list(QWidget, Ui_sample_list):
         for i in range(10):
             time.sleep(1)
             print self.parent.mainwindow.CurrentStatus
-            print "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+            
     def update_punctual(self, value, number):
         print "%s = %s" %(value, number)
         pass
@@ -525,12 +532,12 @@ class sample_list(QWidget, Ui_sample_list):
             if not sample.dr==0.0:
               self.tableWidget.setItem(i*3+2,13 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr*100))).encode("utf-8"))))    
                                            
-              
             i=i+1
         if not self.timer_t.working:
             self.btn_Next.setText("Start")
             self.btn_Privious.setEnabled(True)
             self.btn_Export.setEnabled(True)
+            self.comm232.stop()
 
             
     def write_excel(self, filename, data):
@@ -635,7 +642,7 @@ class TimeThread(QThread):
         else:
             self.parent.puncual=np.arange(1)
             self.parent.Comm232ReadFlag=True
-            time.sleep(3)
+            time.sleep(1)
             self.parent.Comm232ReadFlag=False
         z_length+=300
         if not self.working:
@@ -681,24 +688,102 @@ class TimeThread(QThread):
   def stop(self):
     self.working=False
 
-
+def dev(i):
+    return i/100
+def mean(a):
+    return sum(a) / len(a)
+    
 class Com232Thread(QThread):
   signal_com232 = pyqtSignal(float, int) # 信号
-  update_graf = pyqtSignal() # 信号
+  #update_graf = pyqtSignal() # 信号
 
   def __init__(self, parent=None):
     super(Com232Thread, self).__init__(parent)
     self.working = True
     self.parent=parent
-    print "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+    self.serial_obj = serial.Serial('COM1', 9600)
 
 
   def start_com232(self):
-    self.working=True
-    self.punctual=[]
-    self.start()
-    print "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
 
+    self.punctual=[]
+    self.working=True
+
+    self.start()
+
+ 
+  def run(self):
+    #print self.parent.Comm232ReadFlag
+
+    r_pun_data = r'\d(?P<data>[\+|-]\d{1,5})'
+    pattern = re.compile(r_pun_data)
+    if self.serial_obj.isOpen():
+       print("open success")
+    else:
+        print("open failed")
+    avg = -0.001
+    if True:
+        while  self.working:
+            count =0
+            try:
+                count = self.serial_obj.inWaiting()
+            except:
+                pass
+            if count > 8:
+                time.sleep(0.02)
+                data = self.serial_obj.read(count)
+                #if
+                #print data
+                data_arry=pattern.findall(data)
+                
+                tmp_array=map(float,data_arry)
+                tmp_array=map(dev,tmp_array)
+                if len(tmp_array)==1 and  abs(abs(tmp_array[0])-abs(avg))/(abs(avg)+0.0001)>0.9:
+                    continue
+                    
+#                if len(tmp_array)>0:
+                if len(tmp_array)>1 and abs(abs(tmp_array[0])-abs(tmp_array[1]))/(abs(tmp_array[1])+0.0001)>0.8:
+                    tmp_array.pop(1)
+                if len(tmp_array)>1 and abs(abs(tmp_array[-2])-abs(tmp_array[-1]))/(abs(tmp_array[-2])+0.0001)>0.8:
+                    tmp_array.pop(-1)
+                if len(tmp_array)>0:
+                    avg = sum(tmp_array) / len(tmp_array)
+
+
+                print tmp_array
+                self.parent.puncual=np.append(self.parent.puncual, tmp_array)
+                #print self.parent.puncual
+                #print "OK"
+#                if data != b'':
+#                    print("receive:", data)
+#                    serial.write(data)
+#                else:
+#                    serial.write(hexsend(data))
+    try:
+        pass
+
+    except KeyboardInterrupt:
+        if self.serial_obj != None:
+            self.serial_obj.close()
+
+  def stop(self):
+    self.working=False 
+    time.sleep(0.1)
+    if self.serial_obj != None:
+        self.serial_obj.close()
+
+
+class GrafThread(QThread):
+  update_graf = pyqtSignal() # 信号
+
+  def __init__(self, parent=None):
+    super(GrafThread, self).__init__(parent)
+    self.working = True
+    self.parent=parent
+
+  def start_Graf_show(self):
+    self.working=True
+    self.start()
  
   def run(self):
     #print self.parent.Comm232ReadFlag
@@ -710,24 +795,13 @@ class Com232Thread(QThread):
             time.sleep(0.1)
             px=px-random.random()/10
             #self.punctual.append(px)
-            self.parent.puncual=np.append(self.parent.puncual, px)
+            #self.parent.puncual=np.append(self.parent.puncual, px)
             self.update_graf.emit() # 发送信号
 
             #print  self.parent.puncual
         else:
             pass
             #print self.parent.Comm232ReadFlag
-#    if self.working==True:
-#        for i in xrange(10):
-#
-#            px=px-random.random()/10
-#            self.parent.mainwindow.puncual.append(px)
-#            self.punctual.append(px)
-#    print self.parent.punctual
-    
-#    px=px-random.random()/10
-#    self.parent.mainwindow.samples[0].rp3=px
-      #return """"
 
 
   def stop(self):

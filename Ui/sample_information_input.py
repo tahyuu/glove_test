@@ -27,26 +27,19 @@ class Sample:
         self.rp2=0.0
         self.op3=0.0
         self.rp3=0.0
-        self.dr1=0.0
-        self.dr2=0.0
-        self.dr3=0.0
+        self.avg_op=0.0
+        self.avg_rp=0.0
         self.dr=0.0
     def calculate(self):
         #calculate dr1
         
-        print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-        print self.dr1
-        print self.dr2
-        print self.dr3
-        
-        if self.dr1==0 and (not self.op1==0) and  (not self.rp1==0):
-            self.dr1=(self.op1-self.rp1)/self.op1
-        if self.dr2==0 and (not self.op2==0) and  (not self.rp2==0):
-            self.dr2=(self.op2-self.rp2)/self.op2   
-        if self.dr3==0 and (not self.op3==0) and  (not self.rp3==0):
-            self.dr3=(self.op3-self.rp3)/self.op3  
-        if self.dr==0 and (not self.dr1==0) and (not self.dr2==0) and (not self.dr3==0):
-            self.dr=(self.dr1+self.dr2+self.dr3)/3    
+        if self.op1>0 and self.op2>0 and self.op3>0:
+            self.avg_op=(self.op1+self.op2+self.op3)/3
+        if self.rp1>0 and self.rp2>0 and self.rp3>0:
+            self.avg_rp=(self.rp1+self.rp2+self.rp3)/3 
+        if self.avg_op>0 and self.avg_rp>0:
+            self.dr=(self.avg_op- self.avg_rp)/self.avg_op
+
     def clean(self):
         self.op1=0.0
         self.rp1=0.0
@@ -54,9 +47,8 @@ class Sample:
         self.rp2=0.0
         self.op3=0.0
         self.rp3=0.0
-        self.dr1=0.0
-        self.dr2=0.0
-        self.dr3=0.0
+        self.avg_op=0.0
+        self.avg_dp=0.0
         self.dr=0.0
 class sample_information_input(QWidget, Ui_sample_information_input):
     """

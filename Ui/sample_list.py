@@ -62,6 +62,22 @@ class sample_list(QWidget, Ui_sample_list):
 #        self.timer = QtCore.QTimer(self)
 #        self.work = WorkThread(parent)
 
+        if not self.mainwindow.sample_1_enable:
+            self.checkBox1.setEnabled(False)
+            self.checkBox1.setChecked(False)
+        if not self.mainwindow.sample_2_enable:
+            self.checkBox2.setEnabled(False)
+            self.checkBox2.setChecked(False)
+        if not self.mainwindow.sample_3_enable:
+            self.checkBox3.setEnabled(False)
+            self.checkBox3.setChecked(False)
+
+        self.checkBox1.stateChanged.connect(self.changeCheckBox)
+        self.checkBox2.stateChanged.connect(self.changeCheckBox)
+        self.checkBox3.stateChanged.connect(self.changeCheckBox)
+
+
+
         self.timer_t = TimeThread(self)
         self.timer_t.signal_time.connect(self.update_timer_tv)
         self.comm232=Com232Thread(self)
@@ -154,9 +170,11 @@ class sample_list(QWidget, Ui_sample_list):
         self.tableWidget.setSpan(8, 7, 3, 1)
         
         
-        self.tableWidget.setSpan(2, 13, 3, 1)
-        self.tableWidget.setSpan(5, 13, 3, 1)
-        self.tableWidget.setSpan(8, 13, 3, 1)
+        self.tableWidget.setSpan(2, 12, 3, 1)
+        self.tableWidget.setSpan(5, 12, 3, 1)
+        self.tableWidget.setSpan(8, 12, 3, 1)
+                
+        self.tableWidget.setSpan(2, 13, 9, 1)
 #
 #        self.tableWidget.setSpan(6, 11, 3, 1)
  
@@ -503,7 +521,32 @@ class sample_list(QWidget, Ui_sample_list):
         self.grPlot.plot(X,Y,pen=pen,clear=True)
 
 
-    
+    def changeCheckBox(self):
+        i=0
+        dr=0
+        dr_sum=0.0
+        dr_count=0
+        for sample in self.mainwindow.samples:
+            if i==0 and self.checkBox1.isChecked():
+                dr_sum=sample.dr+dr_sum
+                dr_count=dr_count+1
+            if i==1 and self.checkBox2.isChecked():
+                dr_sum=sample.dr+dr_sum
+                dr_count=dr_count+1
+
+            if i==2 and self.checkBox3.isChecked():
+                dr_sum=sample.dr+dr_sum
+                dr_count=dr_count+1
+
+            i=i+1
+        if dr_count!=0:
+            dr=dr_sum/dr_count
+            self.tableWidget.setItem(2,13 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(dr*100))).encode("utf-8")))) 
+        else:
+            self.tableWidget.setItem(2,13 , QtGui.QTableWidgetItem(_fromUtf8(str(str("")).encode("utf-8")))) 
+
+
+        
     #@pyqtSignature("")
     def updateDisplay(self, text):
         #get the latest date
@@ -523,14 +566,14 @@ class sample_list(QWidget, Ui_sample_list):
             self.tableWidget.setItem(number/2+2,11 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.3f" %value).encode("utf-8")))))   
 
         for sample in self.mainwindow.samples:
-            if not sample.dr1==0.0:
-              self.tableWidget.setItem(i*3+2,12 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr1*100))).encode("utf-8"))))    
-            if not sample.dr2==0.0:
-              self.tableWidget.setItem(i*3+3,12 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr2*100))).encode("utf-8"))))    
-            if not sample.dr3==0.0:
-              self.tableWidget.setItem(i*3+4,12 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr3*100))).encode("utf-8"))))    
+#            if not sample.dr1==0.0:
+#              self.tableWidget.setItem(i*3+2,12 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr1*100))).encode("utf-8"))))    
+#            if not sample.dr2==0.0:
+#              self.tableWidget.setItem(i*3+3,12 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr2*100))).encode("utf-8"))))    
+#            if not sample.dr3==0.0:
+#              self.tableWidget.setItem(i*3+4,12 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr3*100))).encode("utf-8"))))    
             if not sample.dr==0.0:
-              self.tableWidget.setItem(i*3+2,13 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr*100))).encode("utf-8"))))    
+              self.tableWidget.setItem(i*3+2,12 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr*100))).encode("utf-8"))))    
                                            
             i=i+1
         if not self.timer_t.working:
@@ -678,6 +721,8 @@ class TimeThread(QThread):
         self.num += 1
         if not self.working:
             break
+    # to show dr after teste finished
+    self.parent.changeCheckBox()
     #if self.working:
     if self.parent.Debug:
         self.c8940a1.MoveSingleAxis(3,-z_length,True)

@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ManulTest</class>
+ <widget class="QWidget" name="ManulTest">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>806</width>
+    <height>801</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Muanul Test</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Manual Test Step:
+    1, adjust the fixture to right opsition with X/Y Axis Buttons
+    2, Click the Down Button to get the Punctual value</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>80</height>
+      </size>
+     </property>
+     <property name="title">
+      <string>Return Zero</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>Push Return Zero button to reutn Zero:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="Btn_Return_Zero">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>81</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Return Zero</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>261</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>261</height>
+      </size>
+     </property>
+     <property name="title">
+      <string>X/Y Axis </string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="font">
+         <font>
+          <pointsize>15</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>X/Y  Axis：</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="widget" native="true">
+        <property name="maximumSize">
+         <size>
+          <width>371</width>
+          <height>231</height>
+         </size>
+        </property>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="1">
+          <widget class="QPushButton" name="Btn_Forward">
+           <property name="maximumSize">
+            <size>
+             <width>81</width>
+             <height>51</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>forward </string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QPushButton" name="Btn_Left">
+           <property name="maximumSize">
+            <size>
+             <width>81</width>
+             <height>51</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Left</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QPushButton" name="Btn_backward">
+           <property name="maximumSize">
+            <size>
+             <width>81</width>
+             <height>51</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>backward</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QPushButton" name="Btn_Right">
+           <property name="maximumSize">
+            <size>
+             <width>81</width>
+             <height>51</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>right</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="Le_XY_speed">
+           <property name="maximumSize">
+            <size>
+             <width>81</width>
+             <height>51</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>15</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>111</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>253</height>
+      </size>
+     </property>
+     <property name="title">
+      <string>Z Axis</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="font">
+         <font>
+          <pointsize>15</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Z  Axis：</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="4">
+       <widget class="QGraphicsView" name="graphicsView">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>231</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="Btn_Start">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>150</width>
+          <height>90</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Start Get Puncual</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QLCDNumber" name="lcdNumber">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="Le_Max_Limit">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>50</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>Btn_Forward</sender>
+   <signal>clicked()</signal>
+   <receiver>ManulTest</receiver>
+   <slot>Btn_Click_Forward()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>603</x>
+     <y>208</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>629</x>
+     <y>3</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Btn_Left</sender>
+   <signal>clicked()</signal>
+   <receiver>ManulTest</receiver>
+   <slot>Btn_Click_Left()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>499</x>
+     <y>259</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>529</x>
+     <y>-4</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Btn_Right</sender>
+   <signal>clicked()</signal>
+   <receiver>ManulTest</receiver>
+   <slot>Btn_Click_Right()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>700</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>708</x>
+     <y>-8</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Btn_backward</sender>
+   <signal>clicked()</signal>
+   <receiver>ManulTest</receiver>
+   <slot>Btn_Click_BackWard()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>626</x>
+     <y>323</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>668</x>
+     <y>-20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Btn_Return_Zero</sender>
+   <signal>clicked()</signal>
+   <receiver>ManulTest</receiver>
+   <slot>Btn_Click_ReturnZero()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>759</x>
+     <y>84</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>748</x>
+     <y>-31</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Btn_Start</sender>
+   <signal>clicked()</signal>
+   <receiver>ManulTest</receiver>
+   <slot>Btn_Click_StartTest()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>539</x>
+     <y>452</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>541</x>
+     <y>-19</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>Btn_Click_ReturnZero()</slot>
+  <slot>Btn_Click_StartTest()</slot>
+  <slot>Btn_Click_Left()</slot>
+  <slot>Btn_Click_Forward()</slot>
+  <slot>Btn_Click_Right()</slot>
+  <slot>Btn_Click_BackWard()</slot>
+ </slots>
+</ui>

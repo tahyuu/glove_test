@@ -55,11 +55,102 @@ class C8940A1:
                 break;
 
         #print cardno
-    def ReturnZero(self):
-        pass
+    def ReturnZero(self, speed, re_list):
+        
+        xFlag= re_list[0]
+        yFlag= re_list[1]
+        zFlag= re_list[2]
 
+        print "spdeed is %s" %speed
+        if not re_list[0]:
+            retnX=-1
+            retnX=self.WObjdll.SetHomeMode_Ex(0, 1, 0, 0, 0, -1, 2000, 400, 100)
+            retnX=self.WObjdll.SetHomeSpeed_Ex(0, 1, 100, speed, 200, 100, 200)
+            retnX=self.WObjdll.HomeProcess_Ex(0, 1)
+            
+        if not re_list[1]:
+            retnY=-1
+            retnY=self.WObjdll.SetHomeMode_Ex(0, 2, 0, 0, 0, -1, 2000, 400, 100)
+            retnY=self.WObjdll.SetHomeSpeed_Ex(0, 2, 100, speed, 200, 100, 200)
+            retnY=self.WObjdll.HomeProcess_Ex(0, 2)
+            
+        if not re_list[2]:
+            retnZ=-1
+            retnZ=self.WObjdll.SetHomeMode_Ex(0, 3, 0, 0, 0, -1, 2000, 400, 100)
+            retnZ=self.WObjdll.SetHomeSpeed_Ex(0, 3, 100, speed, 200, 100, 200)
+            retnZ=self.WObjdll.HomeProcess_Ex(0, 3)
+#        
+#        if retnX<0 and retnX>20:
+#            print "Return Zero Fail!"
+        x_Status=re_list[0]
+        y_Status=re_list[1]
+        z_Status=re_list[2]
+
+        while True:
+            #print retnX
+            time.sleep(1)
+            if not re_list[0]:
+                retnX=self.WObjdll.GetHomeStatus_Ex(0, 1)
+                xFlag=True
+                if retnX<0 or retnX>10:
+                    xFlag=False
+                    x_Status=True
+                    print "X %s Return Zero Fail" %retnX
+                if retnX==0:
+                    xFlag=True
+                    x_Status=True
+
+                    print "X %s Return Zero sucess" %retnX
+            if not re_list[1]:
+                retnY=self.WObjdll.GetHomeStatus_Ex(0, 2)
+                yFlag=True
+                if retnY<0 or retnY>10:
+                    yFlag=False
+                    y_Status=True
+
+                    print "Y %s Return Zero Fail" %retnY
+                if retnY==0:
+                    yFlag=True
+                    y_Status=True
+
+                    print "Y %s Return Zero sucess" %retnX
+            if not re_list[2]:
+                retnZ=self.WObjdll.GetHomeStatus_Ex(0, 3)
+                zFlag=True
+                if retnZ<0 or retnZ>10:
+                    zFlag=False
+                    z_Status=True
+
+                    print "Z %s Return Zero Fail" %retnZ
+                if retnZ==0:
+                    zFlag=True
+                    z_Status=True
+
+                    print "Z %s Return Zero sucess" %retnZ
+
+
+#            if re_list[0] and (retnX<0 or retnX>10 or retnX==0):
+
+
+            if x_Status and y_Status and z_Status:
+                #return -1
+                break
+        return (xFlag, yFlag, zFlag)
+#                
+#            if retnX==0 and retnY==0 and retnZ==0:
+#                break
+#        return 
+                
+                
+                #break
     def Stop(self):
         pass
+        
+        retnX=self.WObjdll.sudden_stop(0, 1)
+        retnY=self.WObjdll.sudden_stop(0, 2)
+        retnZ=self.WObjdll.sudden_stop(0, 3)
+        if retnX==0 and retnY==0 and retnZ==0:
+            print "stop sucess"
         
     def Start(self):
         c8940a1=C8940A1()
@@ -90,7 +181,16 @@ class C8940A1:
 if __name__=="__main__":
     #Init8940A1()
     c8940a1=C8940A1()
-    c8940a1.Start()
+    re_list=[]
+    status=(False, False, False)
+    re_list=  c8940a1.ReturnZero(1000, status)
+    if re_list.count(True)<3:
+        re_list=c8940a1.ReturnZero(500, re_list)
+        if re_list.count(True)<3:
+            re_list=c8940a1.ReturnZero(300, re_list)
+    print re_list
+    
+    #c8940a1.Stop()
 
 #cardno = CObjdll.adt8940a1_initial()
 #print cardno

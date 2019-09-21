@@ -51,7 +51,7 @@ class sample_list(QWidget, Ui_sample_list):
         self.setupUi(self)
         self.parent=parent
         self.mainwindow=mainwindow
-        self.Debug=False
+        self.Debug=True
         self.Comm232ReadFlag=False
         self.puncual=np.arange(1)
 
@@ -507,7 +507,7 @@ class sample_list(QWidget, Ui_sample_list):
         #        points=100 #number of data points
         tmp_punctual = self.puncual
         X=np.arange(len(tmp_punctual))
-        print len(tmp_punctual)
+        #print len(tmp_punctual)
         #print np.sin(np.arange(points))
         #Y=np.sin(np.arange(points)*3*np.pi+time.time())
         Y=tmp_punctual
@@ -645,18 +645,31 @@ class TimeThread(QThread):
 
 
 
-    print "Moving to Point 1"
+    print "coding return zero here!"
         #c8940a1.MoveSingleAxis(1,100000)
         #time.sleep(5)
+    
 
 
-    Axislist =[(5000,3000),(1000,0),(1000,0),(1000,0),(1000,0),(1000,0),
-                   (-5000,3000),(1000,0),(1000,0),(1000,0),(1000,0),(1000,0),
-                   (-5000,3000),(1000,0),(1000,0),(1000,0),(1000,0),(1000,0)]
+    
+    Axislist =[(43069,31406),(40000,0),(40000,0),(40000,0),(40000,0),(40000,0),
+                   (-200000,50000),(40000,0),(40000,0),(40000,0),(40000,0),(40000,0),
+                   (-200000,50000),(40000,0),(40000,0),(40000,0),(40000,0),(40000,0)]
     if self.parent.Debug:
-        self.c8940a1.Set8940A1(1,1000,1000)
-        self.c8940a1.Set8940A1(2,1000,1000)
-        self.c8940a1.Set8940A1(3,50,50)
+        #return zero
+        
+#        c8940a1=C8940A1()
+        re_list=[]
+        status=(False, False, False)
+        re_list=  self.c8940a1.ReturnZero(1000, status)
+        if re_list.count(True)<3:
+            re_list=self.c8940a1.ReturnZero(500, re_list)
+            if re_list.count(True)<3:
+                self.c8940a1.ReturnZero(300, re_list)
+        #self.c8940a1.ReturnZero()
+        self.c8940a1.Set8940A1(1,1000,20000)
+        self.c8940a1.Set8940A1(2,1000,10000)
+        self.c8940a1.Set8940A1(3,1000,30000)
     x_length=0
     y_length=0
     z_length=0
@@ -680,7 +693,7 @@ class TimeThread(QThread):
         if self.parent.Debug:
             self.parent.puncual=np.arange(1)
             self.parent.Comm232ReadFlag=True
-            self.c8940a1.MoveSingleAxis(3,300,True)
+            self.c8940a1.MoveSingleAxis(3,127979,True)
             self.parent.Comm232ReadFlag=False
         else:
             self.parent.puncual=np.arange(1)
@@ -692,7 +705,7 @@ class TimeThread(QThread):
             break
         #return Zero for Z
         if self.parent.Debug:
-            self.c8940a1.MoveSingleAxis(3,-300,True)
+            self.c8940a1.MoveSingleAxis(3,-127979,True)
 #        print zmoved
 #        if zmoved==0:
         z_length+=-300
@@ -746,7 +759,6 @@ class Com232Thread(QThread):
     super(Com232Thread, self).__init__(parent)
     self.working = True
     self.parent=parent
-    self.serial_obj = serial.Serial('COM1', 9600)
 
 
   def start_com232(self):
@@ -762,6 +774,7 @@ class Com232Thread(QThread):
 
     r_pun_data = r'\d(?P<data>[\+|-]\d{1,5})'
     pattern = re.compile(r_pun_data)
+    self.serial_obj = serial.Serial('COM1', 9600)
     if self.serial_obj.isOpen():
        print("open success")
     else:
@@ -770,10 +783,11 @@ class Com232Thread(QThread):
     if True:
         while  self.working:
             count =0
-            try:
-                count = self.serial_obj.inWaiting()
-            except:
-                pass
+#            try:
+#                count = self.serial_obj.inWaiting()
+#            except:
+#                pass
+            count = self.serial_obj.inWaiting()
             if count > 8:
                 time.sleep(0.02)
                 data = self.serial_obj.read(count)
@@ -795,7 +809,7 @@ class Com232Thread(QThread):
                     avg = sum(tmp_array) / len(tmp_array)
 
 
-                print tmp_array
+                #print tmp_array
                 self.parent.puncual=np.append(self.parent.puncual, tmp_array)
                 #print self.parent.puncual
                 #print "OK"
@@ -804,6 +818,7 @@ class Com232Thread(QThread):
 #                    serial.write(data)
 #                else:
 #                    serial.write(hexsend(data))
+    self.serial_obj.close()
     try:
         pass
 

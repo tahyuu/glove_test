@@ -51,7 +51,7 @@ class sample_list(QWidget, Ui_sample_list):
         self.setupUi(self)
         self.parent=parent
         self.mainwindow=mainwindow
-        self.Debug=True
+        self.Debug=False
         self.Comm232ReadFlag=False
         self.puncual=np.arange(1)
 
@@ -611,6 +611,17 @@ class TimeThread(QThread):
     self.amount=0
     self.num = 0
     self.parent=parent
+    self.x_start_point=43069
+    self.y_start_point=31406
+    self.z_start_point=127979
+    self.x_interval=40000
+    self.y_interval=50000
+    self.x_speed=20000
+    self.y_speed=10000
+    self.z_speed_1=30000
+    self.z_speed_2=5000
+    self.punctual_route=10000
+    
     if self.parent.Debug:
         self.c8940a1=C8940A1()
  
@@ -652,13 +663,15 @@ class TimeThread(QThread):
 
 
     
-    Axislist =[(43069,31406),(40000,0),(40000,0),(40000,0),(40000,0),(40000,0),
-                   (-200000,50000),(40000,0),(40000,0),(40000,0),(40000,0),(40000,0),
-                   (-200000,50000),(40000,0),(40000,0),(40000,0),(40000,0),(40000,0)]
+    Axislist =[(self.x_start_point,self.y_start_point),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),
+                   (-(self.x_interval*5),self.y_interval),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),
+                   (-(self.x_interval*5),self.y_interval),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0)]
     if self.parent.Debug:
         #return zero
-        
-#        c8940a1=C8940A1()
+
+        #######################################
+        #below code is return zero
+        #######################################
         re_list=[]
         status=(False, False, False)
         re_list=  self.c8940a1.ReturnZero(1000, status)
@@ -666,10 +679,12 @@ class TimeThread(QThread):
             re_list=self.c8940a1.ReturnZero(500, re_list)
             if re_list.count(True)<3:
                 self.c8940a1.ReturnZero(300, re_list)
-        #self.c8940a1.ReturnZero()
-        self.c8940a1.Set8940A1(1,1000,20000)
-        self.c8940a1.Set8940A1(2,1000,10000)
-        self.c8940a1.Set8940A1(3,1000,30000)
+        #######################################
+        #below code will set the speed of each axis
+        #######################################
+        self.c8940a1.Set8940A1(1,1000,self.x_speed)
+        self.c8940a1.Set8940A1(2,1000,self.y_speed)
+        self.c8940a1.Set8940A1(3,1000,self.z_speed_1)
     x_length=0
     y_length=0
     z_length=0
@@ -692,8 +707,11 @@ class TimeThread(QThread):
         #print "Moving to Z"
         if self.parent.Debug:
             self.parent.puncual=np.arange(1)
+            self.c8940a1.MoveSingleAxis(3,self.z_start_point,True)
             self.parent.Comm232ReadFlag=True
-            self.c8940a1.MoveSingleAxis(3,127979,True)
+            self.c8940a1.Set8940A1(3,1000,self.z_speed_2)
+            self.c8940a1.MoveSingleAxis(3,self.punctual_route,True)
+            self.c8940a1.Set8940A1(3,1000,self.z_speed_1)
             self.parent.Comm232ReadFlag=False
         else:
             self.parent.puncual=np.arange(1)
@@ -705,7 +723,10 @@ class TimeThread(QThread):
             break
         #return Zero for Z
         if self.parent.Debug:
-            self.c8940a1.MoveSingleAxis(3,-127979,True)
+            #####################################
+            #add Z alix return zero here
+            #####################################
+            self.c8940a1.MoveSingleAxis(3,-(self.z_start_point+self.punctual_route),True)
 #        print zmoved
 #        if zmoved==0:
         z_length+=-300

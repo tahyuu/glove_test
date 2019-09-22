@@ -54,6 +54,8 @@ class sample_list(QWidget, Ui_sample_list):
         self.Debug=False
         self.Comm232ReadFlag=False
         self.puncual=np.arange(1)
+        self.puncual_max_value=0.0
+        self.puncual_max_setting=0.0
 
         #self.timer_tv = QTextBrowser(self)
 
@@ -505,6 +507,7 @@ class sample_list(QWidget, Ui_sample_list):
 
     def UpdateGraf(self):
         #        points=100 #number of data points
+        print self.puncual
         tmp_punctual = self.puncual
         X=np.arange(len(tmp_punctual))
         #print len(tmp_punctual)
@@ -539,9 +542,32 @@ class sample_list(QWidget, Ui_sample_list):
                 dr_count=dr_count+1
 
             i=i+1
+
         if dr_count!=0:
             dr=dr_sum/dr_count
             self.tableWidget.setItem(2,13 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(dr*100))).encode("utf-8")))) 
+            ################################
+            #to calculate the avg of dr for each sample
+            ################################
+            i=0
+            for sample in self.mainwindow.samples:  
+                print dr
+                if i==0:
+                    if self.checkBox1.isChecked():
+                        sample.dr_avg=dr
+                    else:
+                        sample.dr_avg=0.0
+                if i==1:
+                    if self.checkBox2.isChecked():
+                        sample.dr_avg=dr
+                    else:
+                        sample.dr_avg=0.0
+                if i==2:
+                    if self.checkBox3.isChecked():
+                        sample.dr_avg=dr
+                    else:
+                        sample.dr_avg=0.0
+                i=i+1
         else:
             self.tableWidget.setItem(2,13 , QtGui.QTableWidgetItem(_fromUtf8(str(str("")).encode("utf-8")))) 
 
@@ -554,7 +580,9 @@ class sample_list(QWidget, Ui_sample_list):
         for i in range(10):
             time.sleep(1)
             print self.parent.mainwindow.CurrentStatus
-            
+
+    def stop_at_max_puncual(sef):
+        self.timer_t.c8940a1.Stop()
     def update_punctual(self, value, number):
         print "%s = %s" %(value, number)
         pass
@@ -614,13 +642,13 @@ class TimeThread(QThread):
     self.x_start_point=43069
     self.y_start_point=31406
     self.z_start_point=127979
+    self.punctual_route=10000
     self.x_interval=40000
     self.y_interval=50000
     self.x_speed=20000
     self.y_speed=10000
     self.z_speed_1=30000
     self.z_speed_2=5000
-    self.punctual_route=10000
     
     if self.parent.Debug:
         self.c8940a1=C8940A1()
@@ -670,7 +698,7 @@ class TimeThread(QThread):
         #return zero
 
         #######################################
-        #below code is return zero
+        #below code is for XY return zero
         #######################################
         re_list=[]
         status=(False, False, False)
@@ -706,11 +734,32 @@ class TimeThread(QThread):
             break
         #print "Moving to Z"
         if self.parent.Debug:
-            self.parent.puncual=np.arange(1)
+            ######################################
+            #Z Axis to find Zero here
+            ######################################
+            status=(True, True, False)
+            re_list=  c8940a1.ReturnZero(1000, status)
+            if re_list.count(True)<3:
+                re_list=c8940a1.ReturnZero(500, re_list)
+                if re_list.count(True)<3:
+                    re_list=c8940a1.ReturnZero(300, re_list)
+            #print re_list
+            #self.c8940a1.MoveSingleAxis(3,self.z_start_point,True)
+            ######################################
+            #move Z axis to z start point at z_speed_1
+            ######################################
+            self.c8940a1.Set8940A1(3,1000,self.z_speed_1)
             self.c8940a1.MoveSingleAxis(3,self.z_start_point,True)
+            ######################################
+            #Start to get the punctual at z_speed_2, max route is punctual_route.
+            ######################################
+            self.parent.puncual=np.arange(1)
             self.parent.Comm232ReadFlag=True
             self.c8940a1.Set8940A1(3,1000,self.z_speed_2)
             self.c8940a1.MoveSingleAxis(3,self.punctual_route,True)
+            ######################################
+            #reset back to z_speed_1 after finished the punctual getting.
+            ######################################
             self.c8940a1.Set8940A1(3,1000,self.z_speed_1)
             self.parent.Comm232ReadFlag=False
         else:
@@ -718,34 +767,54 @@ class TimeThread(QThread):
             self.parent.Comm232ReadFlag=True
             time.sleep(1)
             self.parent.Comm232ReadFlag=False
-        z_length+=300
+        z_length+=(self.z_start_point+self.punctual_route)
         if not self.working:
             break
         #return Zero for Z
         if self.parent.Debug:
             #####################################
-            #add Z alix return zero here
+            #after finised the test, return Z Axis need return to Zero
+            # 1, rough move to Zero
+            # 2, no need return Zero because we have return Zero at the beggin of test
             #####################################
             self.c8940a1.MoveSingleAxis(3,-(self.z_start_point+self.punctual_route),True)
 #        print zmoved
 #        if zmoved==0:
-        z_length+=-300
+        z_length+=-(self.z_start_point+self.punctual_route)
         if not self.working:
             break
-        self.index=self.num/6
-        if self.num%6==0:
-            self.parent.mainwindow.samples[self.index].op1=px
-        if self.num%6==1:
-            self.parent.mainwindow.samples[self.index].rp1=px
-        if self.num%6==2:
-            self.parent.mainwindow.samples[self.index].op2=px
-        if self.num%6==3:
-            self.parent.mainwindow.samples[self.index].rp2=px
-        if self.num%6==4:
-            self.parent.mainwindow.samples[self.index].op3=px
-        if self.num%6==5:
-            self.parent.mainwindow.samples[self.index].rp3=px
-        
+        #####################################
+        #if parent Debug is False then excute with debug model
+        #####################################
+        if self.parent.Debug:
+            self.index=self.num/6
+            if self.num%6==0:
+                self.parent.mainwindow.samples[self.index].op1=self.parent.puncual_max_value
+            if self.num%6==1:
+                self.parent.mainwindow.samples[self.index].rp1=self.parent.puncual_max_value
+            if self.num%6==2:
+                self.parent.mainwindow.samples[self.index].op2=self.parent.puncual_max_value
+            if self.num%6==3:
+                self.parent.mainwindow.samples[self.index].rp2=self.parent.puncual_max_value
+            if self.num%6==4:
+                self.parent.mainwindow.samples[self.index].op3=self.parent.puncual_max_value
+            if self.num%6==5:
+                self.parent.mainwindow.samples[self.index].rp3=self.parent.puncual_max_value
+        else:
+            self.index=self.num/6
+            if self.num%6==0:
+                self.parent.mainwindow.samples[self.index].op1=px
+            if self.num%6==1:
+                self.parent.mainwindow.samples[self.index].rp1=px
+            if self.num%6==2:
+                self.parent.mainwindow.samples[self.index].op2=px
+            if self.num%6==3:
+                self.parent.mainwindow.samples[self.index].rp2=px
+            if self.num%6==4:
+                self.parent.mainwindow.samples[self.index].op3=px
+            if self.num%6==5:
+                self.parent.mainwindow.samples[self.index].rp3=px
+            
         self.parent.mainwindow.samples[self.index].calculate()
         self.signal_time.emit(px, self.num) # 发送信号
         self.sleep(1)
@@ -802,6 +871,9 @@ class Com232Thread(QThread):
         print("open failed")
     avg = -0.001
     if True:
+        before_string=""
+        current_string=""
+        after_string=""
         while  self.working:
             count =0
 #            try:
@@ -810,28 +882,52 @@ class Com232Thread(QThread):
 #                pass
             count = self.serial_obj.inWaiting()
             if count > 8:
-                time.sleep(0.02)
-                data = self.serial_obj.read(count)
-                #if
-                #print data
-                data_arry=pattern.findall(data)
-                
-                tmp_array=map(float,data_arry)
-                tmp_array=map(dev,tmp_array)
-                if len(tmp_array)==1 and  abs(abs(tmp_array[0])-abs(avg))/(abs(avg)+0.0001)>0.9:
-                    continue
-                    
-#                if len(tmp_array)>0:
-                if len(tmp_array)>1 and abs(abs(tmp_array[0])-abs(tmp_array[1]))/(abs(tmp_array[1])+0.0001)>0.8:
-                    tmp_array.pop(1)
-                if len(tmp_array)>1 and abs(abs(tmp_array[-2])-abs(tmp_array[-1]))/(abs(tmp_array[-2])+0.0001)>0.8:
-                    tmp_array.pop(-1)
-                if len(tmp_array)>0:
-                    avg = sum(tmp_array) / len(tmp_array)
+                if self.parent.Debug:
 
+                    time.sleep(0.02)
+                    data = self.serial_obj.read(count)
+                    #if
+                    #print data
+                    data_arry=pattern.findall(data)
+                    
+                    tmp_array=map(float,data_arry)
+                    tmp_array=map(dev,tmp_array)
+
+                    if len(tmp_array)==1 and  abs(abs(tmp_array[0])-abs(avg))/(abs(avg)+0.0001)>0.9:
+                        continue
+
+                    #########################################
+                    #to choose the correct value for punctual 
+                    #########################################                    
+    #                if len(tmp_array)>0:
+                    if len(tmp_array)>1 and abs(abs(tmp_array[0])-abs(tmp_array[1]))/(abs(tmp_array[1])+0.0001)>0.8:
+                        tmp_array.pop(1)
+                    if len(tmp_array)>1 and abs(abs(tmp_array[-2])-abs(tmp_array[-1]))/(abs(tmp_array[-2])+0.0001)>0.8:
+                        tmp_array.pop(-1)
+                    if len(tmp_array)>0:
+                        avg = sum(tmp_array) / len(tmp_array)
+                else:
+                    tmp_array=np.random.rand(10)
 
                 #print tmp_array
                 self.parent.puncual=np.append(self.parent.puncual, tmp_array)
+                print self.parent.puncual
+                #########################################
+                #to set max puncual value
+                #########################################
+                self.parent.puncual_max_value =(self.parent.puncual_max_value>=max(tmp_array)) and self.parent.puncual_max_value or max(tmp_array)
+
+                #########################################
+                #stop C8940A1 if get puncual_max_setting during test
+                #########################################
+                if self.parent.Debug and self.parent.puncual_max_value>=self.parent.puncual_max_setting:
+                    self.parent.stop_at_max_puncual()
+                    self.parent.Comm232ReadFlag=False
+
+                    
+                    #self.working
+                    #break
+                    
                 #print self.parent.puncual
                 #print "OK"
 #                if data != b'':
@@ -839,7 +935,8 @@ class Com232Thread(QThread):
 #                    serial.write(data)
 #                else:
 #                    serial.write(hexsend(data))
-    self.serial_obj.close()
+    if self.parent.Debug:
+        self.serial_obj.close()
     try:
         pass
 

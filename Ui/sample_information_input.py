@@ -7,6 +7,8 @@ Module implementing sample_information_input.
 from PyQt4.QtCore import pyqtSignature
 from PyQt4.QtGui import QWidget
 from PyQt4 import QtCore, QtGui
+import ConfigParser
+import os
 
 from Ui_sample_information_input import Ui_sample_information_input
 
@@ -129,6 +131,49 @@ class sample_information_input(QWidget, Ui_sample_information_input):
                 self.le_3_ctype.setText(sample.s_ctype)
                 self.le_3_thickness.setText(sample.s_thickness)
                 self.le_3_exp_time.setText(sample.s_exp_time)
+                
+                
+                
+        #######################################
+        #to read config 
+        #######################################
+        self.cf=ConfigParser.ConfigParser()
+        currentDir=os.getcwd()
+        self.cf.read("%s\Config.ini" %currentDir)
+        #self.cf.items("UserConfig")
+        
+        ######################################
+        #to get debug Stutu3 in SysConfig Debug
+        ######################################
+        debug_status = self.cf.get('SysConfig', 'Debug_Input')
+        if debug_status=="True":
+            self.Debug=True
+        else:
+            self.Debug=False
+        if self.Debug==True:
+            for i in xrange(3):
+                if i==0:
+                    self.le_1_name.setText("Test name")
+                    self.le_1_color.setText("Pink")
+                    self.le_1_mtype.setText("Test type")
+                    self.le_1_ctype.setText("test chemical")
+                    self.le_1_thickness.setText("test thick ness")
+                    self.le_1_exp_time.setText("60")
+                if i==1:
+                    self.le_2_name.setText("Test name")
+                    self.le_2_color.setText("Pink")
+                    self.le_2_mtype.setText("Test type")
+                    self.le_2_ctype.setText("test chemical")
+                    self.le_2_thickness.setText("test thick ness")
+                    self.le_2_exp_time.setText("60")
+                if i==2:
+                    self.le_3_name.setText("Test name")
+                    self.le_3_color.setText("Pink")
+                    self.le_3_mtype.setText("Test type")
+                    self.le_3_ctype.setText("test chemical")
+                    self.le_3_thickness.setText("test thick ness")
+                    self.le_3_exp_time.setText("60")
+
     @pyqtSignature("")
     def on_btnNextStep_clicked(self):
         self.mainwindow.nextpushed=True

@@ -7,6 +7,8 @@ Module implementing sample_select.
 from PyQt4.QtCore import pyqtSignature
 from PyQt4.QtGui import QWidget
 from PyQt4 import QtCore, QtGui
+import ConfigParser
+import os
 
 from Ui_sample_select import Ui_sample_select
 
@@ -33,7 +35,27 @@ class sample_select(QWidget, Ui_sample_select):
                 self.checkBox_2.setCheckState(2)
             if self.mainwindow.sample_3_enable:
                 self.checkBox_3.setCheckState(2)
-
+                
+        #######################################
+        #to read config 
+        #######################################
+        self.cf=ConfigParser.ConfigParser()
+        currentDir=os.getcwd()
+        self.cf.read("%s\Config.ini" %currentDir)
+        #self.cf.items("UserConfig")
+        
+        ######################################
+        #to get debug Stutu3 in SysConfig Debug
+        ######################################
+        debug_status = self.cf.get('SysConfig', 'Debug_Input')
+        if debug_status=="True":
+            self.Debug=True
+        else:
+            self.Debug=False
+        if self.Debug==True:
+            self.checkBox_1.setCheckState(2)
+            self.checkBox_2.setCheckState(2)
+            self.checkBox_3.setCheckState(2)
     @pyqtSignature("")
     def NextStep(self):
         self.mainwindow.nextpushed=True

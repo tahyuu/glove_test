@@ -55,6 +55,12 @@ class C8940A1:
                 break;
 
         #print cardno
+    def Get_command_pos(self, axis):
+        position=c_long(0)
+        self.WObjdll.get_command_pos(0,axis,byref(position));
+        return position.value
+
+
     def ReturnZero(self, speed, re_list):
         
         xFlag= re_list[0]
@@ -113,7 +119,7 @@ class C8940A1:
                     yFlag=True
                     y_Status=True
 
-                    print "Y %s Return Zero sucess" %retnX
+                    print "Y %s Return Zero sucess" %retnY
             if not re_list[2]:
                 retnZ=self.WObjdll.GetHomeStatus_Ex(0, 3)
                 zFlag=True

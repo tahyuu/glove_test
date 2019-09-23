@@ -66,6 +66,17 @@ class Ui_Login(object):
         currentDir=os.getcwd()
         #print currentDir
         self.cf.read("%s\Config.ini" %currentDir)
+        ######################################
+        #to get debug Stutu3 in SysConfig Debug
+        ######################################
+        debug_status = self.cf.get('SysConfig', 'Debug_Input')
+        if debug_status=="True":
+            self.Debug=True
+        else:
+            self.Debug=False
+        if self.Debug==True:
+            self.lineEdit.setText("admin")
+            self.lineEdit_2.setText("admin")
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(_translate("Login", "Login", None))

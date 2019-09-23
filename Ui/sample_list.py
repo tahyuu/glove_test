@@ -17,6 +17,9 @@ import pyqtgraph
 import pylab
 import re
 import serial
+import ConfigParser
+
+g_puncual_max_value = 0.0
 
 from Ui_sample_list import Ui_sample_list
 
@@ -51,11 +54,34 @@ class sample_list(QWidget, Ui_sample_list):
         self.setupUi(self)
         self.parent=parent
         self.mainwindow=mainwindow
-        self.Debug=False
+        self.Debug=True
         self.Comm232ReadFlag=False
         self.puncual=np.arange(1)
         self.puncual_max_value=0.0
-        self.puncual_max_setting=0.0
+        global g_puncual_max_value
+        g_puncual_max_value = 0.0
+
+
+
+        #######################################
+        #to read config 
+        #######################################
+        self.cf=ConfigParser.ConfigParser()
+        currentDir=os.getcwd()
+        self.cf.read("%s\Config.ini" %currentDir)
+        #self.cf.items("UserConfig")
+        
+        ######################################
+        #to get debug Stutu3 in SysConfig Debug
+        ######################################
+        debug_status = self.cf.get('SysConfig', 'Debug_Move')
+        
+        self.max_puncual_limit=float(self.cf.get('XYZAxisConfig', 'max_puncual_limit'))
+        if debug_status=="True":
+            self.Debug=True
+        else:
+            self.Debug=False
+
 
         #self.timer_tv = QTextBrowser(self)
 
@@ -430,6 +456,8 @@ class sample_list(QWidget, Ui_sample_list):
                 return
             else:
                 if self.btn_Next.text()=="Start":
+                    self.puncual_max_value=0.0
+
                     self.btn_Next.setText("Stop")
                     self.btn_Privious.setEnabled(False)
                     self.btn_Export.setEnabled(False)
@@ -581,8 +609,8 @@ class sample_list(QWidget, Ui_sample_list):
             time.sleep(1)
             print self.parent.mainwindow.CurrentStatus
 
-    def stop_at_max_puncual(sef):
-        self.timer_t.c8940a1.Stop()
+    def stop_at_max_puncual(self):
+        self.timer_t.stop_at_max_puncual()
     def update_punctual(self, value, number):
         print "%s = %s" %(value, number)
         pass
@@ -639,16 +667,29 @@ class TimeThread(QThread):
     self.amount=0
     self.num = 0
     self.parent=parent
-    self.x_start_point=43069
-    self.y_start_point=31406
-    self.z_start_point=127979
-    self.punctual_route=10000
-    self.x_interval=40000
-    self.y_interval=50000
-    self.x_speed=20000
-    self.y_speed=10000
-    self.z_speed_1=30000
-    self.z_speed_2=5000
+    self.x_start_point=int(self.parent.cf.get('XYZAxisConfig', 'x_start_point'))
+    self.y_start_point=int(self.parent.cf.get('XYZAxisConfig', 'y_start_point'))
+    self.z_start_point=int(self.parent.cf.get('XYZAxisConfig', 'z_start_point'))
+    self.punctual_route=int(self.parent.cf.get('XYZAxisConfig', 'max_puncual_route'))
+    self.x_interval=int(self.parent.cf.get('XYZAxisConfig', 'x_interval'))
+    self.y_interval=int(self.parent.cf.get('XYZAxisConfig', 'y_interval'))
+    self.x_speed=int(self.parent.cf.get('XYZAxisConfig', 'x_speed'))
+    self.y_speed=int(self.parent.cf.get('XYZAxisConfig', 'y_speed'))
+    self.z_speed_1=int(self.parent.cf.get('XYZAxisConfig', 'z_speed_1'))
+    self.z_speed_2=int(self.parent.cf.get('XYZAxisConfig', 'z_speed_2'))
+
+#    self.x_start_point=43069
+#    self.y_start_point=31406
+#    self.z_start_point=97979
+#    #self.z_start_point=127979
+#
+#    self.punctual_route=10000
+#    self.x_interval=40000
+#    self.y_interval=50000
+#    self.x_speed=20000
+#    self.y_speed=10000
+#    self.z_speed_1=30000
+#    self.z_speed_2=5000
     
     if self.parent.Debug:
         self.c8940a1=C8940A1()
@@ -695,7 +736,22 @@ class TimeThread(QThread):
                    (-(self.x_interval*5),self.y_interval),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),
                    (-(self.x_interval*5),self.y_interval),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0)]
     if self.parent.Debug:
+        print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
         #return zero
+        #######################################
+        #quickly reutrun to zero for XYZ
+        #######################################
+        command_position_x=self.c8940a1.Get_command_pos(1)
+        command_position_y=self.c8940a1.Get_command_pos(2)
+        command_position_z=self.c8940a1.Get_command_pos(3)
+        self.c8940a1.Set8940A1(1,1000,self.x_speed)
+        self.c8940a1.Set8940A1(2,1000,self.y_speed)
+        self.c8940a1.Set8940A1(3,1000,self.z_speed_1)       
+        
+        self.c8940a1.MoveSingleAxis(3,-command_position_z,True)
+        self.c8940a1.MoveMultiAxis(-command_position_x,-command_position_y)
+        command_position_y=self.c8940a1.Get_command_pos(2)
+        self.c8940a1.MoveSingleAxis(2,-command_position_y,True)
 
         #######################################
         #below code is for XY return zero
@@ -716,10 +772,14 @@ class TimeThread(QThread):
     x_length=0
     y_length=0
     z_length=0
+    i=0
     for al in Axislist:
         if self.num%6==0:
             px=1
         px=px-random.random()/10
+        
+
+
         #c8940a1.MoveSingleAxis(2,100000)
         #print "Moving to XY"
         if not self.working:
@@ -735,25 +795,46 @@ class TimeThread(QThread):
         #print "Moving to Z"
         if self.parent.Debug:
             ######################################
-            #Z Axis to find Zero here
+            #Z Axis to find Zero here      --------------------------------------------no need to find zero for every test
             ######################################
-            status=(True, True, False)
-            re_list=  c8940a1.ReturnZero(1000, status)
-            if re_list.count(True)<3:
-                re_list=c8940a1.ReturnZero(500, re_list)
-                if re_list.count(True)<3:
-                    re_list=c8940a1.ReturnZero(300, re_list)
+#            status=(True, True, False)
+#            re_list=  self.c8940a1.ReturnZero(1000, status)
+#            if re_list.count(True)<3:
+#                re_list=self.c8940a1.ReturnZero(500, re_list)
+#                if re_list.count(True)<3:
+#                    re_list=self.c8940a1.ReturnZero(300, re_list)
             #print re_list
             #self.c8940a1.MoveSingleAxis(3,self.z_start_point,True)
             ######################################
             #move Z axis to z start point at z_speed_1
             ######################################
-            self.c8940a1.Set8940A1(3,1000,self.z_speed_1)
-            self.c8940a1.MoveSingleAxis(3,self.z_start_point,True)
+            if i==0:
+                self.c8940a1.Set8940A1(3,1000,self.z_speed_1)
+                self.c8940a1.MoveSingleAxis(3,self.z_start_point,True)
             ######################################
             #Start to get the punctual at z_speed_2, max route is punctual_route.
             ######################################
-            self.parent.puncual=np.arange(1)
+            print "self.punctual_route is %s" %self.punctual_route
+            ######################################
+            #Set puncual puncual_max_value to Zero.
+            ######################################
+            self.parent.Comm232ReadFlag=False
+
+            while True:
+                self.parent.puncual=np.arange(1)
+                if len(self.parent.puncual)==1:
+                    break
+            #set puncual_max_value to zero
+            global g_puncual_max_value
+            while True:
+                g_puncual_max_value=0.0
+                if  g_puncual_max_value==0.0:
+                    break
+            while True:
+                self.parent.puncual_max_value=0.0
+                if  self.parent.puncual_max_value==0.0:
+                    break
+                
             self.parent.Comm232ReadFlag=True
             self.c8940a1.Set8940A1(3,1000,self.z_speed_2)
             self.c8940a1.MoveSingleAxis(3,self.punctual_route,True)
@@ -777,10 +858,15 @@ class TimeThread(QThread):
             # 1, rough move to Zero
             # 2, no need return Zero because we have return Zero at the beggin of test
             #####################################
-            self.c8940a1.MoveSingleAxis(3,-(self.z_start_point+self.punctual_route),True)
+            command_position=self.c8940a1.Get_command_pos(3)
+            print "A is %s; B is %s"%(command_position-self.z_start_point,  -(self.z_start_point+self.punctual_route))
+            #self.c8940a1.MoveSingleAxis(3,-(self.z_start_point+self.punctual_route),True)
+            if command_position>self.z_start_point:
+                self.c8940a1.MoveSingleAxis(3,-(command_position-self.z_start_point),True)
 #        print zmoved
 #        if zmoved==0:
         z_length+=-(self.z_start_point+self.punctual_route)
+        print "self working is %s" %self.working
         if not self.working:
             break
         #####################################
@@ -824,14 +910,43 @@ class TimeThread(QThread):
         self.num += 1
         if not self.working:
             break
+        i=i+1
     # to show dr after teste finished
     self.parent.changeCheckBox()
     #if self.working:
     if self.parent.Debug:
-        self.c8940a1.MoveSingleAxis(3,-z_length,True)
+        command_position_x=self.c8940a1.Get_command_pos(1)
+        command_position_y=self.c8940a1.Get_command_pos(2)
+        command_position_z=self.c8940a1.Get_command_pos(3)
+
+        self.c8940a1.MoveSingleAxis(3,-command_position_z,True)
         self.c8940a1.MoveMultiAxis(-x_length,-y_length,True)
+#        self.c8940a1.MoveSingleAxis(3,-z_length,True)
+#        self.c8940a1.MoveMultiAxis(-x_length,-y_length,True)
 
-
+  def stop_at_max_puncual(self):
+        self.c8940a1.Stop()
+        command_position=self.c8940a1.Get_command_pos(3)
+        if command_position>self.z_start_point:
+            print "return position is %s " %-(command_position-self.z_start_point)
+            self.c8940a1.MoveSingleAxis(3,-(command_position-self.z_start_point),True)
+        ###########################
+        #set to zero
+        ###########################
+        while True:
+            self.parent.puncual=np.arange(1)
+            if len(self.parent.puncual)==1:
+                break
+        #set puncual_max_value to zero
+        global g_puncual_max_value
+        while True:
+            g_puncual_max_value=0.0
+            if  g_puncual_max_value==0.0:
+                break
+        while True:
+            self.parent.puncual_max_value=0.0
+            if  self.parent.puncual_max_value==0.0:
+                break
 
   def stop(self):
     self.working=False
@@ -885,6 +1000,8 @@ class Com232Thread(QThread):
                 if self.parent.Debug:
 
                     time.sleep(0.02)
+                    if not self.parent.Comm232ReadFlag:
+                        continue
                     data = self.serial_obj.read(count)
                     #if
                     #print data
@@ -911,18 +1028,26 @@ class Com232Thread(QThread):
 
                 #print tmp_array
                 self.parent.puncual=np.append(self.parent.puncual, tmp_array)
-                print self.parent.puncual
+                #print self.parent.puncual
                 #########################################
                 #to set max puncual value
                 #########################################
-                self.parent.puncual_max_value =(self.parent.puncual_max_value>=max(tmp_array)) and self.parent.puncual_max_value or max(tmp_array)
+                if tmp_array:
+                    global g_puncual_max_value
+                    g_puncual_max_value = (g_puncual_max_value>=max(tmp_array)) and g_puncual_max_value or max(tmp_array)
+                    self.parent.puncual_max_value =(self.parent.puncual_max_value>=max(tmp_array)) and self.parent.puncual_max_value or max(tmp_array)
 
                 #########################################
-                #stop C8940A1 if get puncual_max_setting during test
+                #stop C8940A1 if get max_puncual_limit during test
                 #########################################
-                if self.parent.Debug and self.parent.puncual_max_value>=self.parent.puncual_max_setting:
+                print "current value is%s  max limit is %s" %(self.parent.puncual_max_value, self.parent.max_puncual_limit)
+#                if self.parent.Debug and self.parent.puncual_max_value>=self.parent.max_puncual_limit:
+#                    self.parent.stop_at_max_puncual()
+#                    self.parent.Comm232ReadFlag=False
+                if self.parent.Debug and g_puncual_max_value>=self.parent.max_puncual_limit:
                     self.parent.stop_at_max_puncual()
                     self.parent.Comm232ReadFlag=False
+
 
                     
                     #self.working

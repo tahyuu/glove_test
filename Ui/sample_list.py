@@ -1000,9 +1000,13 @@ class Com232Thread(QThread):
                 if self.parent.Debug:
 
                     time.sleep(0.02)
+
+                    data = self.serial_obj.read(count)
+                    #####################################
+                    #change the readflag after read, maybe it will solove the problem when the puncual get max value, the next one didn't test
+                    #####################################
                     if not self.parent.Comm232ReadFlag:
                         continue
-                    data = self.serial_obj.read(count)
                     #if
                     #print data
                     data_arry=pattern.findall(data)

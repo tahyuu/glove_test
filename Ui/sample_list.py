@@ -6,6 +6,8 @@ Module implementing Dialog.
 
 from PyQt4.QtCore import pyqtSignature, QThread, pyqtSignal
 from PyQt4.QtGui import QWidget, QMessageBox, QTextBrowser
+from PyQt4.QtGui import QWidget
+
 from PyQt4 import QtCore, QtGui
 import time
 import random
@@ -37,6 +39,7 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
+from Ui_sample_list import Ui_sample_list
 
 class sample_list(QWidget, Ui_sample_list):
     """
@@ -77,6 +80,8 @@ class sample_list(QWidget, Ui_sample_list):
         debug_status = self.cf.get('SysConfig', 'Debug_Move')
         
         self.max_puncual_limit=float(self.cf.get('XYZAxisConfig', 'max_puncual_limit'))
+        self.max_pncual_limit_fine_tune=float(self.cf.get('XYZAxisConfig', 'max_pncual_limit_fine_tune'))
+
         if debug_status=="True":
             self.Debug=True
         else:
@@ -525,7 +530,45 @@ class sample_list(QWidget, Ui_sample_list):
         timeArray = time.localtime(data)
         time_str=time.strftime('%Y%m%d',timeArray)
         ResultDir=os.getcwd()+"\\Results\\"+str(self.mainwindow.userName)+"\\%s" %time_str
+        
+        # to create the png for pdf.
+        i=0
+        for sample in self.mainwindow.samples:
+            i=i+1
+            data=[]
+            print "1 len is %s" %len(sample.op1_list)
+            print "2 len is %s" %len(sample.rp1_list)
+            print "3 len is %s" %len(sample.op2_list)
+            print "4 len is %s" %len(sample.rp1_list)
+            print "5 len is %s" %len(sample.op3_list)
+            print "6 len is %s" %len(sample.rp3_list)
+            max_leng=max([len(sample.op1_list), len(sample.rp1_list), len(sample.op2_list), len(sample.rp1_list), len(sample.op3_list), len(sample.op3_list)])
+            print "max length is %s" %max_leng
+
+            sample.op1_list=np.append(sample.op1_list, np.zeros(max_leng-len(sample.op1_list)))
+            sample.rp1_list=np.append(sample.rp1_list, np.zeros(max_leng-len(sample.rp1_list)))
+            sample.op2_list=np.append(sample.op2_list, np.zeros(max_leng-len(sample.op2_list)))
+            print "rp2 leng is %s, max leng is %s" %(len(sample.rp2_list), max_leng)
+            sample.rp2_list=np.append(sample.rp2_list, np.zeros(max_leng-len(sample.rp2_list)))
+            sample.op3_list=np.append(sample.op3_list, np.zeros(max_leng-len(sample.op3_list)))
+            sample.rp3_list=np.append(sample.rp3_list[0:max_leng-1])
+            print "1 len is %s" %len(sample.op1_list)
+            print "2 len is %s" %len(sample.rp1_list)
+            print "3 len is %s" %len(sample.op2_list)
+            print "4 len is %s" %len(sample.rp1_list)
+            print "5 len is %s" %len(sample.op3_list)
+            print "6 len is %s" %len(sample.rp3_list)
+            data.append(sample.op1_list)
+            data.append(sample.rp1_list)
+            data.append(sample.op2_list)
+            data.append(sample.rp2_list)
+            data.append(sample.op3_list)
+            data.append(sample.rp3_list)
+            CharCreate(data, i)
+        
         Result=html2pdf(ResultDir, self.mainwindow.samples)
+        
+
         if Result[0]:
         #self.write_excel("Results\\Excel\abc.xlsx", [["a", "b", "c"], ["aa", "bb", "cc"]])
         #reply=QMessageBox.question(self.parent,"Confirm ","Would you like to stop the test!",QMessageBox.Yes|QMessageBox.No,QMessageBox.Yes)
@@ -736,7 +779,6 @@ class TimeThread(QThread):
                    (-(self.x_interval*5),self.y_interval),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),
                    (-(self.x_interval*5),self.y_interval),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0)]
     if self.parent.Debug:
-        print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
         #return zero
         #######################################
         #quickly reutrun to zero for XYZ
@@ -842,6 +884,7 @@ class TimeThread(QThread):
             #reset back to z_speed_1 after finished the punctual getting.
             ######################################
             self.c8940a1.Set8940A1(3,1000,self.z_speed_1)
+            time.sleep(0.5)
             self.parent.Comm232ReadFlag=False
         else:
             self.parent.puncual=np.arange(1)
@@ -872,20 +915,28 @@ class TimeThread(QThread):
         #####################################
         #if parent Debug is False then excute with debug model
         #####################################
+        time.sleep(1)
         if self.parent.Debug:
             self.index=self.num/6
             if self.num%6==0:
                 self.parent.mainwindow.samples[self.index].op1=self.parent.puncual_max_value
+                self.parent.mainwindow.samples[self.index].op1_list=self.parent.puncual.copy()
             if self.num%6==1:
                 self.parent.mainwindow.samples[self.index].rp1=self.parent.puncual_max_value
+                self.parent.mainwindow.samples[self.index].rp1_list=self.parent.puncual.copy()   
             if self.num%6==2:
                 self.parent.mainwindow.samples[self.index].op2=self.parent.puncual_max_value
+                self.parent.mainwindow.samples[self.index].op2_list=self.parent.puncual.copy()
             if self.num%6==3:
                 self.parent.mainwindow.samples[self.index].rp2=self.parent.puncual_max_value
+                self.parent.mainwindow.samples[self.index].rp2_list=self.parent.puncual.copy()
             if self.num%6==4:
                 self.parent.mainwindow.samples[self.index].op3=self.parent.puncual_max_value
+                self.parent.mainwindow.samples[self.index].op3_list=self.parent.puncual.copy()
             if self.num%6==5:
                 self.parent.mainwindow.samples[self.index].rp3=self.parent.puncual_max_value
+                self.parent.mainwindow.samples[self.index].rp3_list=self.parent.puncual.copy()
+
         else:
             self.index=self.num/6
             if self.num%6==0:
@@ -902,11 +953,11 @@ class TimeThread(QThread):
                 self.parent.mainwindow.samples[self.index].rp3=px
             
         self.parent.mainwindow.samples[self.index].calculate()
-        self.signal_time.emit(px, self.num) # 发送信号
+        self.signal_time.emit(self.parent.puncual_max_value, self.num) # 发送信号
         self.sleep(1)
         if self.num==self.amount-1:
             self.working=False
-        self.signal_time.emit(px, self.num) # 发送信号
+        self.signal_time.emit(self.parent.puncual_max_value, self.num) # 发送信号
         self.num += 1
         if not self.working:
             break
@@ -943,10 +994,10 @@ class TimeThread(QThread):
             g_puncual_max_value=0.0
             if  g_puncual_max_value==0.0:
                 break
-        while True:
-            self.parent.puncual_max_value=0.0
-            if  self.parent.puncual_max_value==0.0:
-                break
+#        while True:
+#            self.parent.puncual_max_value=0.0
+#            if  self.parent.puncual_max_value==0.0:
+#                break
 
   def stop(self):
     self.working=False
@@ -986,9 +1037,7 @@ class Com232Thread(QThread):
         print("open failed")
     avg = -0.001
     if True:
-        before_string=""
-        current_string=""
-        after_string=""
+        old_data=""
         while  self.working:
             count =0
 #            try:
@@ -1001,12 +1050,13 @@ class Com232Thread(QThread):
 
                     time.sleep(0.02)
 
-                    data = self.serial_obj.read(count)
+                    data = old_data + self.serial_obj.read(count)
                     #####################################
                     #change the readflag after read, maybe it will solove the problem when the puncual get max value, the next one didn't test
                     #####################################
                     if not self.parent.Comm232ReadFlag:
-                        continue
+                        pass
+                        #continue
                     #if
                     #print data
                     data_arry=pattern.findall(data)
@@ -1014,7 +1064,13 @@ class Com232Thread(QThread):
                     tmp_array=map(float,data_arry)
                     tmp_array=map(dev,tmp_array)
 
+                    if not tmp_array:
+                        #old_data=data
+                        continue
+
+
                     if len(tmp_array)==1 and  abs(abs(tmp_array[0])-abs(avg))/(abs(avg)+0.0001)>0.9:
+                        #old_data=data
                         continue
 
                     #########################################
@@ -1031,7 +1087,8 @@ class Com232Thread(QThread):
                     tmp_array=np.random.rand(10)
 
                 #print tmp_array
-                self.parent.puncual=np.append(self.parent.puncual, tmp_array)
+                if  self.parent.Comm232ReadFlag:
+                    self.parent.puncual=np.append(self.parent.puncual, tmp_array)
                 #print self.parent.puncual
                 #########################################
                 #to set max puncual value
@@ -1044,16 +1101,14 @@ class Com232Thread(QThread):
                 #########################################
                 #stop C8940A1 if get max_puncual_limit during test
                 #########################################
-                print "current value is%s  max limit is %s" %(self.parent.puncual_max_value, self.parent.max_puncual_limit)
+                #print "current value is%s  max limit is %s" %(g_puncual_max_value, self.parent.max_puncual_limit)
 #                if self.parent.Debug and self.parent.puncual_max_value>=self.parent.max_puncual_limit:
 #                    self.parent.stop_at_max_puncual()
 #                    self.parent.Comm232ReadFlag=False
-                if self.parent.Debug and g_puncual_max_value>=self.parent.max_puncual_limit:
+                if self.parent.Debug and g_puncual_max_value>=self.parent.max_puncual_limit*self.parent.max_pncual_limit_fine_tune:
                     self.parent.stop_at_max_puncual()
                     self.parent.Comm232ReadFlag=False
 
-
-                    
                     #self.working
                     #break
                     
@@ -1097,10 +1152,10 @@ class GrafThread(QThread):
     while True:
         #print self.parent.Comm232ReadFlag
         #print  self.parent.puncual
-        px=2
+        #px=2
         if self.parent.Comm232ReadFlag:
             time.sleep(0.1)
-            px=px-random.random()/10
+            #px=px-random.random()/10
             #self.punctual.append(px)
             #self.parent.puncual=np.append(self.parent.puncual, px)
             self.update_graf.emit() # 发送信号

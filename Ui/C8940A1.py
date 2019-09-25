@@ -68,6 +68,12 @@ class C8940A1:
         zFlag= re_list[2]
 
         print "spdeed is %s" %speed
+        if not re_list[2]:
+            retnZ=-1
+            retnZ=self.WObjdll.SetHomeMode_Ex(0, 3, 0, 0, 0, -1, 2000, 400, 100)
+            retnZ=self.WObjdll.SetHomeSpeed_Ex(0, 3, 100, speed, 200, 100, 200)
+            retnZ=self.WObjdll.HomeProcess_Ex(0, 3)
+        
         if not re_list[0]:
             retnX=-1
             retnX=self.WObjdll.SetHomeMode_Ex(0, 1, 0, 0, 0, -1, 2000, 400, 100)
@@ -80,11 +86,7 @@ class C8940A1:
             retnY=self.WObjdll.SetHomeSpeed_Ex(0, 2, 100, speed, 200, 100, 200)
             retnY=self.WObjdll.HomeProcess_Ex(0, 2)
             
-        if not re_list[2]:
-            retnZ=-1
-            retnZ=self.WObjdll.SetHomeMode_Ex(0, 3, 0, 0, 0, -1, 2000, 400, 100)
-            retnZ=self.WObjdll.SetHomeSpeed_Ex(0, 3, 100, speed, 200, 100, 200)
-            retnZ=self.WObjdll.HomeProcess_Ex(0, 3)
+
 #        
 #        if retnX<0 and retnX>20:
 #            print "Return Zero Fail!"
@@ -93,8 +95,22 @@ class C8940A1:
         z_Status=re_list[2]
 
         while True:
-            #print retnX
             time.sleep(1)
+            if not re_list[2]:
+                retnZ=self.WObjdll.GetHomeStatus_Ex(0, 3)
+                zFlag=True
+                if retnZ<0 or retnZ>10:
+                    zFlag=False
+                    z_Status=True
+
+                    print "Z %s Return Zero Fail" %retnZ
+                if retnZ==0:
+                    zFlag=True
+                    z_Status=True
+
+                    print "Z %s Return Zero sucess" %retnZ
+            
+            #print retnX
             if not re_list[0]:
                 retnX=self.WObjdll.GetHomeStatus_Ex(0, 1)
                 xFlag=True
@@ -120,19 +136,7 @@ class C8940A1:
                     y_Status=True
 
                     print "Y %s Return Zero sucess" %retnY
-            if not re_list[2]:
-                retnZ=self.WObjdll.GetHomeStatus_Ex(0, 3)
-                zFlag=True
-                if retnZ<0 or retnZ>10:
-                    zFlag=False
-                    z_Status=True
 
-                    print "Z %s Return Zero Fail" %retnZ
-                if retnZ==0:
-                    zFlag=True
-                    z_Status=True
-
-                    print "Z %s Return Zero sucess" %retnZ
 
 
 #            if re_list[0] and (retnX<0 or retnX>10 or retnX==0):

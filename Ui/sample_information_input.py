@@ -24,14 +24,21 @@ class Sample:
         self.s_exp_time=""
 
         self.op1=0.0
+        self.op1_list=[]
         self.rp1=0.0
+        self.rp1_list=[]
         self.op2=0.0
+        self.op2_list=[]
         self.rp2=0.0
+        self.rp2_list=[]
         self.op3=0.0
+        self.op3_list=[]
         self.rp3=0.0
+        self.rp3_list=[]
         self.avg_op=0.0
         self.avg_rp=0.0
         self.dr=0.0
+        
     def calculate(self):
         #calculate dr1
         

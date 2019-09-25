@@ -2,8 +2,8 @@ import pdfkit
 import time
 import os
 from sample_information_input import Sample
-#import matplotlib.pyplot as plt
-#import numpy
+import matplotlib.pyplot as plt
+import numpy
 import random
 
 
@@ -166,6 +166,11 @@ def html2pdf(dirs, samples):
         return (True, dirs+"\\"+fileName)
     else:
         return (False, dirs+"\\"+fileName)
+        
+#def writeExcel(dirs, samples):
+#    for sample in samples:
+        
+        
 def GetData():
     data = []
     for i in range(6):
@@ -181,7 +186,7 @@ def Move(x, y):
    print "move sensor to Poing(%s,%x)" %(x, y) 
  
         
-def CharCreate(data):
+def CharCreate(data, fileName):
 #    fig  = plt.figure()
 #    ax = fig.add_subplot(1,1,1)
 #    ax.plot([1,2,3,4],[2,3,4,5])
@@ -204,11 +209,12 @@ def CharCreate(data):
 #        plt.plot([1,2,3,4],[1,1,1, 0], c='pink', )
 
     plt.legend(('op1', 'rp1', 'op2', 'rp2', 'op3', 'rp3')) 
-    plt.show()
+    #plt.show()
+    plt.savefig("%s.png" %fileName)
 
 
     #pdfkit.from_url('http://google.com', 'out.pdf', options=options)
 if __name__=="__main__":
     #html2pdf("E:\\WorkSpace\\gloves_test\\Program\\Ui\\Results\\admin", "test.pdf")
-    data =CreateSample()
+    data =GetData()
     CharCreate(data)

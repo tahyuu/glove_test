@@ -200,6 +200,7 @@ def CharCreate(data, fileName):
     i=0
 
     for li in data:
+        #print li
         plt.plot(range(1, len(data[0])+1),li, c=color[i],)
         i=i+1
 #        plt.plot([1,2,3,4],[1,3,3,5], c='blue',)
@@ -212,8 +213,9 @@ def CharCreate(data, fileName):
     #plt.show()
     plt.savefig("%s.png" %fileName)
 
-
-    #pdfkit.from_url('http://google.com', 'out.pdf', options=options)
+def WriteExcel(data, fileName):
+#Writing Excel
+    print "Writing Excel to %s.csv" %fileName
 if __name__=="__main__":
     #html2pdf("E:\\WorkSpace\\gloves_test\\Program\\Ui\\Results\\admin", "test.pdf")
     data =GetData()

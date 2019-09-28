@@ -528,14 +528,17 @@ class sample_list(QWidget, Ui_sample_list):
     def on_btnExport_clicked(self): 
         data = time.time()
         timeArray = time.localtime(data)
-        time_str=time.strftime('%Y%m%d',timeArray)
+        time_str=time.strftime('%Y%m%d%H%M%S',timeArray)
         ResultDir=os.getcwd()+"\\Results\\"+str(self.mainwindow.userName)+"\\%s" %time_str
-        
+        file_name="%s" %(time_str)
+
         # to create the png for pdf.
         i=0
+        all_data=[]
         for sample in self.mainwindow.samples:
-            i=i+1
             data=[]
+
+            i=i+1
             print "1 len is %s" %len(sample.op1_list)
             print "2 len is %s" %len(sample.rp1_list)
             print "3 len is %s" %len(sample.op2_list)
@@ -567,8 +570,12 @@ class sample_list(QWidget, Ui_sample_list):
             data.append(sample.op3_list)
             data.append(sample.rp3_list)
             #print data
-            CharCreate(data, png_file)
-        Result=WriteExcel(data, excel_file)
+            file_root=os.path.join(ResultDir, file_name)
+            print "file root is %s, and %s" %(file_name,i)
+            sample.s_firgure_img=("%s-%s.png" %(file_root, i))
+            CharCreate(data, "%s-%s" %(file_root, i))
+            all_data.extend(data)
+        Result=WriteExcel(all_data, file_root)
         
         Result=html2pdf(ResultDir, self.mainwindow.samples)
         

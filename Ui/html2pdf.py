@@ -5,7 +5,7 @@ from sample_information_input import Sample
 import matplotlib.pyplot as plt
 import numpy
 import random
-
+from Log import *
 
 def html2pdf(dirs, samples):
     if not os.path.exists(dirs):
@@ -33,7 +33,7 @@ def html2pdf(dirs, samples):
         #for op1
         ResultDir=os.getcwd()
         print "current Dir is %s" %ResultDir
-        html_image_list=html_image_list+"<div class=\"Imgs\"><br><br>Sameple %s <br><hr><img src=\"%s//Figure_1.png\" width=\"650\" height=\"400\" alt=\"\"/></div>" %(i,ResultDir)
+        html_image_list=html_image_list+"<div class=\"Imgs\"><br><br>Specimen %s <br><hr><img src=\"%s\" width=\"650\" height=\"400\" alt=\"\"/></div>" %(i, sample.s_firgure_img)
 
         str_list=str_list+"<tr>"
         str_list=str_list+"<th scope=\"row\">&nbsp;%s</th>" %(int(sample.s_slot)+1)
@@ -160,6 +160,7 @@ def html2pdf(dirs, samples):
     #update image for report
 
     #pdfkit.from_string(html_str, 'out.pdf',options=options) #with --page-size=Legal and --orientation=Landscape
+    print html_str
     pdfkit.from_string(html_str, dirs+"\\"+fileName) #with --page-size=Legal and --orientation=Landscape
     #pdfkit.from_file('temp.html','out1.pdf')
     if os.path.isfile(dirs+"\\"+fileName):
@@ -187,13 +188,19 @@ def Move(x, y):
  
         
 def CharCreate(data, fileName):
-#    fig  = plt.figure()
+    #fig  = plt.figure()
 #    ax = fig.add_subplot(1,1,1)
 #    ax.plot([1,2,3,4],[2,3,4,5])
 #    plt.title("Matplotlib demo") 
 #    plt.xlabel("x axis caption") 
 #    plt.ylabel("y axis caption")
 #    plt.show()
+    fileNameArrray=fileName.split("\\")
+    if fileNameArrray:
+        fileNameArrray.pop(-1)
+    fileDir="\\".join(fileNameArrray)
+    if not os.path.exists(fileDir):
+        os.makedirs(fileDir)
     fig=plt.figure(figsize=(6, 3))
     color=["blue", "green", "skyblue", "yellow", "pink", "red"]
 
@@ -201,6 +208,7 @@ def CharCreate(data, fileName):
 
     for li in data:
         #print li
+        print "len of data is %s, and current index is %s" %(len(data), i)
         plt.plot(range(1, len(data[0])+1),li, c=color[i],)
         i=i+1
 #        plt.plot([1,2,3,4],[1,3,3,5], c='blue',)
@@ -211,10 +219,26 @@ def CharCreate(data, fileName):
 
     plt.legend(('op1', 'rp1', 'op2', 'rp2', 'op3', 'rp3')) 
     #plt.show()
-    plt.savefig("%s.png" %fileName)
+    plt.savefig("%s.png" %(fileName))
 
 def WriteExcel(data, fileName):
 #Writing Excel
+    fileNameArrray=fileName.split("\\")
+    if fileNameArrray:
+        fileNameArrray.pop(-1)
+    fileDir="\\".join(fileNameArrray)
+    print fileDir
+    if not os.path.exists(fileDir):
+        os.makedirs(fileDir)
+    write_str=""
+    for line in data:
+        write_str=write_str+','.join('%s' % id for id in line).strip(",")+"\n"
+        
+    log=Log()
+
+    log.Open3('%s.csv' %fileName)
+
+    log.PrintNoTime(write_str.strip(","))
     print "Writing Excel to %s.csv" %fileName
 if __name__=="__main__":
     #html2pdf("E:\\WorkSpace\\gloves_test\\Program\\Ui\\Results\\admin", "test.pdf")

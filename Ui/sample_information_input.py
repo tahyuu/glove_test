@@ -9,6 +9,7 @@ from PyQt4.QtGui import QWidget
 from PyQt4 import QtCore, QtGui
 import ConfigParser
 import os
+import numpy as np
 
 from Ui_sample_information_input import Ui_sample_information_input
 
@@ -22,6 +23,8 @@ class Sample:
         self.s_thickness=""
         self.s_standard=""
         self.s_exp_time=""
+        self.s_file_name=""
+        self.s_firgure_img=""
 
         self.op1=0.0
         self.op1_list=[]

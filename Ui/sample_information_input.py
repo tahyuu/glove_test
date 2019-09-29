@@ -38,6 +38,7 @@ class Sample:
         self.op3_list=[]
         self.rp3=0.0
         self.rp3_list=[]
+        self.dr_avg=0.0
         self.avg_op=0.0
         self.avg_rp=0.0
         self.dr=0.0

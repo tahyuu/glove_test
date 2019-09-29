@@ -573,7 +573,8 @@ class sample_list(QWidget, Ui_sample_list):
             file_root=os.path.join(ResultDir, file_name)
             print "file root is %s, and %s" %(file_name,i)
             sample.s_firgure_img=("%s-%s.png" %(file_root, i))
-            CharCreate(data, "%s-%s" %(file_root, i))
+
+            CharCreate(data, "%s-%s" %(file_root, i))
             all_data.extend(data)
         Result=WriteExcel(all_data, file_root)
         
@@ -1119,6 +1120,8 @@ class Com232Thread(QThread):
                         tmp_array.pop(-1)
                     if len(tmp_array)>0:
                         avg = sum(tmp_array) / len(tmp_array)
+                else:
+                    continue
             else:
                 tmp_array=[]
                 for i in xrange(10):
@@ -1128,7 +1131,9 @@ class Com232Thread(QThread):
 
                     #tmp_array=np.random.rand(10)
                 #print tmp_array
-
+            ##############################################
+            #here should be 前进一格tab
+            ##############################################
                 #print tmp_array
                 if  self.parent.Comm232ReadFlag:
                     self.parent.puncual=np.append(self.parent.puncual, tmp_array)
@@ -1148,6 +1153,10 @@ class Com232Thread(QThread):
 #                if self.parent.Debug and self.parent.puncual_max_value>=self.parent.max_puncual_limit:
 #                    self.parent.stop_at_max_puncual()
 #                    self.parent.Comm232ReadFlag=False
+            
+            ##############################################
+            #here should be 前进一格tab
+            ##############################################
                 if self.parent.Debug and g_puncual_max_value>=self.parent.max_puncual_limit*self.parent.max_pncual_limit_fine_tune:
                     self.parent.stop_at_max_puncual()
                     self.parent.Comm232ReadFlag=False

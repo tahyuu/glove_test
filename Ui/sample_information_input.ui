@@ -84,20 +84,10 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="le_1_mtype"/>
-       </item>
        <item row="1" column="2">
         <widget class="QLabel" name="label_5">
          <property name="text">
           <string>Chemistry Type:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="3">
-        <widget class="QLineEdit" name="le_1_ctype">
-         <property name="text">
-          <string/>
          </property>
         </widget>
        </item>
@@ -150,6 +140,12 @@
          </property>
         </widget>
        </item>
+       <item row="1" column="1">
+        <widget class="QComboBox" name="cb_1_mtype"/>
+       </item>
+       <item row="1" column="3">
+        <widget class="QComboBox" name="cb_1_ctype"/>
+       </item>
       </layout>
      </widget>
     </widget>
@@ -200,20 +196,10 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="le_2_mtype"/>
-       </item>
        <item row="1" column="2">
         <widget class="QLabel" name="label_10">
          <property name="text">
           <string>Chemistry Type:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="3">
-        <widget class="QLineEdit" name="le_2_ctype">
-         <property name="text">
-          <string/>
          </property>
         </widget>
        </item>
@@ -266,6 +252,12 @@
          </property>
         </widget>
        </item>
+       <item row="1" column="1">
+        <widget class="QComboBox" name="cb_2_mtype"/>
+       </item>
+       <item row="1" column="3">
+        <widget class="QComboBox" name="cb_2_ctype"/>
+       </item>
       </layout>
      </widget>
     </widget>
@@ -316,20 +308,10 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="le_3_mtype"/>
-       </item>
        <item row="1" column="2">
         <widget class="QLabel" name="label_22">
          <property name="text">
           <string>Chemistry Type:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="3">
-        <widget class="QLineEdit" name="le_3_ctype">
-         <property name="text">
-          <string/>
          </property>
         </widget>
        </item>
@@ -385,6 +367,12 @@
          </property>
         </widget>
        </item>
+       <item row="1" column="1">
+        <widget class="QComboBox" name="cb_3_mtype"/>
+       </item>
+       <item row="1" column="3">
+        <widget class="QComboBox" name="cb_3_ctype"/>
+       </item>
       </layout>
      </widget>
     </widget>
@@ -438,22 +426,22 @@
  <tabstops>
   <tabstop>le_1_name</tabstop>
   <tabstop>le_1_color</tabstop>
-  <tabstop>le_1_mtype</tabstop>
-  <tabstop>le_1_ctype</tabstop>
+  <tabstop>cb_1_mtype</tabstop>
+  <tabstop>cb_1_ctype</tabstop>
   <tabstop>le_1_thickness</tabstop>
   <tabstop>cb_1_standard</tabstop>
   <tabstop>le_1_exp_time</tabstop>
   <tabstop>le_2_name</tabstop>
   <tabstop>le_2_color</tabstop>
-  <tabstop>le_2_mtype</tabstop>
-  <tabstop>le_2_ctype</tabstop>
+  <tabstop>cb_2_mtype</tabstop>
+  <tabstop>cb_2_ctype</tabstop>
   <tabstop>le_2_thickness</tabstop>
   <tabstop>cb_2_standard</tabstop>
   <tabstop>le_2_exp_time</tabstop>
   <tabstop>le_3_name</tabstop>
   <tabstop>le_3_color</tabstop>
-  <tabstop>le_3_mtype</tabstop>
-  <tabstop>le_3_ctype</tabstop>
+  <tabstop>cb_3_mtype</tabstop>
+  <tabstop>cb_3_ctype</tabstop>
   <tabstop>le_3_thickness</tabstop>
   <tabstop>cb_3_standard</tabstop>
   <tabstop>le_3_exp_time</tabstop>

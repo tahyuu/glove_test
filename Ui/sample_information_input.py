@@ -82,8 +82,8 @@ class sample_information_input(QWidget, Ui_sample_information_input):
             self.groupBox.setEnabled(False)
             self.le_1_name.setReadOnly(True)
             self.le_1_color.setReadOnly(True)
-            self.le_1_mtype.setReadOnly(True)
-            self.le_1_ctype.setReadOnly(True)
+            self.cb_1_mtype.setReadOnly(True)
+            self.cb_1_ctype.setReadOnly(True)
             self.le_1_thickness.setReadOnly(True)
             self.le_1_exp_time.setReadOnly(True)
         else:
@@ -96,8 +96,8 @@ class sample_information_input(QWidget, Ui_sample_information_input):
             self.groupBox_2.setEnabled(False)
             self.le_2_name.setReadOnly(True)
             self.le_2_color.setReadOnly(True)
-            self.le_2_mtype.setReadOnly(True)
-            self.le_2_ctype.setReadOnly(True)
+            self.cb_2_mtype.setReadOnly(True)
+            self.cb_2_ctype.setReadOnly(True)
             self.le_2_thickness.setReadOnly(True)
             self.le_2_exp_time.setReadOnly(True)
         else:

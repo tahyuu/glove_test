@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'E:\WorkSpace\gloves_test\Program\Ui\sample_information_input.ui'
+# Form implementation generated from reading ui file 'D:\gloves_test\Program\Ui\sample_information_input.ui'
 #
 # Created by: PyQt4 UI code generator 4.11.4
 #
@@ -88,9 +88,11 @@ class Ui_sample_information_input(object):
         self.le_1_exp_time.setObjectName(_fromUtf8("le_1_exp_time"))
         self.gridLayout.addWidget(self.le_1_exp_time, 3, 1, 1, 1)
         self.cb_1_mtype = QtGui.QComboBox(self.layoutWidget)
+        self.cb_1_mtype.setEditable(True)
         self.cb_1_mtype.setObjectName(_fromUtf8("cb_1_mtype"))
         self.gridLayout.addWidget(self.cb_1_mtype, 1, 1, 1, 1)
         self.cb_1_ctype = QtGui.QComboBox(self.layoutWidget)
+        self.cb_1_ctype.setEditable(True)
         self.cb_1_ctype.setObjectName(_fromUtf8("cb_1_ctype"))
         self.gridLayout.addWidget(self.cb_1_ctype, 1, 3, 1, 1)
         self.verticalLayout.addWidget(self.groupBox)
@@ -142,9 +144,11 @@ class Ui_sample_information_input(object):
         self.le_2_exp_time.setObjectName(_fromUtf8("le_2_exp_time"))
         self.gridLayout_2.addWidget(self.le_2_exp_time, 3, 1, 1, 1)
         self.cb_2_mtype = QtGui.QComboBox(self.layoutWidget1)
+        self.cb_2_mtype.setEditable(True)
         self.cb_2_mtype.setObjectName(_fromUtf8("cb_2_mtype"))
         self.gridLayout_2.addWidget(self.cb_2_mtype, 1, 1, 1, 1)
         self.cb_2_ctype = QtGui.QComboBox(self.layoutWidget1)
+        self.cb_2_ctype.setEditable(True)
         self.cb_2_ctype.setObjectName(_fromUtf8("cb_2_ctype"))
         self.gridLayout_2.addWidget(self.cb_2_ctype, 1, 3, 1, 1)
         self.verticalLayout.addWidget(self.groupBox_2)
@@ -197,9 +201,11 @@ class Ui_sample_information_input(object):
         self.le_3_exp_time.setObjectName(_fromUtf8("le_3_exp_time"))
         self.gridLayout_3.addWidget(self.le_3_exp_time, 3, 1, 1, 1)
         self.cb_3_mtype = QtGui.QComboBox(self.layoutWidget2)
+        self.cb_3_mtype.setEditable(True)
         self.cb_3_mtype.setObjectName(_fromUtf8("cb_3_mtype"))
         self.gridLayout_3.addWidget(self.cb_3_mtype, 1, 1, 1, 1)
         self.cb_3_ctype = QtGui.QComboBox(self.layoutWidget2)
+        self.cb_3_ctype.setEditable(True)
         self.cb_3_ctype.setObjectName(_fromUtf8("cb_3_ctype"))
         self.gridLayout_3.addWidget(self.cb_3_ctype, 1, 3, 1, 1)
         self.verticalLayout.addWidget(self.groupBox_3)

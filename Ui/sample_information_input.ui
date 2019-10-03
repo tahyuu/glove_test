@@ -141,10 +141,18 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QComboBox" name="cb_1_mtype"/>
+        <widget class="QComboBox" name="cb_1_mtype">
+         <property name="editable">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item row="1" column="3">
-        <widget class="QComboBox" name="cb_1_ctype"/>
+        <widget class="QComboBox" name="cb_1_ctype">
+         <property name="editable">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -253,10 +261,18 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QComboBox" name="cb_2_mtype"/>
+        <widget class="QComboBox" name="cb_2_mtype">
+         <property name="editable">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item row="1" column="3">
-        <widget class="QComboBox" name="cb_2_ctype"/>
+        <widget class="QComboBox" name="cb_2_ctype">
+         <property name="editable">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -368,10 +384,18 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QComboBox" name="cb_3_mtype"/>
+        <widget class="QComboBox" name="cb_3_mtype">
+         <property name="editable">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item row="1" column="3">
-        <widget class="QComboBox" name="cb_3_ctype"/>
+        <widget class="QComboBox" name="cb_3_ctype">
+         <property name="editable">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

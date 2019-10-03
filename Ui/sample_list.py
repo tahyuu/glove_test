@@ -542,19 +542,19 @@ class sample_list(QWidget, Ui_sample_list):
             print "1 len is %s" %len(sample.op1_list)
             print "2 len is %s" %len(sample.rp1_list)
             print "3 len is %s" %len(sample.op2_list)
-            print "4 len is %s" %len(sample.rp1_list)
+            print "4 len is %s" %len(sample.rp2_list)
             print "5 len is %s" %len(sample.op3_list)
             print "6 len is %s" %len(sample.rp3_list)
-            max_leng=max([len(sample.op1_list), len(sample.rp1_list), len(sample.op2_list), len(sample.rp1_list), len(sample.op3_list), len(sample.op3_list)])
+            max_leng=max([len(sample.op1_list), len(sample.rp1_list), len(sample.op2_list), len(sample.rp2_list), len(sample.op3_list), len(sample.rp3_list)])
             print "max length is %s" %max_leng
 
-            sample.op1_list=np.append(sample.op1_list, np.zeros(max_leng-len(sample.op1_list)))
-            sample.rp1_list=np.append(sample.rp1_list, np.zeros(max_leng-len(sample.rp1_list)))
-            sample.op2_list=np.append(sample.op2_list, np.zeros(max_leng-len(sample.op2_list)))
+            sample.op1_list=np.append(np.zeros(max_leng-len(sample.op1_list)), sample.op1_list)
+            sample.rp1_list=np.append(np.zeros(max_leng-len(sample.rp1_list)), sample.rp1_list)
+            sample.op2_list=np.append(np.zeros(max_leng-len(sample.op2_list)), sample.op2_list)
             print "rp2 leng is %s, max leng is %s" %(len(sample.rp2_list), max_leng)
-            sample.rp2_list=np.append(sample.rp2_list, np.zeros(max_leng-len(sample.rp2_list)))
-            sample.op3_list=np.append(sample.op3_list, np.zeros(max_leng-len(sample.op3_list)))
-            sample.rp3_list=np.append(sample.rp3_list, np.zeros(max_leng-len(sample.rp3_list)))
+            sample.rp2_list=np.append(np.zeros(max_leng-len(sample.rp2_list)), sample.rp2_list)
+            sample.op3_list=np.append(np.zeros(max_leng-len(sample.op3_list)), sample.op3_list)
+            sample.rp3_list=np.append(np.zeros(max_leng-len(sample.rp3_list)), sample.rp3_list)
 
             #sample.rp3_list=sample.rp3_list[0:max_leng-1]
             print "1 len is %s" %len(sample.op1_list)
@@ -929,6 +929,9 @@ class TimeThread(QThread):
         #####################################
         #if parent Debug is False then excute with debug model
         #####################################
+        ###########################################
+        #Saving the puncual value to mainwindow so that we can store them
+        ###########################################
         time.sleep(1)
         if self.parent.Debug:
             self.index=self.num/6
@@ -1002,6 +1005,9 @@ class TimeThread(QThread):
     # to show dr after teste finished
     self.parent.changeCheckBox()
     #if self.working:
+    ###########################################
+    #return to zero after finish test
+    ###########################################
     if self.parent.Debug:
         command_position_x=self.c8940a1.Get_command_pos(1)
         command_position_y=self.c8940a1.Get_command_pos(2)
@@ -1020,11 +1026,14 @@ class TimeThread(QThread):
             self.c8940a1.MoveSingleAxis(3,-(command_position-self.z_start_point),True)
         ###########################
         #set to zero
+        # why need set puncual  and puncual_max_value here? Can we skip it.
+        # there is some bugs here, need to be fixed
+        #试一下将self.parent.puncual清空的动作去掉，只留g_puncual_max_value 赋值的动作----perfect
         ###########################
-        while True:
-            self.parent.puncual=np.arange(1)
-            if len(self.parent.puncual)==1:
-                break
+#        while True:
+#            self.parent.puncual=np.arange(1)
+#            if len(self.parent.puncual)==1:
+#                break
         #set puncual_max_value to zero
         global g_puncual_max_value
         while True:
@@ -1066,7 +1075,7 @@ class Com232Thread(QThread):
   def run(self):
     #print self.parent.Comm232ReadFlag
 
-    r_pun_data = r'\d(?P<data>[\+|-]\d{1,5})'
+    r_pun_data = r'\d(?P<data>[\+|-]\d{5})'
     pattern = re.compile(r_pun_data)
     self.serial_obj = serial.Serial('COM1', 9600)
     if self.serial_obj.isOpen():
@@ -1083,11 +1092,17 @@ class Com232Thread(QThread):
 #            except:
 #                pass
             if self.parent.Debug:
+                time.sleep(0.02)
                 count = self.serial_obj.inWaiting()
                 if count > 8:
-                    print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-                    time.sleep(0.02)
+                    
+                    #print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%s" %self.parent.Comm232ReadFlag
                     data = old_data + self.serial_obj.read(count)
+                    #print "data is %s" %data
+                    if not old_data:
+                        print "old data  + new data is XXXXXXXXXXXXXXXXXXXXXXXX %s" %old_data
+
+                    #old_data=""
                     #####################################
                     #change the readflag after read, maybe it will solove the problem when the puncual get max value, the next one didn't test
                     #####################################
@@ -1097,6 +1112,7 @@ class Com232Thread(QThread):
                     #if
                     #print data
                     data_arry=pattern.findall(data)
+
                     
                     tmp_array=map(float,data_arry)
                     tmp_array=map(dev,tmp_array)
@@ -1104,9 +1120,26 @@ class Com232Thread(QThread):
                     if not tmp_array:
                         #old_data=data
                         continue
+                        
+                    ##############################
+                    #找到最后匹配的字符串的位置
+                    ###############################
+#                    if data[::-1].find(data_arry[-1][::-1])>0:
+#                        print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+#                    print data[::-1].find(data_arry[-1][::-1])
+                    old_data=data[len(data)-data[::-1].find(data_arry[-1][::-1]):]
+                    #print data_arry[-1]
+                    
+                    print "odl data is XXXXXXXXXXXXXXXXXXXXXXXX %s" %old_data
 
+                    ####################################################
+                    #if the serial port always report the same value, then not save them
+                    ####################################################
+                    if tmp_array.count(tmp_array[-1])==len(tmp_array):
+                        #old_data=data
+                        continue
 
-                    if len(tmp_array)==1 and  abs(abs(tmp_array[0])-abs(avg))/(abs(avg)+0.0001)>0.9:
+                    if len(tmp_array)==1 and  abs(abs(tmp_array[0])-abs(avg))/(abs(avg)+0.0001)>0.8:
                         #old_data=data
                         continue
 
@@ -1123,6 +1156,9 @@ class Com232Thread(QThread):
                 else:
                     continue
             else:
+                ########################################################
+                #below line for debug data create
+                ########################################################
                 tmp_array=[]
                 for i in xrange(10):
                     time.sleep(0.01)
@@ -1132,19 +1168,19 @@ class Com232Thread(QThread):
                     #tmp_array=np.random.rand(10)
                 #print tmp_array
             ##############################################
-            #here should be 前进一格tab
+            #here should be 前进一格tab(Done)
             ##############################################
-                #print tmp_array
-                if  self.parent.Comm232ReadFlag:
-                    self.parent.puncual=np.append(self.parent.puncual, tmp_array)
+            #print tmp_array
+            if  self.parent.Comm232ReadFlag:
+                self.parent.puncual=np.append(self.parent.puncual, tmp_array)
                 #print self.parent.puncual
                 #########################################
                 #to set max puncual value
                 #########################################
-                if len(tmp_array)>0:
-                    global g_puncual_max_value
-                    g_puncual_max_value = (g_puncual_max_value>=max(tmp_array)) and g_puncual_max_value or max(tmp_array)
-                    self.parent.puncual_max_value =(self.parent.puncual_max_value>=max(tmp_array)) and self.parent.puncual_max_value or max(tmp_array)
+            if len(tmp_array)>0:
+                global g_puncual_max_value
+                g_puncual_max_value = (g_puncual_max_value>=max(tmp_array)) and g_puncual_max_value or max(tmp_array)
+                self.parent.puncual_max_value =(self.parent.puncual_max_value>=max(tmp_array)) and self.parent.puncual_max_value or max(tmp_array)
 
                 #########################################
                 #stop C8940A1 if get max_puncual_limit during test
@@ -1155,12 +1191,14 @@ class Com232Thread(QThread):
 #                    self.parent.Comm232ReadFlag=False
             
             ##############################################
-            #here should be 前进一格tab
+            #here should be 前进一格tab(Done)
+            #bug hrere 当压力达到最大值时，将parent.puncual 赋值为空，导致无法当前测试数据
             ##############################################
-                if self.parent.Debug and g_puncual_max_value>=self.parent.max_puncual_limit*self.parent.max_pncual_limit_fine_tune:
-                    self.parent.stop_at_max_puncual()
-                    self.parent.Comm232ReadFlag=False
+            if self.parent.Debug and g_puncual_max_value>=self.parent.max_puncual_limit*self.parent.max_pncual_limit_fine_tune:
+                self.parent.stop_at_max_puncual()
+                self.parent.Comm232ReadFlag=False
 
+            #print self.parent.puncual
                     #self.working
                     #break
                     

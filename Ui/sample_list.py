@@ -61,6 +61,7 @@ class sample_list(QWidget, Ui_sample_list):
         self.Comm232ReadFlag=False
         self.puncual=np.arange(1)
         self.puncual_max_value=0.0
+        self.stop_pushed=False
         global g_puncual_max_value
         g_puncual_max_value = 0.0
 
@@ -498,6 +499,7 @@ class sample_list(QWidget, Ui_sample_list):
                 #self.work.start()
                 
         elif self.btn_Next.text()=="Stop": 
+            self.stop_pushed=True
             reply=QMessageBox.question(self.parent,"Confirm Information","Would you like to stop the test!",QMessageBox.Yes|QMessageBox.No,QMessageBox.Yes)
             if reply==QtGui.QMessageBox.No:
                 return
@@ -757,6 +759,9 @@ class TimeThread(QThread):
  
   def run(self):
     self.num = 0
+    self.x_length=0
+    self.y_length=0
+    self.z_length=0
     px=1
 #    while self.working and self.num<self.amount:
 #
@@ -802,10 +807,27 @@ class TimeThread(QThread):
         self.c8940a1.Set8940A1(2,1000,self.y_speed)
         self.c8940a1.Set8940A1(3,1000,self.z_speed_1)       
         
-        self.c8940a1.MoveSingleAxis(3,-command_position_z,True)
-        self.c8940a1.MoveMultiAxis(-command_position_x,-command_position_y)
+        if command_position_z>0:
+            self.c8940a1.MoveSingleAxis(3,-command_position_z,True)
+        if command_position_x>0 and command_position_y:
+            self.c8940a1.MoveMultiAxis(-command_position_x,-command_position_y)
         command_position_y=self.c8940a1.Get_command_pos(2)
-        self.c8940a1.MoveSingleAxis(2,-command_position_y,True)
+        if command_position_y>0:
+            self.c8940a1.MoveSingleAxis(2,-command_position_y,True)
+
+        #######################################
+        #below code is for Z return zero
+        #######################################
+        re_list=[]
+        status=(True, True, False)
+        re_list=  self.c8940a1.ReturnZero(2000, status)
+        while re_list.count(True)<3:
+            re_list=self.c8940a1.ReturnZero(1000, re_list)
+            if re_list.count(True)<3:
+                self.c8940a1.ReturnZero(500, re_list)
+                if re_list.count(True)<3:
+                    self.c8940a1.ReturnZero(300, re_list)
+        #######################################
 
         #######################################
         #below code is for XY return zero
@@ -813,7 +835,7 @@ class TimeThread(QThread):
         re_list=[]
         status=(False, False, False)
         re_list=  self.c8940a1.ReturnZero(1000, status)
-        if re_list.count(True)<3:
+        while re_list.count(True)<3:
             re_list=self.c8940a1.ReturnZero(500, re_list)
             if re_list.count(True)<3:
                 self.c8940a1.ReturnZero(300, re_list)
@@ -823,9 +845,9 @@ class TimeThread(QThread):
         self.c8940a1.Set8940A1(1,1000,self.x_speed)
         self.c8940a1.Set8940A1(2,1000,self.y_speed)
         self.c8940a1.Set8940A1(3,1000,self.z_speed_1)
-    x_length=0
-    y_length=0
-    z_length=0
+    self.x_length=0
+    self.y_length=0
+    self.z_length=0
     i=0
     for al in Axislist:
         if self.num%6==0:
@@ -844,8 +866,8 @@ class TimeThread(QThread):
             self.parent.comm232.global_index=0
 #        print xymoved
 #        if xymoved==0:
-        x_length+=al[0]
-        y_length+=al[1]
+        self.x_length+=al[0]
+        self.y_length+=al[1]
         if not self.working:
             break
         #print "Moving to Z"
@@ -864,6 +886,8 @@ class TimeThread(QThread):
             ######################################
             #move Z axis to z start point at z_speed_1
             ######################################
+            if not self.working:
+                break
             if i==0:
                 self.c8940a1.Set8940A1(3,1000,self.z_speed_1)
                 self.c8940a1.MoveSingleAxis(3,self.z_start_point,True)
@@ -890,7 +914,8 @@ class TimeThread(QThread):
                 self.parent.puncual_max_value=0.0
                 if  self.parent.puncual_max_value==0.0:
                     break
-                
+            if not self.working:
+                break    
             self.parent.Comm232ReadFlag=True
             self.c8940a1.Set8940A1(3,1000,self.z_speed_2)
             self.c8940a1.MoveSingleAxis(3,self.punctual_route,True)
@@ -905,7 +930,7 @@ class TimeThread(QThread):
             self.parent.Comm232ReadFlag=True
             time.sleep(1)
             self.parent.Comm232ReadFlag=False
-        z_length+=(self.z_start_point+self.punctual_route)
+        self.z_length+=(self.z_start_point+self.punctual_route)
         if not self.working:
             break
         #return Zero for Z
@@ -922,7 +947,7 @@ class TimeThread(QThread):
                 self.c8940a1.MoveSingleAxis(3,-(command_position-self.z_start_point),True)
 #        print zmoved
 #        if zmoved==0:
-        z_length+=-(self.z_start_point+self.punctual_route)
+        self.z_length+=-(self.z_start_point+self.punctual_route)
         print "self working is %s" %self.working
         if not self.working:
             break
@@ -1012,9 +1037,27 @@ class TimeThread(QThread):
         command_position_x=self.c8940a1.Get_command_pos(1)
         command_position_y=self.c8940a1.Get_command_pos(2)
         command_position_z=self.c8940a1.Get_command_pos(3)
+        if command_position_z>0:
+            self.c8940a1.MoveSingleAxis(3,-command_position_z,True)
+        #######################################
+        #below code is for Z return zero
+        #######################################
+        re_list=[]
+        status=(True, True, False)
+        re_list=  self.c8940a1.ReturnZero(10000, status)
 
-        self.c8940a1.MoveSingleAxis(3,-command_position_z,True)
-        self.c8940a1.MoveMultiAxis(-x_length,-y_length,True)
+        while re_list.count(True)<3:
+#            command_position_z=self.c8940a1.Get_command_pos(3)
+#            self.c8940a1.MoveSingleAxis(3,-command_position_z,True)
+            re_list=  self.c8940a1.ReturnZero(2000, status)
+            if  re_list.count(True)<3:
+                re_list=self.c8940a1.ReturnZero(1000, re_list)
+                if re_list.count(True)<3:
+                    self.c8940a1.ReturnZero(500, re_list)
+                    if re_list.count(True)<3:
+                        self.c8940a1.ReturnZero(300, re_list)
+        #######################################
+        self.c8940a1.MoveMultiAxis(-self.x_length,-self.y_length,True)
 #        self.c8940a1.MoveSingleAxis(3,-z_length,True)
 #        self.c8940a1.MoveMultiAxis(-x_length,-y_length,True)
 
@@ -1046,7 +1089,34 @@ class TimeThread(QThread):
 #                break
 
   def stop(self):
+      
+    #Z axis return Zero
     self.working=False
+    if self.parent.Debug:
+        if self.parent.stop_pushed:
+            self.c8940a1.Stop()
+            pass
+            #######################################
+            #quickly reutrun to zero for XYZ
+            #######################################
+#            command_position_x=self.c8940a1.Get_command_pos(1)
+#            command_position_y=self.c8940a1.Get_command_pos(2)
+#            command_position_z=self.c8940a1.Get_command_pos(3)
+#            print "command position -z is %s" %-command_position_z
+##            self.c8940a1.Set8940A1(1,1000,self.x_speed)
+##            self.c8940a1.Set8940A1(2,1000,self.y_speed)
+#            self.c8940a1.Set8940A1(3,1000,self.z_speed_1)       
+#            
+#            self.c8940a1.MoveSingleAxis(3,-command_position_z,True)
+#            self.c8940a1.MoveMultiAxis(-command_position_x,-command_position_y)
+#            command_position_y=self.c8940a1.Get_command_pos(2)
+#            self.c8940a1.MoveSingleAxis(2,-command_position_y,True)
+#        if self.z_length>0:
+#            self.c8940a1.MoveSingleAxis(3,-(self.z_length),True)
+#        if self.x_length>0 and self.y_length>0:
+#            self.c8940a1.MoveMultiAxis(-self.x_length,-self.y_length,True)
+
+
 
 def dev(i):
     return i/100
@@ -1100,7 +1170,8 @@ class Com232Thread(QThread):
                     data = old_data + self.serial_obj.read(count)
                     #print "data is %s" %data
                     if not old_data:
-                        print "old data  + new data is XXXXXXXXXXXXXXXXXXXXXXXX %s" %old_data
+                        pass
+                        #print "old data  + new data is XXXXXXXXXXXXXXXXXXXXXXXX %s" %old_data
 
                     #old_data=""
                     #####################################
@@ -1130,7 +1201,7 @@ class Com232Thread(QThread):
                     old_data=data[len(data)-data[::-1].find(data_arry[-1][::-1]):]
                     #print data_arry[-1]
                     
-                    print "odl data is XXXXXXXXXXXXXXXXXXXXXXXX %s" %old_data
+                    #print "odl data is XXXXXXXXXXXXXXXXXXXXXXXX %s" %old_data
 
                     ####################################################
                     #if the serial port always report the same value, then not save them

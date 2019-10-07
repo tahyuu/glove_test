@@ -20,6 +20,8 @@ import pylab
 import re
 import serial
 import ConfigParser
+from Log import *
+
 
 g_puncual_max_value = 0.0
 
@@ -1132,7 +1134,9 @@ class Com232Thread(QThread):
     self.working = True
     self.parent=parent
     self.global_index=1
+    self.log=Log()
 
+    self.log.Open3('test.txt')
 
   def start_com232(self):
 
@@ -1145,7 +1149,7 @@ class Com232Thread(QThread):
   def run(self):
     #print self.parent.Comm232ReadFlag
 
-    r_pun_data = r'\d(?P<data>[\+|-]\d{5})'
+    r_pun_data = r'8(?P<data>[\+|-]*\d{5})'
     pattern = re.compile(r_pun_data)
     self.serial_obj = serial.Serial('COM1', 9600)
     if self.serial_obj.isOpen():
@@ -1153,6 +1157,9 @@ class Com232Thread(QThread):
     else:
         print("open failed")
     avg = -0.001
+    last_point=0.0
+    rate=0.000001
+
     if True:
         old_data=""
         while  self.working:
@@ -1162,16 +1169,24 @@ class Com232Thread(QThread):
 #            except:
 #                pass
             if self.parent.Debug:
-                time.sleep(0.02)
+                time.sleep(0.01)
                 count = self.serial_obj.inWaiting()
-                if count > 8:
+                if count > 0:
                     
                     #print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%s" %self.parent.Comm232ReadFlag
                     data = old_data + self.serial_obj.read(count)
+                    regex=re.compile("[\+|-|\d]*")
+                    data_array=regex.findall(data)
+                    data="".join(data_array)
+                    data1=" ".join(data_array)
+
+                    self.log.PrintNoTime("%s" %data1)
+                    #self.log.PrintNoTime("%s" %data)
+
                     #print "data is %s" %data
                     if not old_data:
                         pass
-                        #print "old data  + new data is XXXXXXXXXXXXXXXXXXXXXXXX %s" %old_data
+                        #print "old data  + new data is XXXXXX %XXXXXXXXXXXXXXXXXX %s" %old_data
 
                     #old_data=""
                     #####################################
@@ -1183,10 +1198,16 @@ class Com232Thread(QThread):
                     #if
                     #print data
                     data_arry=pattern.findall(data)
+                    self.log.PrintNoTime("%s" %data_arry)
+
+                    if not data_arry:
+                        old_data=data
+                        continue
 
                     
                     tmp_array=map(float,data_arry)
                     tmp_array=map(dev,tmp_array)
+                    self.log.PrintNoTime("%s" %tmp_array)
 
                     if not tmp_array:
                         #old_data=data
@@ -1199,31 +1220,62 @@ class Com232Thread(QThread):
 #                        print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 #                    print data[::-1].find(data_arry[-1][::-1])
                     old_data=data[len(data)-data[::-1].find(data_arry[-1][::-1]):]
+                    self.log.PrintNoTime("%s" %old_data)
+                    #last_point=tmp_array[-1]
+#                    for data_i in tmp_array:
+#                        self.log.PrintNoTime("rate is %s" %rate)
+#
+#                        if (data_i-last_point)/rate<-0.1:
+#                            pass
+#                            #self.log.PrintNoTime("rate is %s" %rate)
+#
+#                            #continue
+#                        rate=data_i-last_point
+#                        last_point=data_i
+                    for data_i in tmp_array:
+                        tmp_rate=abs(abs(data_i)-abs(last_point))
+                        if tmp_rate/rate>5 and tmp_rate>0 and rate>0.000001:
+                            continue
+                        else:
+                            rate=tmp_rate+0.000001
+                            last_point=data_i
                     #print data_arry[-1]
                     
                     #print "odl data is XXXXXXXXXXXXXXXXXXXXXXXX %s" %old_data
 
                     ####################################################
-                    #if the serial port always report the same value, then not save them
-                    ####################################################
-                    if tmp_array.count(tmp_array[-1])==len(tmp_array):
-                        #old_data=data
-                        continue
+                    #if the serial port always report the same value, then not save them. skip below lines so that it looks more like the data in honeywell
+                    ###################################### 
+#                        #old_data=data
+#                        continue
 
-                    if len(tmp_array)==1 and  abs(abs(tmp_array[0])-abs(avg))/(abs(avg)+0.0001)>0.8:
-                        #old_data=data
-                        continue
+#                    if len(tmp_array)==1 and  abs(abs(tmp_array[0])-abs(tmp_array[-1]))/(abs(avg)+0.0001)>0.8:
+#                        #old_data=data
+#                        continue
 
                     #########################################
                     #to choose the correct value for punctual 
                     #########################################                    
-    #                if len(tmp_array)>0:
-                    if len(tmp_array)>1 and abs(abs(tmp_array[0])-abs(tmp_array[1]))/(abs(tmp_array[1])+0.0001)>0.8:
-                        tmp_array.pop(1)
-                    if len(tmp_array)>1 and abs(abs(tmp_array[-2])-abs(tmp_array[-1]))/(abs(tmp_array[-2])+0.0001)>0.8:
-                        tmp_array.pop(-1)
-                    if len(tmp_array)>0:
-                        avg = sum(tmp_array) / len(tmp_array)
+#                    if len(tmp_array)>1 and abs(abs(tmp_array[0])-abs(tmp_array[1]))/(abs(tmp_array[1])+0.0001)>0.8:
+#                        tmp_array.pop(1)
+#                    if len(tmp_array)>1 and abs(abs(tmp_array[-2])-abs(tmp_array[-1]))/(abs(tmp_array[-2])+0.0001)>0.8:
+#                        tmp_array.pop(-1)
+#                    if len(tmp_array)>0:
+#                        avg = sum(tmp_array) / len(tmp_array)
+#                    if len(tmp_array)>0:
+#                        avg=sum(tmp_array) / len(tmp_array)
+#                        if avg_before!=0.0 and (abs(avg)-abs(avg_before))/abs(avg)>0.8:
+#                            continue
+#                        else:
+#                            avg_before=avg
+
+#                    if len(tmp_array)>1 and abs(abs(tmp_array[0])-abs(tmp_array[1]))/(abs(tmp_array[1])+0.0001)>0.8:
+#                        tmp_array.pop(1)
+#                    if len(tmp_array)>1 and abs(abs(tmp_array[-2])-abs(tmp_array[-1]))/(abs(tmp_array[-2])+0.0001)>0.8:
+#                        tmp_array.pop(-1)
+#                    if len(tmp_array)>0:
+#                        avg = sum(tmp_array) / len(tmp_array)
+
                 else:
                     continue
             else:
@@ -1244,6 +1296,8 @@ class Com232Thread(QThread):
             #print tmp_array
             if  self.parent.Comm232ReadFlag:
                 self.parent.puncual=np.append(self.parent.puncual, tmp_array)
+                last_point=tmp_array[-1]
+
                 #print self.parent.puncual
                 #########################################
                 #to set max puncual value
@@ -1315,8 +1369,8 @@ class GrafThread(QThread):
         #print  self.parent.puncual
         #px=2
         if self.parent.Comm232ReadFlag:
-            time.sleep(0.1)
-            #px=px-random.random()/10
+            time.sleep(0.01)
+            #px=px-random.random()/1001
             #self.punctual.append(px)
             #self.parent.puncual=np.append(self.parent.puncual, px)
             self.update_graf.emit() # 发送信号

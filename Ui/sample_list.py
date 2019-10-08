@@ -50,7 +50,7 @@ class sample_list(QWidget, Ui_sample_list):
     def __init__(self, parent=None, mainwindow=None):
         """
         Constructor
-        
+
         @param parent reference to the parent widget
         @type QWidget
         """
@@ -76,12 +76,12 @@ class sample_list(QWidget, Ui_sample_list):
         currentDir=os.getcwd()
         self.cf.read("%s\Config.ini" %currentDir)
         #self.cf.items("UserConfig")
-        
+
         ######################################
         #to get debug Stutu3 in SysConfig Debug
         ######################################
         debug_status = self.cf.get('SysConfig', 'Debug_Move')
-        
+
         self.max_puncual_limit=float(self.cf.get('XYZAxisConfig', 'max_puncual_limit'))
         self.max_pncual_limit_fine_tune=float(self.cf.get('XYZAxisConfig', 'max_pncual_limit_fine_tune'))
 
@@ -119,13 +119,13 @@ class sample_list(QWidget, Ui_sample_list):
         self.comm232=Com232Thread(self)
         self.comm232.signal_com232.connect(self.update_punctual)
         #self.comm232.update_graf.connect(self.UpdateGraf)
-        
+
         self.grafthread=GrafThread(self)
         self.grafthread.update_graf.connect(self.UpdateGraf)
         self.grPlot.plotItem.showGrid(True, True, 0.7)
         self.grPlot.setYRange(0, 5)
         pen=pyqtgraph.mkPen("#FF0000",width=2)
-        
+
 #        points=100 #number of data points
 #        X=np.arange(points)
 #        #print np.sin(np.arange(points))
@@ -137,8 +137,8 @@ class sample_list(QWidget, Ui_sample_list):
 #        #C=pyqtgraph.hsvColor("130",alpha=.5)
 #        pen=pyqtgraph.mkPen("#FF0000",width=2)
 #        self.grPlot.plot(X,Y,pen=pen,clear=True)
-        
-        
+
+
         #self.timer.timeout.connect(self.work.Test)
         #self.work.trigger.connect(self.updateDisplay)
         #self.connect(self.work, QtCore.SIGNAL("updateDisplay"), self.updateDisplay)
@@ -204,18 +204,18 @@ class sample_list(QWidget, Ui_sample_list):
         self.tableWidget.setSpan(8, 5, 3, 1)
         self.tableWidget.setSpan(8, 6, 3, 1)
         self.tableWidget.setSpan(8, 7, 3, 1)
-        
-        
+
+
         self.tableWidget.setSpan(2, 12, 3, 1)
         self.tableWidget.setSpan(5, 12, 3, 1)
         self.tableWidget.setSpan(8, 12, 3, 1)
-                
+
         self.tableWidget.setSpan(2, 13, 9, 1)
 #
 #        self.tableWidget.setSpan(6, 11, 3, 1)
- 
- 
- 
+
+
+
 #        self.tableWidget.setSpan(0, 8, 2, 1)
 #        self.tableWidget.setSpan(2, 8, 2, 1)
 #        self.tableWidget.setSpan(4, 8, 2, 1)
@@ -281,7 +281,7 @@ class sample_list(QWidget, Ui_sample_list):
 #        self.tableWidget.setSpan(14, 9, 2, 1)
 #        self.tableWidget.setSpan(16, 9, 2, 1)
 
-        
+
 #        item = self.tableWidget.item(0, 0)
 #        item.setText(_translate("Dialog", "Sample1", None))
 #        item = self.tableWidget.item(1, 0)
@@ -345,14 +345,14 @@ class sample_list(QWidget, Ui_sample_list):
         self.tableWidget.horizontalHeader().setStyleSheet(stylesheet)
         self.btn_Export.setEnabled(False)
 
-        
+
         self.tableWidget.setEditTriggers(QtGui.QTableWidget.NoEditTriggers)
 
         self.tableWidget.setSelectionBehavior(QtGui.QTableWidget.SelectRows)
         self.tableWidget.setAlternatingRowColors(True)
         self.tableWidget.setSelectionMode(QtGui.QTableWidget.SingleSelection)
         self.tableWidget.resizeColumnsToContents()
-        
+
         headerFont = QtGui.QFont()
 
         headerFont.setPointSize(14)
@@ -360,7 +360,7 @@ class sample_list(QWidget, Ui_sample_list):
         headerFont.setFamily(_fromUtf8("Garamond"))
 
         headerFont.setBold(True)
-        
+
         self.tableWidget.setColumnWidth(0,70)
 
         self.tableWidget.setColumnWidth(1,70)
@@ -372,9 +372,9 @@ class sample_list(QWidget, Ui_sample_list):
         self.tableWidget.setColumnWidth(4,80)
 
         self.tableWidget.setColumnWidth(5,80)
-        
+
         self.tableWidget.setColumnWidth(6,80)
-        
+
         self.tableWidget.setColumnWidth(7,80)
         self.tableWidget.setColumnWidth(8,100)
         self.tableWidget.setColumnWidth(9,100)
@@ -393,14 +393,14 @@ class sample_list(QWidget, Ui_sample_list):
         self.tableWidget.setRowHeight(9,50)
         self.tableWidget.setRowHeight(10,50)
 
-        
+
 
         #self.tableWidget.setColumnWidth(8,100)
         #horizontalHeader()->setVisible(false);
         #self.tableWidget.horizontalHeader().setStretchLastSection(True)
 
         self.tableWidget.horizontalHeader().setVisible(False)
-        
+
         for x in range(self.tableWidget.columnCount()):  
             pass
 
@@ -409,7 +409,7 @@ class sample_list(QWidget, Ui_sample_list):
             #headItem.setFont(headerFont)
 
         #headerFont.setWeight(25)
-        
+
         #init data
         i=0
         if not self.mainwindow:
@@ -440,10 +440,10 @@ class sample_list(QWidget, Ui_sample_list):
             self.tableWidget.setItem(i*3+3, 10, QtGui.QTableWidgetItem(_fromUtf8(str(("RP%s-2" %(i+1)  ).encode("utf-8"))))) 
             self.tableWidget.setItem(i*3+4, 8, QtGui.QTableWidgetItem(_fromUtf8(str(("OP%s-3" %(i+1) ).encode("utf-8")))))
             self.tableWidget.setItem(i*3+4, 10, QtGui.QTableWidgetItem(_fromUtf8(str(("RP%s-3" %(i+1)  ).encode("utf-8"))))) 
-              
+
             i=i+1
-            
-            
+
+
 #        item = QtGui.QTableWidgetItem()
 #        item.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter|QtCore.Qt.AlignCenter)
 #        self.tableWidget.setItem(0, 10, item)
@@ -499,7 +499,7 @@ class sample_list(QWidget, Ui_sample_list):
                 #self.c8940a1.Start()
                 #self.timer.start(1000)
                 #self.work.start()
-                
+
         elif self.btn_Next.text()=="Stop": 
             self.stop_pushed=True
             reply=QMessageBox.question(self.parent,"Confirm Information","Would you like to stop the test!",QMessageBox.Yes|QMessageBox.No,QMessageBox.Yes)
@@ -527,7 +527,7 @@ class sample_list(QWidget, Ui_sample_list):
         self.mainwindow.nextpushed=True       
         self.parent.close()
         self.mainwindow.CurrentStatus="inputInformation"
-        
+
     @pyqtSignature("")
     def on_btnExport_clicked(self): 
         data = time.time()
@@ -581,9 +581,9 @@ class sample_list(QWidget, Ui_sample_list):
             CharCreate(data, "%s-%s" %(file_root, i))
             all_data.extend(data)
         Result=WriteExcel(all_data, file_root)
-        
+
         Result=html2pdf(ResultDir, self.mainwindow.samples)
-        
+
 
         if Result[0]:
         #self.write_excel("Results\\Excel\abc.xlsx", [["a", "b", "c"], ["aa", "bb", "cc"]])
@@ -659,7 +659,7 @@ class sample_list(QWidget, Ui_sample_list):
             self.tableWidget.setItem(2,13 , QtGui.QTableWidgetItem(_fromUtf8(str(str("")).encode("utf-8")))) 
 
 
-        
+
     #@pyqtSignature("")
     def updateDisplay(self, text):
         #get the latest date
@@ -689,7 +689,7 @@ class sample_list(QWidget, Ui_sample_list):
 #              self.tableWidget.setItem(i*3+4,12 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr3*100))).encode("utf-8"))))    
             if not sample.dr==0.0:
               self.tableWidget.setItem(i*3+2,12 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.2f%%" %(sample.dr*100))).encode("utf-8"))))    
-                                           
+
             i=i+1
         if not self.timer_t.working:
             self.btn_Next.setText("Start")
@@ -697,7 +697,7 @@ class sample_list(QWidget, Ui_sample_list):
             self.btn_Export.setEnabled(True)
             self.comm232.stop()
 
-            
+
     def write_excel(self, filename, data):
         book = xlwt.Workbook()            #创建excel对象
         sheet = book.add_sheet('sheet1')  #添加一个表
@@ -719,7 +719,7 @@ class sample_list(QWidget, Ui_sample_list):
 
 class TimeThread(QThread):
   signal_time = pyqtSignal(float, int) # 信号
- 
+
   def __init__(self, parent=None):
     super(TimeThread, self).__init__(parent)
     self.working = True
@@ -749,16 +749,16 @@ class TimeThread(QThread):
 #    self.y_speed=10000
 #    self.z_speed_1=30000
 #    self.z_speed_2=5000
-    
+
     if self.parent.Debug:
         self.c8940a1=C8940A1()
- 
+
   def start_timer(self):
     self.num = 0
     self.working=True
 
     self.start()
- 
+
   def run(self):
     self.num = 0
     self.x_length=0
@@ -790,10 +790,10 @@ class TimeThread(QThread):
     print "coding return zero here!"
         #c8940a1.MoveSingleAxis(1,100000)
         #time.sleep(5)
-    
 
 
-    
+
+
     Axislist =[(self.x_start_point,self.y_start_point),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),
                    (-(self.x_interval*5),self.y_interval),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),
                    (-(self.x_interval*5),self.y_interval),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0),(self.x_interval,0)]
@@ -808,7 +808,7 @@ class TimeThread(QThread):
         self.c8940a1.Set8940A1(1,1000,self.x_speed)
         self.c8940a1.Set8940A1(2,1000,self.y_speed)
         self.c8940a1.Set8940A1(3,1000,self.z_speed_1)       
-        
+
         if command_position_z>0:
             self.c8940a1.MoveSingleAxis(3,-command_position_z,True)
         if command_position_x>0 and command_position_y:
@@ -855,7 +855,7 @@ class TimeThread(QThread):
         if self.num%6==0:
             px=1
         px=px-random.random()/10
-        
+
 
 
         #c8940a1.MoveSingleAxis(2,100000)
@@ -1018,7 +1018,7 @@ class TimeThread(QThread):
                 self.parent.mainwindow.samples[self.index].rp3=px
                 self.parent.mainwindow.samples[self.index].rp3_list=self.parent.puncual.copy()
 
-            
+
         self.parent.mainwindow.samples[self.index].calculate()
         self.signal_time.emit(self.parent.puncual_max_value, self.num) # 发送信号
         self.sleep(1)
@@ -1091,7 +1091,7 @@ class TimeThread(QThread):
 #                break
 
   def stop(self):
-      
+
     #Z axis return Zero
     self.working=False
     if self.parent.Debug:
@@ -1124,7 +1124,7 @@ def dev(i):
     return i/100
 def mean(a):
     return sum(a) / len(a)
-    
+
 class Com232Thread(QThread):
   signal_com232 = pyqtSignal(float, int) # 信号
   #update_graf = pyqtSignal() # 信号
@@ -1145,7 +1145,7 @@ class Com232Thread(QThread):
 
     self.start()
 
- 
+
   def run(self):
     #print self.parent.Comm232ReadFlag
 
@@ -1172,7 +1172,7 @@ class Com232Thread(QThread):
                 time.sleep(0.01)
                 count = self.serial_obj.inWaiting()
                 if count > 0:
-                    
+
                     #print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX%s" %self.parent.Comm232ReadFlag
                     data = old_data + self.serial_obj.read(count)
                     regex=re.compile("[\+|-|\d]*")
@@ -1204,7 +1204,7 @@ class Com232Thread(QThread):
                         old_data=data
                         continue
 
-                    
+
                     tmp_array=map(float,data_arry)
                     tmp_array=map(dev,tmp_array)
                     self.log.PrintNoTime("%s" %tmp_array)
@@ -1212,7 +1212,7 @@ class Com232Thread(QThread):
                     if not tmp_array:
                         #old_data=data
                         continue
-                        
+
                     ##############################
                     #找到最后匹配的字符串的位置
                     ###############################
@@ -1232,17 +1232,26 @@ class Com232Thread(QThread):
 #                            #continue
 #                        rate=data_i-last_point
 #                        last_point=data_i
+                    #continue_flag=True
+                    tmp_arry_return=[]
                     for data_i in tmp_array:
                         tmp_rate=abs(abs(data_i)-abs(last_point))
-                        if tmp_rate/rate>5 and tmp_rate>0 and rate>0.000001:
+                        self.log.PrintNoTime("data_i is %s, last points is %s,last rate is %s, current rate is %s, staus is %s" %(data_i, last_point, rate, tmp_rate, (tmp_rate/rate>5 and tmp_rate>0 and rate>0.000001)))
+                        if data_i==last_point:
+                            tmp_arry_return.append(data_i)
                             continue
+
+                        if tmp_rate/rate>4 and tmp_rate>0 and rate>0.000001:
+                            tmp_arry_return.append(last_point)
+                            #continue
                         else:
+                            tmp_arry_return.append(data_i)
                             rate=tmp_rate+0.000001
                             last_point=data_i
                     #print data_arry[-1]
-                    
-                    #print "odl data is XXXXXXXXXXXXXXXXXXXXXXXX %s" %old_data
 
+                    #print "odl data is XXXXXXXXXXXXXXXXXXXXXXXX %s" %old_data
+                    tmp_array=tmp_arry_return
                     ####################################################
                     #if the serial port always report the same value, then not save them. skip below lines so that it looks more like the data in honeywell
                     ###################################### 
@@ -1297,7 +1306,9 @@ class Com232Thread(QThread):
             if  self.parent.Comm232ReadFlag:
                 self.parent.puncual=np.append(self.parent.puncual, tmp_array)
                 last_point=tmp_array[-1]
-
+            else:
+                last_point=0.0
+                rate=0.000001
                 #print self.parent.puncual
                 #########################################
                 #to set max puncual value
@@ -1314,7 +1325,7 @@ class Com232Thread(QThread):
 #                if self.parent.Debug and self.parent.puncual_max_value>=self.parent.max_puncual_limit:
 #                    self.parent.stop_at_max_puncual()
 #                    self.parent.Comm232ReadFlag=False
-            
+
             ##############################################
             #here should be 前进一格tab(Done)
             #bug hrere 当压力达到最大值时，将parent.puncual 赋值为空，导致无法当前测试数据
@@ -1326,7 +1337,7 @@ class Com232Thread(QThread):
             #print self.parent.puncual
                     #self.working
                     #break
-                    
+
                 #print self.parent.puncual
                 #print "OK"
 #                if data != b'':
@@ -1361,7 +1372,7 @@ class GrafThread(QThread):
   def start_Graf_show(self):
     self.working=True
     self.start()
- 
+
   def run(self):
     #print self.parent.Comm232ReadFlag
     while True:

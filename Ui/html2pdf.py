@@ -154,6 +154,8 @@ def html2pdf(dirs, samples):
     time_str=time.strftime('%Y-%m-%d %H:%M:%S',timeArray)
     html_str=html_str.replace('$DateTime$',time_str)
     fileName=time.strftime('%Y-%m-%d-%H-%M-%S.pdf',timeArray)
+    
+    fileName= "%s_%s_%s" %(samples[0].s_name, samples[0].s_mtype,fileName )
 
 
 

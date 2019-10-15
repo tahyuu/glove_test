@@ -675,10 +675,10 @@ class sample_list(QWidget, Ui_sample_list):
         pass
     def update_timer_tv(self, value, number):
         i=0
-        if number%2==0:
-            self.tableWidget.setItem(number/2+2,9 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.3f" %value).encode("utf-8")))))   
+        if number%6<3:
+            self.tableWidget.setItem((number/6)*3+number%3+2,9 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.3f" %value).encode("utf-8")))))   
         else:
-            self.tableWidget.setItem(number/2+2,11 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.3f" %value).encode("utf-8")))))   
+            self.tableWidget.setItem((number/6)*3+number%3+2,11 , QtGui.QTableWidgetItem(_fromUtf8(str(str("%.3f" %value).encode("utf-8")))))   
 
         for sample in self.mainwindow.samples:
 #            if not sample.dr1==0.0:
@@ -972,17 +972,17 @@ class TimeThread(QThread):
                 print "after value is "
                 print self.parent.mainwindow.samples[self.index].op1_list
             if self.num%6==1:
-                self.parent.mainwindow.samples[self.index].rp1=self.parent.puncual_max_value
-                self.parent.mainwindow.samples[self.index].rp1_list=self.parent.puncual.copy()   
-            if self.num%6==2:
                 self.parent.mainwindow.samples[self.index].op2=self.parent.puncual_max_value
-                self.parent.mainwindow.samples[self.index].op2_list=self.parent.puncual.copy()
-            if self.num%6==3:
-                self.parent.mainwindow.samples[self.index].rp2=self.parent.puncual_max_value
-                self.parent.mainwindow.samples[self.index].rp2_list=self.parent.puncual.copy()
-            if self.num%6==4:
+                self.parent.mainwindow.samples[self.index].op2_list=self.parent.puncual.copy()   
+            if self.num%6==2:
                 self.parent.mainwindow.samples[self.index].op3=self.parent.puncual_max_value
                 self.parent.mainwindow.samples[self.index].op3_list=self.parent.puncual.copy()
+            if self.num%6==3:
+                self.parent.mainwindow.samples[self.index].rp1=self.parent.puncual_max_value
+                self.parent.mainwindow.samples[self.index].rp1_list=self.parent.puncual.copy()
+            if self.num%6==4:
+                self.parent.mainwindow.samples[self.index].rp2=self.parent.puncual_max_value
+                self.parent.mainwindow.samples[self.index].rp2_list=self.parent.puncual.copy()
             if self.num%6==5:
                 self.parent.mainwindow.samples[self.index].rp3=self.parent.puncual_max_value
                 self.parent.mainwindow.samples[self.index].rp3_list=self.parent.puncual.copy()
@@ -999,20 +999,20 @@ class TimeThread(QThread):
                 print "after value is "
                 print self.parent.mainwindow.samples[self.index].op1_list
             if self.num%6==1:
-                self.parent.mainwindow.samples[self.index].rp1=px
-                self.parent.mainwindow.samples[self.index].rp1_list=self.parent.puncual.copy()   
+                self.parent.mainwindow.samples[self.index].op2=px
+                self.parent.mainwindow.samples[self.index].op2_list=self.parent.puncual.copy()   
 
             if self.num%6==2:
-                self.parent.mainwindow.samples[self.index].op2=px
-                self.parent.mainwindow.samples[self.index].op2_list=self.parent.puncual.copy()
-
-            if self.num%6==3:
-                self.parent.mainwindow.samples[self.index].rp2=px
-                self.parent.mainwindow.samples[self.index].rp2_list=self.parent.puncual.copy()
-
-            if self.num%6==4:
                 self.parent.mainwindow.samples[self.index].op3=px
                 self.parent.mainwindow.samples[self.index].op3_list=self.parent.puncual.copy()
+
+            if self.num%6==3:
+                self.parent.mainwindow.samples[self.index].rp1=px
+                self.parent.mainwindow.samples[self.index].rp1_list=self.parent.puncual.copy()
+
+            if self.num%6==4:
+                self.parent.mainwindow.samples[self.index].rp2=px
+                self.parent.mainwindow.samples[self.index].rp2_list=self.parent.puncual.copy()
 
             if self.num%6==5:
                 self.parent.mainwindow.samples[self.index].rp3=px

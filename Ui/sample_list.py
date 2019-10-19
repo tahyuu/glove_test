@@ -744,7 +744,9 @@ class sample_list(QWidget, Ui_sample_list):
         book.save(filename) #保存excel
         #self.timer_tv.setText(self.tr(text + " " + str(number)))
     def closeEvent(self,event):
-
+        print self.timer_t.working
+        if  not self.timer_t.working:
+            return
         reply = QtGui.QMessageBox.question(self,'Message',"Test will stop. Are you sure to quit?", QtGui.QMessageBox.Yes|QtGui.QMessageBox.No, QtGui.QMessageBox.No)
 
         if reply == QtGui.QMessageBox.Yes:
@@ -761,7 +763,7 @@ class TimeThread(QThread):
 
   def __init__(self, parent=None):
     super(TimeThread, self).__init__(parent)
-    self.working = True
+    self.working = False
     self.amount=0
     self.num = 0
     self.parent=parent

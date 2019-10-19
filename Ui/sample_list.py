@@ -746,12 +746,14 @@ class sample_list(QWidget, Ui_sample_list):
     def closeEvent(self,event):
         print self.timer_t.working
         if  not self.timer_t.working:
+            self.parent.close()
             return
         reply = QtGui.QMessageBox.question(self,'Message',"Test will stop. Are you sure to quit?", QtGui.QMessageBox.Yes|QtGui.QMessageBox.No, QtGui.QMessageBox.No)
 
         if reply == QtGui.QMessageBox.Yes:
             event.accept()
-            self.timer_t.stop()
+            if self.Debug:
+                self.timer_t.stop()
 
             self.parent.close()
         else:

@@ -47,6 +47,7 @@ class sample_list(QWidget, Ui_sample_list):
     """
     Class documentation goes here.
     """
+
     def __init__(self, parent=None, mainwindow=None):
         """
         Constructor
@@ -68,7 +69,7 @@ class sample_list(QWidget, Ui_sample_list):
         g_puncual_max_value = 0.0
 
 
-
+        self.setWindowFlags(QtCore.Qt.Window | QtCore.Qt.WindowTitleHint | QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.CustomizeWindowHint)
         #######################################
         #to read config 
         #######################################
@@ -447,12 +448,7 @@ class sample_list(QWidget, Ui_sample_list):
 #        item = QtGui.QTableWidgetItem()
 #        item.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter|QtCore.Qt.AlignCenter)
 #        self.tableWidget.setItem(0, 10, item)
-    def closeEvent(self, event):
-         res=QMessageBox.question(self,'消息','是否关闭这个窗口？',QMessageBox.Yes|QMessageBox.No,QMessageBox.No) #两个按钮是否， 默认No则关闭这个提示框
-         if res==QMessageBox.Yes:
-             event.accept()  
-         else:
-             event.ignore()
+
 
     @pyqtSignature("")
     def on_btnNextStep_clicked(self):        
@@ -471,10 +467,11 @@ class sample_list(QWidget, Ui_sample_list):
             if Dialog.exec_():
                 pass
             print ui.buttonPushed
-            if ui.buttonPushed=="NO":
-                return
-            else:
+            if ui.buttonPushed=="YES":
                 pass
+                
+            else:
+                return
                 
                 
             Dialog = QtGui.QDialog()
@@ -488,10 +485,10 @@ class sample_list(QWidget, Ui_sample_list):
             if Dialog.exec_():
                 pass
             print ui.buttonPushed
-            if ui.buttonPushed=="NO":
-                return
-            else:
+            if ui.buttonPushed=="YES":
                 pass
+            else:
+                return
 #            reply=QMessageBox.question(self.parent,"Confirm Information","please confirm the test sample are fixed in correct test slot!",QMessageBox.Yes|QMessageBox.No,QMessageBox.Yes)
 #            if reply==QtGui.QMessageBox.No:
 #                return
@@ -736,7 +733,6 @@ class sample_list(QWidget, Ui_sample_list):
             self.btn_Export.setEnabled(True)
             self.comm232.stop()
 
-
     def write_excel(self, filename, data):
         book = xlwt.Workbook()            #创建excel对象
         sheet = book.add_sheet('sheet1')  #添加一个表
@@ -747,14 +743,18 @@ class sample_list(QWidget, Ui_sample_list):
             c += 1
         book.save(filename) #保存excel
         #self.timer_tv.setText(self.tr(text + " " + str(number)))
-#    def closeEvent(self,event):
-#
-#        reply = QtGui.QMessageBox.question(self,'Message',"Are you sure to quit?", QtGui.QMessageBox.Yes|QtGui.QMessageBox.No, QtGui.QMessageBox.No)
-#
-#        if reply == QtGui.QMessageBox.Yes:
-#            event.accept()
-#        else:
-#            event.ignore()
+    def closeEvent(self,event):
+
+        reply = QtGui.QMessageBox.question(self,'Message',"Test will stop. Are you sure to quit?", QtGui.QMessageBox.Yes|QtGui.QMessageBox.No, QtGui.QMessageBox.No)
+
+        if reply == QtGui.QMessageBox.Yes:
+            event.accept()
+            self.timer_t.stop()
+
+            self.parent.close()
+        else:
+            event.ignore()
+
 
 class TimeThread(QThread):
   signal_time = pyqtSignal(float, int) # 信号

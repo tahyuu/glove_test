@@ -5,7 +5,6 @@
 # Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
-from PyQt4.QtGui import QWidget, QMessageBox, QTextBrowser
 
 from PyQt4 import QtCore, QtGui
 
@@ -60,7 +59,7 @@ class Ui_Form(object):
 
         self.retranslateUi(Form)
         QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL(_fromUtf8("clicked()")), Form.on_btnOk_clicked)
-        QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL(_fromUtf8("clicked()")), Form.close)
+        QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL(_fromUtf8("clicked()")), Form.on_btnClose_clicked)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
@@ -68,12 +67,7 @@ class Ui_Form(object):
         self.label.setText(_translate("Form", "<html><head/><body><p>please double confirm the test sample are loading </p><p>as above picture, </p><p>Test will start once you push the OK button</p></body></html>", None))
         self.pushButton_2.setText(_translate("Form", "Cancel", None))
         self.pushButton.setText(_translate("Form", "OK", None))
-    def closeEvent(self, event):
-         res=QMessageBox.question(self,'消息','是否关闭这个窗口？',QMessageBox.Yes|QMessageBox.No,QMessageBox.No) #两个按钮是否， 默认No则关闭这个提示框
-         if res==QMessageBox.Yes:
-             event.accept()  
-         else:
-             event.ignore()
+
 import gloves_resource_rc
 
 if __name__ == "__main__":

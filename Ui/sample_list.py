@@ -7,7 +7,7 @@ Module implementing Dialog.
 from PyQt4.QtCore import pyqtSignature, QThread, pyqtSignal
 from PyQt4.QtGui import QWidget, QMessageBox, QTextBrowser
 from PyQt4.QtGui import QWidget
-
+from IMGMessageBox import *
 from PyQt4 import QtCore, QtGui
 import time
 import random
@@ -447,6 +447,12 @@ class sample_list(QWidget, Ui_sample_list):
 #        item = QtGui.QTableWidgetItem()
 #        item.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter|QtCore.Qt.AlignCenter)
 #        self.tableWidget.setItem(0, 10, item)
+    def closeEvent(self, event):
+         res=QMessageBox.question(self,'消息','是否关闭这个窗口？',QMessageBox.Yes|QMessageBox.No,QMessageBox.No) #两个按钮是否， 默认No则关闭这个提示框
+         if res==QMessageBox.Yes:
+             event.accept()  
+         else:
+             event.ignore()
 
     @pyqtSignature("")
     def on_btnNextStep_clicked(self):        
@@ -454,15 +460,48 @@ class sample_list(QWidget, Ui_sample_list):
         #self.mainwindow.nextpushed=True
 
         if self.btn_Next.text()=="Start": 
-            reply=QMessageBox.question(self.parent,"Confirm Information","please confirm the test sample are fixed in correct test slot!",QMessageBox.Yes|QMessageBox.No,QMessageBox.Yes)
-            if reply==QtGui.QMessageBox.No:
+            bkg_img_txt=(self.mainwindow.sample_1_enable and "1" or "0")+(self.mainwindow.sample_2_enable and "1" or "0")+(self.mainwindow.sample_3_enable and "1" or "0")
+                
+            Dialog = QtGui.QDialog()
+            ui = IMGMessageBox(Dialog)
+            ui.setLabelTxt("<p>Please confirm specimems are loading</p> <p>as above Picture.</p>")
+            ui.showPIC(bkg_img_txt)
+            #ui.setupUi(Dialog , self)
+            ui.show()
+            if Dialog.exec_():
+                pass
+            print ui.buttonPushed
+            if ui.buttonPushed=="NO":
                 return
             else:
                 pass
-            reply=QMessageBox.question(self.parent,"Confirm Information","please double confirm the test sample are fixed in correct test slot! test will start once you push the OK button",QMessageBox.Yes|QMessageBox.No,QMessageBox.Yes)
-            if reply==QtGui.QMessageBox.No:
+                
+                
+            Dialog = QtGui.QDialog()
+            ui = IMGMessageBox(Dialog)
+            #ui.setLabelTxt("Please double confirm specimems are loading as above Picture. test will start once you click OK Button")
+            ui.setLabelTxt("<p>Please double confirm specimems are loading</p> <p>as above Picture.</p> <p>Test will start once you click OK Button</p>")
+
+            ui.showPIC(bkg_img_txt)
+            #ui.setupUi(Dialog , self)
+            ui.show()
+            if Dialog.exec_():
+                pass
+            print ui.buttonPushed
+            if ui.buttonPushed=="NO":
                 return
             else:
+                pass
+#            reply=QMessageBox.question(self.parent,"Confirm Information","please confirm the test sample are fixed in correct test slot!",QMessageBox.Yes|QMessageBox.No,QMessageBox.Yes)
+#            if reply==QtGui.QMessageBox.No:
+#                return
+#            else:
+#                pass
+#            reply=QMessageBox.question(self.parent,"Confirm Information","please double confirm the test sample are fixed in correct test slot! test will start once you push the OK button",QMessageBox.Yes|QMessageBox.No,QMessageBox.Yes)
+#            if reply==QtGui.QMessageBox.No:
+#                return
+#            else:
+            if True:
                 if self.btn_Next.text()=="Start":
                     self.puncual_max_value=0.0
 

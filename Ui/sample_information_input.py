@@ -78,10 +78,40 @@ class sample_information_input(QWidget, Ui_sample_information_input):
         self.setupUi(self)
         self.parent=parent
         self.mainwindow=mainwindow
+        ######################################
+        # to add the chemical type and metiral type herer
+        ######################################
+#        a=["AAAAAAAA", "BBBBBBBBBBBBBBBBBBBBB"
+
+#        for it in a:
+
+
+        #######################################
+        #to read config 
+        #######################################
+        self.cf=ConfigParser.ConfigParser()
+        currentDir=os.getcwd()
+        self.cf.read("%s\Config.ini" %currentDir)
+        materia_type = self.cf.get('SysConfig', 'materia_type')
+        chemistry_type = self.cf.get('SysConfig', 'chemistry_type')
+        specimen_color = self.cf.get('SysConfig', 'specimen_color')
+
+        self.cb_1_mtype.addItems(materia_type.split("|"))
+        self.cb_2_mtype.addItems(materia_type.split("|"))
+        self.cb_3_mtype.addItems(materia_type.split("|"))
+
+        self.cb_1_ctype.addItems(chemistry_type.split("|"))
+        self.cb_2_ctype.addItems(chemistry_type.split("|"))
+        self.cb_3_ctype.addItems(chemistry_type.split("|"))
+        
+        self.cb_1_color.addItems(specimen_color.split("|"))
+        self.cb_2_color.addItems(specimen_color.split("|"))
+        self.cb_3_color.addItems(specimen_color.split("|"))
+        
         if self.mainwindow and not self.mainwindow.sample_1_enable:
             self.groupBox.setEnabled(False)
             self.le_1_name.setReadOnly(True)
-            self.le_1_color.setReadOnly(True)
+            self.cb_1_color.setEnabled(True)
             self.cb_1_mtype.setEnabled(True)
             self.cb_1_ctype.setEnabled(True)
             self.le_1_thickness.setReadOnly(True)
@@ -95,7 +125,7 @@ class sample_information_input(QWidget, Ui_sample_information_input):
         if self.mainwindow and not self.mainwindow.sample_2_enable:
             self.groupBox_2.setEnabled(False)
             self.le_2_name.setReadOnly(True)
-            self.le_2_color.setReadOnly(True)
+            self.cb_2_color.setEnabled(True)
             self.cb_2_mtype.setEnabled(False)
             self.cb_2_ctype.setEnabled(False)
             self.le_2_thickness.setReadOnly(True)
@@ -108,7 +138,7 @@ class sample_information_input(QWidget, Ui_sample_information_input):
         if self.mainwindow and not self.mainwindow.sample_3_enable:
             self.groupBox_3.setEnabled(False)
             self.le_3_name.setReadOnly(True)
-            self.le_3_color.setReadOnly(True)
+            self.cb_3_color.setEnabled(True)
             self.cb_3_mtype.setEnabled(True)
             self.cb_3_ctype.setEnabled(True)
             self.le_3_thickness.setReadOnly(True)
@@ -123,21 +153,21 @@ class sample_information_input(QWidget, Ui_sample_information_input):
         for sample in self.mainwindow.samples:
             if sample.s_slot==0:
                 self.le_1_name.setText(sample.s_name)
-                self.le_1_color.setText(sample.s_color)
+                self.cb_1_color.setEditText(sample.s_color)
                 self.cb_1_mtype.setEditText(sample.s_mtype)
                 self.cb_1_ctype.setEditText(sample.s_ctype)
                 self.le_1_thickness.setText(sample.s_thickness)
                 self.le_1_exp_time.setText(sample.s_exp_time)
             if sample.s_slot==1:
                 self.le_2_name.setText(sample.s_name)
-                self.le_2_color.setText(sample.s_color)
+                self.cb_2_color.setEditText(sample.s_color)
                 self.cb_2_mtype.setEditText(sample.s_mtype)
                 self.cb_2_ctype.setEditText(sample.s_ctype)
                 self.le_2_thickness.setText(sample.s_thickness)
                 self.le_2_exp_time.setText(sample.s_exp_time)
             if sample.s_slot==2:
                 self.le_3_name.setText(sample.s_name)
-                self.le_3_color.setText(sample.s_color)
+                self.cb_3_color.setEditText(sample.s_color)
                 self.cb_3_mtype.setEditText(sample.s_mtype)
                 self.cb_3_ctype.setEditText(sample.s_ctype)
                 self.le_3_thickness.setText(sample.s_thickness)
@@ -145,12 +175,7 @@ class sample_information_input(QWidget, Ui_sample_information_input):
                 
                 
                 
-        #######################################
-        #to read config 
-        #######################################
-        self.cf=ConfigParser.ConfigParser()
-        currentDir=os.getcwd()
-        self.cf.read("%s\Config.ini" %currentDir)
+
         #self.cf.items("UserConfig")
         
         ######################################
@@ -165,21 +190,21 @@ class sample_information_input(QWidget, Ui_sample_information_input):
             for i in xrange(3):
                 if i==0:
                     self.le_1_name.setText("Test name")
-                    self.le_1_color.setText("Pink")
+                    self.cb_1_color.setEditText("Pink")
                     self.cb_1_mtype.setEditText("Test type")
                     self.cb_1_ctype.setEditText("test chemical")
                     self.le_1_thickness.setText("test thick ness")
                     self.le_1_exp_time.setText("60")
                 if i==1:
                     self.le_2_name.setText("Test name")
-                    self.le_2_color.setText("Pink")
+                    self.cb_2_color.setEditText("Pink")
                     self.cb_2_mtype.setEditText("Test type")
                     self.cb_2_ctype.setEditText("test chemical")
                     self.le_2_thickness.setText("test thick ness")
                     self.le_2_exp_time.setText("60")
                 if i==2:
                     self.le_3_name.setText("Test name")
-                    self.le_3_color.setText("Pink")
+                    self.cb_3_color.setEditText("Pink")
                     self.cb_3_mtype.setEditText("Test type")
                     self.cb_3_ctype.setEditText("test chemical")
                     self.le_3_thickness.setText("test thick ness")
@@ -195,8 +220,8 @@ class sample_information_input(QWidget, Ui_sample_information_input):
                 self.le_1_name.setFocus()
                 QtGui.QMessageBox.critical(self.parent, 'Error', 'Sample 1 Name can\'t be empty!', 0,0)
                 return 
-            if self.le_1_color.text()=="":
-                self.le_1_color.setFocus()
+            if self.cb_1_color.currentText()=="":
+                self.cb_1_color.setFocus()
                 QtGui.QMessageBox.critical(self.parent, 'Error', 'Sample 1 Color can\'t be empty!', 0,0) 
                 return 
             if self.cb_1_mtype.currentText ()=="":
@@ -219,7 +244,7 @@ class sample_information_input(QWidget, Ui_sample_information_input):
                 return 
             sample=Sample(0)
             sample.s_name=self.le_1_name.text()
-            sample.s_color=self.le_1_color.text()
+            sample.s_color=self.cb_1_color.currentText()
             sample.s_mtype=self.cb_1_mtype.currentText ()
             sample.s_ctype=self.cb_1_ctype.currentText ()
             sample.s_thickness=self.le_1_thickness.text()
@@ -233,8 +258,8 @@ class sample_information_input(QWidget, Ui_sample_information_input):
 
                 QtGui.QMessageBox.critical(self.parent, 'Error', 'Sample 2 Name can\'t be empty!', 0,0)
                 return 
-            if self.le_2_color.text()=="":
-                self.le_2_color.setFocus()
+            if self.cb_2_color.currentText()=="":
+                self.cb_2_color.setFocus()
 
                 QtGui.QMessageBox.critical(self.parent, 'Error', 'Sample 2 Color can\'t be empty!', 0,0) 
                 return 
@@ -260,7 +285,7 @@ class sample_information_input(QWidget, Ui_sample_information_input):
                 return             
             sample=Sample(1)
             sample.s_name=self.le_2_name.text()
-            sample.s_color=self.le_2_color.text()
+            sample.s_color=self.cb_2_color.currentText()
             sample.s_mtype=self.cb_2_mtype.currentText ()
             sample.s_ctype=self.cb_2_ctype.currentText ()
             sample.s_thickness=self.le_2_thickness.text()
@@ -274,8 +299,8 @@ class sample_information_input(QWidget, Ui_sample_information_input):
 
                 QtGui.QMessageBox.critical(self.parent, 'Error', 'Sample 3 Name can\'t be empty!', 0,0)
                 return 
-            if self.le_3_color.text()=="":
-                self.le_3_color.setFocus()
+            if self.cb_3_color.currentText()=="":
+                self.cb_3_color.setFocus()
 
                 QtGui.QMessageBox.critical(self.parent, 'Error', 'Sample 3 Color can\'t be empty!', 0,0) 
                 return 
@@ -300,7 +325,7 @@ class sample_information_input(QWidget, Ui_sample_information_input):
                 return    
             sample=Sample(2)
             sample.s_name=self.le_3_name.text()
-            sample.s_color=self.le_3_color.text()
+            sample.s_color=self.cb_3_color.currentText()
             sample.s_mtype=self.cb_3_mtype.currentText ()
             sample.s_ctype=self.cb_3_ctype.currentText ()
             sample.s_thickness=self.le_3_thickness.text()

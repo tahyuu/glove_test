@@ -53,62 +53,10 @@
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>Specimen Name:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="le_1_name"/>
-       </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>Specimen Color:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QLineEdit" name="le_1_color">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Materia Type:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>Chemistry Type:</string>
-         </property>
-        </widget>
-       </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_3">
          <property name="text">
           <string>Specimen Thickness:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLineEdit" name="le_1_thickness">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string>Standard: </string>
          </property>
         </widget>
        </item>
@@ -126,10 +74,38 @@
          </item>
         </widget>
        </item>
+       <item row="1" column="1">
+        <widget class="QComboBox" name="cb_1_mtype">
+         <property name="editable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Chemistry Type:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Standard: </string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Materia Type:</string>
+         </property>
+        </widget>
+       </item>
        <item row="3" column="0">
         <widget class="QLabel" name="label_14">
          <property name="text">
-          <string>Exposed Time:</string>
+          <string>Exposed Time(Min):</string>
          </property>
         </widget>
        </item>
@@ -140,15 +116,66 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
-        <widget class="QComboBox" name="cb_1_mtype">
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Specimen Color:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Specimen Name:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="le_1_thickness">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="le_1_name"/>
+       </item>
+       <item row="1" column="3">
+        <widget class="QComboBox" name="cb_1_ctype">
+         <property name="minimumSize">
+          <size>
+           <width>243</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="editable">
           <bool>true</bool>
          </property>
         </widget>
        </item>
-       <item row="1" column="3">
-        <widget class="QComboBox" name="cb_1_ctype">
+       <item row="3" column="3">
+        <widget class="QComboBox" name="cb_1_removeliner">
+         <item>
+          <property name="text">
+           <string>Yes</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>No</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QLabel" name="label_17">
+         <property name="text">
+          <string>Remove Liner: </string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QComboBox" name="cb_1_color">
          <property name="editable">
           <bool>true</bool>
          </property>
@@ -187,13 +214,6 @@
         <widget class="QLabel" name="label_8">
          <property name="text">
           <string>Specimen Color:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QLineEdit" name="le_2_color">
-         <property name="text">
-          <string/>
          </property>
         </widget>
        </item>
@@ -249,7 +269,7 @@
        <item row="3" column="0">
         <widget class="QLabel" name="label_15">
          <property name="text">
-          <string>Exposed Time:</string>
+          <string>Exposed Time(Min):</string>
          </property>
         </widget>
        </item>
@@ -269,6 +289,40 @@
        </item>
        <item row="1" column="3">
         <widget class="QComboBox" name="cb_2_ctype">
+         <property name="minimumSize">
+          <size>
+           <width>243</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="editable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QLabel" name="label_18">
+         <property name="text">
+          <string>Remove Liner: </string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="3">
+        <widget class="QComboBox" name="cb_2_removeliner">
+         <item>
+          <property name="text">
+           <string>Yes</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>No</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QComboBox" name="cb_2_color">
          <property name="editable">
           <bool>true</bool>
          </property>
@@ -307,13 +361,6 @@
         <widget class="QLabel" name="label_20">
          <property name="text">
           <string>Specimen Color:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QLineEdit" name="le_3_color">
-         <property name="text">
-          <string/>
          </property>
         </widget>
        </item>
@@ -369,7 +416,7 @@
        <item row="3" column="0">
         <widget class="QLabel" name="label_16">
          <property name="text">
-          <string>Exposed Time:</string>
+          <string>Exposed Time(Min):</string>
          </property>
         </widget>
        </item>
@@ -392,6 +439,40 @@
        </item>
        <item row="1" column="3">
         <widget class="QComboBox" name="cb_3_ctype">
+         <property name="minimumSize">
+          <size>
+           <width>243</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="editable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QLabel" name="label_25">
+         <property name="text">
+          <string>Remove Liner: </string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="3">
+        <widget class="QComboBox" name="cb_3_removeliner">
+         <item>
+          <property name="text">
+           <string>Yes</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>No</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QComboBox" name="cb_3_color">
          <property name="editable">
           <bool>true</bool>
          </property>
@@ -449,26 +530,26 @@
  </widget>
  <tabstops>
   <tabstop>le_1_name</tabstop>
-  <tabstop>le_1_color</tabstop>
   <tabstop>cb_1_mtype</tabstop>
   <tabstop>cb_1_ctype</tabstop>
   <tabstop>le_1_thickness</tabstop>
   <tabstop>cb_1_standard</tabstop>
   <tabstop>le_1_exp_time</tabstop>
+  <tabstop>cb_1_removeliner</tabstop>
   <tabstop>le_2_name</tabstop>
-  <tabstop>le_2_color</tabstop>
   <tabstop>cb_2_mtype</tabstop>
   <tabstop>cb_2_ctype</tabstop>
   <tabstop>le_2_thickness</tabstop>
   <tabstop>cb_2_standard</tabstop>
   <tabstop>le_2_exp_time</tabstop>
+  <tabstop>cb_2_removeliner</tabstop>
   <tabstop>le_3_name</tabstop>
-  <tabstop>le_3_color</tabstop>
   <tabstop>cb_3_mtype</tabstop>
   <tabstop>cb_3_ctype</tabstop>
   <tabstop>le_3_thickness</tabstop>
   <tabstop>cb_3_standard</tabstop>
   <tabstop>le_3_exp_time</tabstop>
+  <tabstop>cb_3_removeliner</tabstop>
   <tabstop>bt_next</tabstop>
   <tabstop>bt_last</tabstop>
  </tabstops>
@@ -483,8 +564,8 @@
    <slot>on_btnNextStep_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>475</x>
-     <y>568</y>
+     <x>603</x>
+     <y>565</y>
     </hint>
     <hint type="destinationlabel">
      <x>483</x>
@@ -499,8 +580,8 @@
    <slot>on_btnPrivStep_clicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>242</x>
-     <y>568</y>
+     <x>308</x>
+     <y>565</y>
     </hint>
     <hint type="destinationlabel">
      <x>243</x>

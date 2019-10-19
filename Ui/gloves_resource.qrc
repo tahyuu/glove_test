@@ -9,4 +9,12 @@
   <qresource prefix="icon">
     <file>log.ico</file>
   </qresource>
+  <qresource prefix="fixture_slots">
+    <file>001.png</file>
+    <file>010.png</file>
+    <file>011.png</file>
+    <file>100.png</file>
+    <file>110.png</file>
+    <file>111.png</file>
+  </qresource>
 </RCC>

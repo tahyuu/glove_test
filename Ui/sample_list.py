@@ -661,8 +661,14 @@ class sample_list(QWidget, Ui_sample_list):
             if not self.timer_t.working:
                 self.on_btnNextStep_clicked()
         elif index==2:
-            if  self.stop_pushed==False:
-                    self.on_btnNextStep_clicked()
+                if self.btn_Next.text()=="Start":
+                    self.btn_Next.setText("Stop")
+                    self.btn_Privious.setEnabled(False)
+                    self.btn_Export.setEnabled(False)
+                else:
+                    self.btn_Next.setText("Start")
+                    self.btn_Privious.setEnabled(True)
+                    self.btn_Export.setEnabled(True)
 
 
 
@@ -1484,6 +1490,7 @@ class IOMoniterThread(QThread):
             self.IOStatus_sig.emit(1)
             print "start pushed"
         if reset_push_flag==0:
+            self.IOStatus_sig.emit(2)
             self.c8940a1.Stop()
             self.parent.timer_t.stop()
             self.parent.comm232.stop()

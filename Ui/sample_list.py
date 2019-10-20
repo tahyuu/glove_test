@@ -119,6 +119,9 @@ class sample_list(QWidget, Ui_sample_list):
         self.timer_t.signal_time.connect(self.update_timer_tv)
         self.comm232=Com232Thread(self)
         self.comm232.signal_com232.connect(self.update_punctual)
+        self.iomoniter=IOMoniterThread(self)
+        self.iomoniter.start_IOMoniter()
+        self.iomoniter.IOStatus_sig.connect(self.IOStatus_paser)
         #self.comm232.update_graf.connect(self.UpdateGraf)
 
         self.grafthread=GrafThread(self)
@@ -456,6 +459,8 @@ class sample_list(QWidget, Ui_sample_list):
         #self.mainwindow.nextpushed=True
 
         if self.btn_Next.text()=="Start": 
+            self.stop_pushed=False
+
             bkg_img_txt=(self.mainwindow.sample_1_enable and "1" or "0")+(self.mainwindow.sample_2_enable and "1" or "0")+(self.mainwindow.sample_3_enable and "1" or "0")
                 
             Dialog = QtGui.QDialog()
@@ -553,6 +558,8 @@ class sample_list(QWidget, Ui_sample_list):
                     self.btn_Privious.setEnabled(True)
                     self.btn_Export.setEnabled(True)
                 self.timer_t.stop()
+                self.comm232.stop()
+
                 #self.timer.stop()
                 #self.timer_t.stop()
                 #self.timer.stop()
@@ -645,6 +652,18 @@ class sample_list(QWidget, Ui_sample_list):
         pen=pyqtgraph.mkPen("#FF0000",width=2)
         #self.grPlot.setXRange(0, 60)
         self.grPlot.plot(X,Y,pen=pen,clear=True)
+
+    def IOStatus_paser(self, index):
+        ###############################
+        #index 1 is the start button, index 2 is the reset button
+        ################################
+        if index==1:
+            if not self.timer_t.working:
+                self.on_btnNextStep_clicked()
+        elif index==2:
+            if  self.stop_pushed==False:
+                    self.on_btnNextStep_clicked()
+
 
 
     def changeCheckBox(self):
@@ -744,6 +763,7 @@ class sample_list(QWidget, Ui_sample_list):
         book.save(filename) #保存excel
         #self.timer_tv.setText(self.tr(text + " " + str(number)))
     def closeEvent(self,event):
+        print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX %s" %self.timer_t.working
         print self.timer_t.working
         if  not self.timer_t.working:
             self.parent.close()
@@ -753,7 +773,9 @@ class sample_list(QWidget, Ui_sample_list):
         if reply == QtGui.QMessageBox.Yes:
             event.accept()
             if self.Debug:
+                self.stop_pushed=True
                 self.timer_t.stop()
+                self.comm232.stop()
 
             self.parent.close()
         else:
@@ -1437,6 +1459,57 @@ class GrafThread(QThread):
 
   def stop(self):
     self.working=False
+
+class IOMoniterThread(QThread):
+  IOStatus_sig = pyqtSignal(int) # 信号
+
+  def __init__(self, parent=None):
+    super(IOMoniterThread, self).__init__(parent)
+    self.working = True
+    self.parent=parent
+
+  def start_IOMoniter(self):
+    if self.parent.Debug:
+        self.c8940a1=C8940A1()
+    #self.working=True
+        self.start()
+
+  def run(self):
+    #print self.parent.Comm232ReadFlag
+    while True:
+        time.sleep(1)
+        start_push_flag=self.c8940a1.ReadBit(22)
+        reset_push_flag=self.c8940a1.ReadBit(23)
+        if start_push_flag==0:
+            self.IOStatus_sig.emit(1)
+            print "start pushed"
+        if reset_push_flag==0:
+            self.c8940a1.Stop()
+            self.parent.timer_t.stop()
+            self.parent.comm232.stop()
+            #self.IOStatus_sig.emit(2)
+            #print "reset pushed"
+        
+#        print "22 status is %s" %self.c8940a1.ReadBit(22)
+#        print "23 status is %s" %self.c8940a1.ReadBit(23)
+        #print self.parent.Comm232ReadFlag
+        #print  self.parent.puncual
+        #px=2
+#        if self.parent.Comm232ReadFlag:
+#            time.sleep(0.01)
+#            #px=px-random.random()/1001
+#            #self.punctual.append(px)
+#            #self.parent.puncual=np.append(self.parent.puncual, px)
+#            self.update_graf.emit() # 发送信号
+#
+#            #print  self.parent.puncual
+#        else:
+#            pass
+#            #print self.parent.Comm232ReadFlag
+
+
+#def stop(self):
+#self.working=False
 
 
 if __name__ == "__main__":

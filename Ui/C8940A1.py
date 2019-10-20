@@ -60,6 +60,8 @@ class C8940A1:
         self.WObjdll.get_command_pos(0,axis,byref(position));
         return position.value
 
+    def ReadBit(self, number):
+        return self.WObjdll.read_bit(0,number);
 
     def ReturnZero(self, speed, re_list):
         

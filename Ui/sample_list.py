@@ -1484,6 +1484,7 @@ class IOMoniterThread(QThread):
     #print self.parent.Comm232ReadFlag
     while True:
         time.sleep(1)
+        emergency_push_flag=self.c8940a1.ReadBit(21)
         start_push_flag=self.c8940a1.ReadBit(22)
         reset_push_flag=self.c8940a1.ReadBit(23)
         if start_push_flag==0:
@@ -1491,6 +1492,10 @@ class IOMoniterThread(QThread):
             print "start pushed"
         if reset_push_flag==0:
             self.IOStatus_sig.emit(2)
+            self.c8940a1.Stop()
+            self.parent.timer_t.stop()
+            self.parent.comm232.stop()
+        if emergency_push_flag==0:
             self.c8940a1.Stop()
             self.parent.timer_t.stop()
             self.parent.comm232.stop()

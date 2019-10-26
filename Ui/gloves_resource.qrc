@@ -10,6 +10,7 @@
     <file>log.ico</file>
   </qresource>
   <qresource prefix="fixture_slots">
+    <file>101.png</file>
     <file>001.png</file>
     <file>010.png</file>
     <file>011.png</file>

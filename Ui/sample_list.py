@@ -67,6 +67,7 @@ class sample_list(QWidget, Ui_sample_list):
         self.stop_pushed=False
         global g_puncual_max_value
         g_puncual_max_value = 0.0
+        self.emergency_button_status=False
 
 
         self.setWindowFlags(QtCore.Qt.Window | QtCore.Qt.WindowTitleHint | QtCore.Qt.WindowCloseButtonHint | QtCore.Qt.CustomizeWindowHint)
@@ -127,7 +128,9 @@ class sample_list(QWidget, Ui_sample_list):
         self.grafthread=GrafThread(self)
         self.grafthread.update_graf.connect(self.UpdateGraf)
         self.grPlot.plotItem.showGrid(True, True, 0.7)
-        self.grPlot.setYRange(0, 5)
+        self.grPlot.setYRange(0.2, 5)
+        self.grPlot.setXRange(8, 80)
+
         pen=pyqtgraph.mkPen("#FF0000",width=2)
 
 #        points=100 #number of data points
@@ -457,6 +460,9 @@ class sample_list(QWidget, Ui_sample_list):
     def on_btnNextStep_clicked(self):        
 
         #self.mainwindow.nextpushed=True
+        if self.emergency_button_status==True:
+            reply=QMessageBox.question(self.parent,"Confirm Information","Please Check Emergency Button Status!",QMessageBox.Yes|QMessageBox.No,QMessageBox.Yes)
+            return
 
         if self.btn_Next.text()=="Start": 
             self.stop_pushed=False
@@ -639,7 +645,8 @@ class sample_list(QWidget, Ui_sample_list):
         #        points=100 #number of data points
         #print self.puncual
         tmp_punctual = self.puncual.copy()
-        X=np.arange(len(tmp_punctual))
+        #X=np.arange(len(tmp_punctual))
+        X=(np.arange(len(tmp_punctual))*1.0/4000)*75
         #print len(tmp_punctual)
         #print np.sin(np.arange(points))
         #Y=np.sin(np.arange(points)*3*np.pi+time.time())
@@ -893,20 +900,20 @@ class TimeThread(QThread):
         #######################################
         re_list=[]
         status=(True, True, False)
-        re_list=  self.c8940a1.ReturnZero(2000, status)
+        re_list=  self.c8940a1.ReturnZero(5000, status)
         while re_list.count(True)<3:
-            re_list=self.c8940a1.ReturnZero(1000, re_list)
+            re_list=self.c8940a1.ReturnZero(500, re_list)
             if re_list.count(True)<3:
-                self.c8940a1.ReturnZero(500, re_list)
+                self.c8940a1.ReturnZero(200, re_list)
                 if re_list.count(True)<3:
-                    self.c8940a1.ReturnZero(300, re_list)
+                    self.c8940a1.ReturnZero(100, re_list)
         #######################################
 
         #######################################
         #below code is for XY return zero
         #######################################
         re_list=[]
-        status=(False, False, False)
+        status=(False, False, True)
         re_list=  self.c8940a1.ReturnZero(1000, status)
         while re_list.count(True)<3:
             re_list=self.c8940a1.ReturnZero(500, re_list)
@@ -922,25 +929,85 @@ class TimeThread(QThread):
     self.y_length=0
     self.z_length=0
     i=0
+    self.glove_index=0
     for al in Axislist:
         if self.num%6==0:
             px=1
         px=px-random.random()/10
 
-
-
+        print "self glove_index is %s" %self.glove_index
+        ##########################
+        #if no specimen in line 1, then just move to Op1-1
+        ###########################
+        if (not self.parent.mainwindow.sample_1_enable) and self.glove_index/6==0:
+            if self.glove_index==0:
+                self.c8940a1.MoveMultiAxis(al[0],al[1])
+                self.x_length+=al[0]
+                self.y_length+=al[1]
+            self.glove_index=self.glove_index+1
+            continue
+        ##########################
+        #if no specimen in line 1, then just move to OP2-1
+        ###########################    
+        if (not self.parent.mainwindow.sample_2_enable) and self.glove_index/6==1:
+            if self.glove_index==6:
+                #al[0]=0
+                self.c8940a1.MoveMultiAxis(0,al[1])
+                self.x_length+=0
+                self.y_length+=al[1]
+            self.glove_index=self.glove_index+1
+            continue
+        ##########################
+        #if no specimen in line 1, then just move to OP3-1
+        ###########################  
+        if (not self.parent.mainwindow.sample_3_enable) and self.glove_index/6==2:
+            if self.glove_index==12:
+                self.c8940a1.MoveMultiAxis(0,al[1])
+                #al[0]=0
+                self.x_length+=0
+                self.y_length+=al[1]
+            self.glove_index=self.glove_index+1  
+            continue
+            
         #c8940a1.MoveSingleAxis(2,100000)
         #print "Moving to XY"
         if not self.working:
             break
+            
         if self.parent.Debug:
-            self.c8940a1.MoveMultiAxis(al[0],al[1])
+            if self.glove_index%6==0:
+                #if (not self.parent.mainwindow.sample_1_enable):
+                #print "x moved is %s y moved is %s" %(-(i%6)*self.x_interval, al[1])
+                if self.glove_index==6 and (not self.parent.mainwindow.sample_1_enable):
+                    self.c8940a1.MoveMultiAxis(0,al[1], True)
+                    self.x_length+=0
+                    self.y_length+=al[1]
+                elif self.glove_index==12 and (not self.parent.mainwindow.sample_2_enable):
+                    self.c8940a1.MoveMultiAxis(0,al[1], True)
+                    self.x_length+=0
+                    self.y_length+=al[1]
+                else:
+                    self.c8940a1.MoveMultiAxis(al[0],al[1])
+                    #self.x_length+=(-(i%6)*self.x_interval)
+                    self.x_length+=al[0]
+                    self.y_length+=al[1]
+
+
+
+#                self.x_length+=(-(i%6)*self.x_interval)
+#                self.y_length+=al[1]
+            else:
+                self.c8940a1.MoveMultiAxis(al[0],al[1])
+                self.x_length+=al[0]
+                self.y_length+=al[1]
+
         else:
             self.parent.comm232.global_index=0
+            
+        self.glove_index=self.glove_index+1
 #        print xymoved
 #        if xymoved==0:
-        self.x_length+=al[0]
-        self.y_length+=al[1]
+
         if not self.working:
             break
         #print "Moving to Z"
@@ -1014,10 +1081,36 @@ class TimeThread(QThread):
             # 2, no need return Zero because we have return Zero at the beggin of test
             #####################################
             command_position=self.c8940a1.Get_command_pos(3)
-            print "A is %s; B is %s"%(command_position-self.z_start_point,  -(self.z_start_point+self.punctual_route))
+            print "command position is %s command_position-self.z_start_point is %s; -(self.z_start_point+self.punctual_route) is %s"%(command_position, command_position-self.z_start_point,  -(self.z_start_point+self.punctual_route))
             #self.c8940a1.MoveSingleAxis(3,-(self.z_start_point+self.punctual_route),True)
+            ############################
+            #To Make sure the response command_position is correct
+            # there are some error response from ADTECH ,so  we need to make sure the response is correct.
+            #############################
+            for j in range(20):
+                if command_position>=self.z_start_point+100000 and command_position<=self.z_start_point+150000:
+                    break
+                else:
+                    command_position=self.c8940a1.Get_command_pos(3)
+
             if command_position>self.z_start_point:
                 self.c8940a1.MoveSingleAxis(3,-(command_position-self.z_start_point),True)
+            else:
+                #######################################
+                #below code is for Z return zero
+                #######################################
+                re_list=[]
+                status=(True, True, False)
+                re_list=  self.c8940a1.ReturnZero(5000, status)
+                while re_list.count(True)<3:
+                    re_list=self.c8940a1.ReturnZero(500, re_list)
+                    if re_list.count(True)<3:
+                        self.c8940a1.ReturnZero(200, re_list)
+                        if re_list.count(True)<3:
+                            self.c8940a1.ReturnZero(100, re_list)
+                #######################################
+                self.c8940a1.MoveSingleAxis(3,self.z_start_point,True)
+
 #        print zmoved
 #        if zmoved==0:
         self.z_length+=-(self.z_start_point+self.punctual_route)
@@ -1133,6 +1226,32 @@ class TimeThread(QThread):
         self.c8940a1.MoveMultiAxis(-self.x_length,-self.y_length,True)
 #        self.c8940a1.MoveSingleAxis(3,-z_length,True)
 #        self.c8940a1.MoveMultiAxis(-x_length,-y_length,True)
+  def Reset(self):
+      
+        #######################################
+        #below code is for Z return zero
+        #######################################
+        re_list=[]
+        status=(True, True, False)
+        re_list=  self.c8940a1.ReturnZero(5000, status)
+        while re_list.count(True)<3:
+            re_list=self.c8940a1.ReturnZero(500, re_list)
+            if re_list.count(True)<3:
+                self.c8940a1.ReturnZero(200, re_list)
+                if re_list.count(True)<3:
+                    self.c8940a1.ReturnZero(100, re_list)
+        #######################################
+
+        #######################################
+        #below code is for XY return zero
+        #######################################
+        re_list=[]
+        status=(False, False, False)
+        re_list=  self.c8940a1.ReturnZero(5000, status)
+        while re_list.count(True)<3:
+            re_list=self.c8940a1.ReturnZero(200, re_list)
+            if re_list.count(True)<3:
+                self.c8940a1.ReturnZero(100, re_list)
 
   def stop_at_max_puncual(self):
         self.c8940a1.Stop()
@@ -1140,6 +1259,8 @@ class TimeThread(QThread):
         if command_position>self.z_start_point:
             print "return position is %s " %-(command_position-self.z_start_point)
             self.c8940a1.MoveSingleAxis(3,-(command_position-self.z_start_point),True)
+        else:
+            print "not return XXXXXXXXXXXXXXXXXXXXXXXXXX"
         ###########################
         #set to zero
         # why need set puncual  and puncual_max_value here? Can we skip it.
@@ -1192,7 +1313,7 @@ class TimeThread(QThread):
 
 
 def dev(i):
-    return i/100
+    return i/100*9.8
 def mean(a):
     return sum(a) / len(a)
 
@@ -1203,6 +1324,7 @@ class Com232Thread(QThread):
   def __init__(self, parent=None):
     super(Com232Thread, self).__init__(parent)
     self.working = True
+    self.serial_obj=None
     self.parent=parent
     self.global_index=1
     self.log=Log()
@@ -1428,7 +1550,7 @@ class Com232Thread(QThread):
   def stop(self):
     self.working=False 
     time.sleep(0.1)
-    if self.serial_obj != None:
+    if self.serial_obj and (self.serial_obj != None):
         self.serial_obj.close()
 
 
@@ -1487,18 +1609,33 @@ class IOMoniterThread(QThread):
         emergency_push_flag=self.c8940a1.ReadBit(21)
         start_push_flag=self.c8940a1.ReadBit(22)
         reset_push_flag=self.c8940a1.ReadBit(23)
+        
+        #print "push status is %s %s %s" %(emergency_push_flag, start_push_flag,reset_push_flag )
         if start_push_flag==0:
             self.IOStatus_sig.emit(1)
-            print "start pushed"
+            #print "start pushed"
         if reset_push_flag==0:
             self.IOStatus_sig.emit(2)
             self.c8940a1.Stop()
             self.parent.timer_t.stop()
             self.parent.comm232.stop()
+            
+            
+            #####################
+            #x y z return zero
+            ########################
+            
+            self.parent.timer_t.Reset()
+            
+            
         if emergency_push_flag==0:
+            self.parent.emergency_button_status=True
             self.c8940a1.Stop()
             self.parent.timer_t.stop()
             self.parent.comm232.stop()
+        else:
+            self.parent.emergency_button_status=False
+
             #self.IOStatus_sig.emit(2)
             #print "reset pushed"
         

@@ -32,7 +32,7 @@ class C8940A1:
         print axis
         print Steps
         self.WObjdll.pmove(0,axis,Steps);
-        x=c_int(0)
+        x=c_int(1)
         while Wait:
             #print x.value
             self.WObjdll.get_status(0,axis,byref(x));
@@ -43,13 +43,13 @@ class C8940A1:
         self.WObjdll.pmove(0,1,Xsteps);
         self.WObjdll.pmove(0,2,Ysteps);
 
-        s1=c_int(0)
-        s2=c_int(0)
+        s1=c_int(1)
+        s2=c_int(1)
 
         while Wait:
             #print x.value
             self.WObjdll.get_status(0,1,byref(s1));
-            self.WObjdll.get_status(0,1,byref(s2));
+            self.WObjdll.get_status(0,2,byref(s2));
 
             if s1.value==0 and s2.value==0 :
                 break;
@@ -57,7 +57,12 @@ class C8940A1:
         #print cardno
     def Get_command_pos(self, axis):
         position=c_long(0)
-        self.WObjdll.get_command_pos(0,axis,byref(position));
+        i=0
+        while i<10:
+            i=i+1
+            self.WObjdll.get_command_pos(0,axis,byref(position));
+            if position.value!=0:
+                break
         return position.value
 
     def ReadBit(self, number):

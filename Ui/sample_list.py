@@ -431,7 +431,7 @@ class sample_list(QWidget, Ui_sample_list):
             self.tableWidget.setItem(i*3+2, 5, QtGui.QTableWidgetItem(_fromUtf8(str(str(sample.s_standard).encode("utf-8")))))
 
             #sample detail information
-            self.tableWidget.setItem(i*3+2, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("%s" %(i+1)).encode("utf-8")))))
+            self.tableWidget.setItem(i*3+2, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("%s" %(sample.s_slot+1)).encode("utf-8")))))
 #            self.tableWidget.setItem(i*3+4, 7, QtGui.QTableWidgetItem(_fromUtf8(str("2".encode("utf-8")))))
 #            self.tableWidget.setItem(i*3+6, 7, QtGui.QTableWidgetItem(_fromUtf8(str("3".encode("utf-8")))))   
             #self.tableWidget.setItem(0, 0, QtGui.QTableWidgetItem(_fromUtf8(str(sample.s_name.encode("utf-8")))))
@@ -441,12 +441,12 @@ class sample_list(QWidget, Ui_sample_list):
 #            self.tableWidget.setItem(i*3+5, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("RP%s-2" %(i+1) ).encode("utf-8")))))
 #            self.tableWidget.setItem(i*3+6, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("OP%s-3" %(i+1) ).encode("utf-8")))))
 #            self.tableWidget.setItem(i*3+7, 7, QtGui.QTableWidgetItem(_fromUtf8(str(("RP%s-3" %(i+1)  ).encode("utf-8"))))) 
-            self.tableWidget.setItem(i*3+2, 8, QtGui.QTableWidgetItem(_fromUtf8(str(("OP%s-1" %(i+1) ).encode("utf-8")))))
-            self.tableWidget.setItem(i*3+2, 10, QtGui.QTableWidgetItem(_fromUtf8(str(("RP%s-1" %(i+1)  ).encode("utf-8"))))) 
-            self.tableWidget.setItem(i*3+3, 8, QtGui.QTableWidgetItem(_fromUtf8(str(("OP%s-2" %(i+1) ).encode("utf-8")))))
-            self.tableWidget.setItem(i*3+3, 10, QtGui.QTableWidgetItem(_fromUtf8(str(("RP%s-2" %(i+1)  ).encode("utf-8"))))) 
-            self.tableWidget.setItem(i*3+4, 8, QtGui.QTableWidgetItem(_fromUtf8(str(("OP%s-3" %(i+1) ).encode("utf-8")))))
-            self.tableWidget.setItem(i*3+4, 10, QtGui.QTableWidgetItem(_fromUtf8(str(("RP%s-3" %(i+1)  ).encode("utf-8"))))) 
+            self.tableWidget.setItem(i*3+2, 8, QtGui.QTableWidgetItem(_fromUtf8(str(("OP%s-1" %(sample.s_slot+1) ).encode("utf-8")))))
+            self.tableWidget.setItem(i*3+2, 10, QtGui.QTableWidgetItem(_fromUtf8(str(("RP%s-1" %(sample.s_slot+1)  ).encode("utf-8"))))) 
+            self.tableWidget.setItem(i*3+3, 8, QtGui.QTableWidgetItem(_fromUtf8(str(("OP%s-2" %(sample.s_slot+1) ).encode("utf-8")))))
+            self.tableWidget.setItem(i*3+3, 10, QtGui.QTableWidgetItem(_fromUtf8(str(("RP%s-2" %(sample.s_slot+1)  ).encode("utf-8"))))) 
+            self.tableWidget.setItem(i*3+4, 8, QtGui.QTableWidgetItem(_fromUtf8(str(("OP%s-3" %(sample.s_slot+1) ).encode("utf-8")))))
+            self.tableWidget.setItem(i*3+4, 10, QtGui.QTableWidgetItem(_fromUtf8(str(("RP%s-3" %(sample.s_slot+1)  ).encode("utf-8"))))) 
 
             i=i+1
 
@@ -1217,8 +1217,8 @@ class TimeThread(QThread):
 #            self.c8940a1.MoveSingleAxis(3,-command_position_z,True)
             re_list=  self.c8940a1.ReturnZero(2000, status)
             if  re_list.count(True)<3:
-                re_list=self.c8940a1.ReturnZero(1000, re_list)
-                if re_list.count(True)<3:
+#                re_list=self.c8940a1.ReturnZero(1000, re_list)
+#                if re_list.count(True)<3:
                     self.c8940a1.ReturnZero(500, re_list)
                     if re_list.count(True)<3:
                         self.c8940a1.ReturnZero(300, re_list)

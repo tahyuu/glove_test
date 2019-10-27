@@ -1260,7 +1260,7 @@ class TimeThread(QThread):
         #below code is for XY return zero
         #######################################
         re_list=[]
-        status=(False, False, False)
+        status=(False, False, True)
         re_list=  self.c8940a1.ReturnZero(5000, status)
         while re_list.count(True)<3:
             re_list=self.c8940a1.ReturnZero(200, re_list)

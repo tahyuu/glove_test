@@ -86,7 +86,15 @@ class sample_list(QWidget, Ui_sample_list):
 
         self.max_puncual_limit=float(self.cf.get('XYZAxisConfig', 'max_puncual_limit'))
         self.max_pncual_limit_fine_tune=float(self.cf.get('XYZAxisConfig', 'max_pncual_limit_fine_tune'))
-
+        self.punctual_route=int(self.cf.get('XYZAxisConfig', 'max_puncual_route'))
+        self.Graf_XRange=(self.cf.get('SysConfig', 'Graf_XRange'))
+        self.Graf_YRange=(self.cf.get('SysConfig', 'Graf_YRange'))
+        
+        self.Graf_XRange_Start=float(self.Graf_XRange.split("|")[0])
+        self.Graf_XRange_End=float(self.Graf_XRange.split("|")[1])
+        self.Graf_YRange_Start=float(self.Graf_YRange.split("|")[0])
+        self.Graf_YRange_End=float(self.Graf_YRange.split("|")[1])
+        
         if debug_status=="True":
             self.Debug=True
         else:
@@ -128,8 +136,8 @@ class sample_list(QWidget, Ui_sample_list):
         self.grafthread=GrafThread(self)
         self.grafthread.update_graf.connect(self.UpdateGraf)
         self.grPlot.plotItem.showGrid(True, True, 0.7)
-        self.grPlot.setYRange(0.2, 5)
-        self.grPlot.setXRange(8, 80)
+        self.grPlot.setXRange(self.Graf_XRange_Start, self.Graf_XRange_End)
+        self.grPlot.setYRange(self.Graf_YRange_Start, self.Graf_YRange_End)
 
         pen=pyqtgraph.mkPen("#FF0000",width=2)
 
@@ -160,8 +168,8 @@ class sample_list(QWidget, Ui_sample_list):
         self.tableWidget.setItem(0, 6, QtGui.QTableWidgetItem(_fromUtf8(str(str("Exposed\nTime").encode("utf-8")))))
         self.tableWidget.setItem(0, 7, QtGui.QTableWidgetItem(_fromUtf8(str(str("Specimen").encode("utf-8")))))
         self.tableWidget.setItem(0, 8, QtGui.QTableWidgetItem(_fromUtf8(str(str("\t\t\t\tTest Data").encode("utf-8")))))
-        self.tableWidget.setItem(1, 8, QtGui.QTableWidgetItem(_fromUtf8(str(str("Unexposed Puncture Force - OPx/N").encode("utf-8")))))
-        self.tableWidget.setItem(1, 10, QtGui.QTableWidgetItem(_fromUtf8(str(str("Exposed Puncture Force - RPx/N").encode("utf-8")))))
+        self.tableWidget.setItem(1, 8, QtGui.QTableWidgetItem(_fromUtf8(str(str("Unexposed \nPuncture Force\n - OPx/N").encode("utf-8")))))
+        self.tableWidget.setItem(1, 10, QtGui.QTableWidgetItem(_fromUtf8(str(str("Exposed \nPuncture Force\n - RPx/N").encode("utf-8")))))
         self.tableWidget.setItem(1, 12, QtGui.QTableWidgetItem(_fromUtf8(str(str("Degradation against chemical- DRx/%").encode("utf-8")))))
         self.tableWidget.setItem(1, 13, QtGui.QTableWidgetItem(_fromUtf8(str(str("Average Degradation - DR").encode("utf-8")))))
 
@@ -646,7 +654,7 @@ class sample_list(QWidget, Ui_sample_list):
         #print self.puncual
         tmp_punctual = self.puncual.copy()
         #X=np.arange(len(tmp_punctual))
-        X=(np.arange(len(tmp_punctual))*1.0/4000)*75
+        X=(np.arange(len(tmp_punctual))*1.0/4000)*((self.punctual_route/10000)*5.0)
         #print len(tmp_punctual)
         #print np.sin(np.arange(points))
         #Y=np.sin(np.arange(points)*3*np.pi+time.time())
@@ -830,6 +838,7 @@ class TimeThread(QThread):
 
     if self.parent.Debug:
         self.c8940a1=C8940A1()
+        self.c8940a1.InitCard()
 
   def start_timer(self):
     self.num = 0
@@ -900,13 +909,13 @@ class TimeThread(QThread):
         #######################################
         re_list=[]
         status=(True, True, False)
-        re_list=  self.c8940a1.ReturnZero(5000, status)
+        re_list=  self.c8940a1.ReturnZero(10000, status)
         while re_list.count(True)<3:
-            re_list=self.c8940a1.ReturnZero(500, re_list)
+            re_list=self.c8940a1.ReturnZero(2000, re_list)
             if re_list.count(True)<3:
-                self.c8940a1.ReturnZero(200, re_list)
+                self.c8940a1.ReturnZero(500, re_list)
                 if re_list.count(True)<3:
-                    self.c8940a1.ReturnZero(100, re_list)
+                    self.c8940a1.ReturnZero(300, re_list)
         #######################################
 
         #######################################
@@ -931,6 +940,11 @@ class TimeThread(QThread):
     i=0
     self.glove_index=0
     for al in Axislist:
+        #######################
+        # to set xy speed
+        #######################
+        self.c8940a1.Set8940A1(1,1000,self.x_speed)
+        self.c8940a1.Set8940A1(2,1000,self.y_speed)
         if self.num%6==0:
             px=1
         px=px-random.random()/10

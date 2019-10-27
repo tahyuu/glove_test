@@ -2,6 +2,7 @@
 import os
 from ctypes import *
 import time
+import os
 
 ###################################################
 ### Fuction List
@@ -15,14 +16,35 @@ import time
 
 class C8940A1:
     def __init__(self):
-        #self.CObjdll = cdll.LoadLibrary("8940A1.dll")
-        self.WObjdll = windll.LoadLibrary("8940A1.dll")
+        self.WObjdll = cdll.LoadLibrary("8940A1.dll")
+        #self.WObjdll = windll.LoadLibrary("8940A1.dll")
         cardno = self.WObjdll.adt8940a1_initial()
+        print "aaa %s" %cardno
         if cardno<0:
             print "Can't find 8940 Card"
             return -1;
         else:
             pass
+    def InitCard(self):
+        
+        ##################
+        #open the demo program
+        ##################
+        program_path="ADT8940A1Demo.exe"
+        os.startfile(program_path)
+        #time.sleep(2)
+        os.system('kill_bash.bat')
+        #time.sleep(3)
+        m_cardno = self.WObjdll.adt8940a1_initial()
+        #time.sleep(3)
+        for i in range(3):
+            
+            self.WObjdll.set_limit_mode(m_cardno, i+1, 0, 0, 0);   #//设定限位模式，设正负限位有效，低电平有效
+            self.WObjdll.set_command_pos(m_cardno, i+1, 0); # # //清逻辑计数器
+            self.WObjdll.set_actual_pos(m_cardno, i+1, 0);         #//清实位计数器
+            self.WObjdll.set_startv(m_cardno, i+1, 1000);          #//设定起始速度
+            self.WObjdll.set_speed(m_cardno, i+1, 1000);           #//设定驱动速度
+            self.WObjdll.set_acc(m_cardno, i+1, 625);               #//设定加速度
 
     def Set8940A1(self,axis,startv,speed):
         self.WObjdll.set_pulse_mode(0,axis,1,0,0);
@@ -198,6 +220,7 @@ class C8940A1:
 if __name__=="__main__":
     #Init8940A1()
     c8940a1=C8940A1()
+    c8940a1.InitCard()
     re_list=[]
     status=(False, False, False)
     re_list=  c8940a1.ReturnZero(1000, status)

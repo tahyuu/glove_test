@@ -44,6 +44,9 @@ def html2pdf(dirs, samples):
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_thickness
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_ctype
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_standard
+        str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_exp_time
+        str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_remove_linner
+
         str_list=str_list+"<td>&nbsp;%.3f</td>" %sample.op1
         str_list=str_list+"<td rowspan=\"3\">&nbsp;%.2f%%</td>" %(sample.dr*100)
         if i==0:
@@ -60,6 +63,8 @@ def html2pdf(dirs, samples):
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_thickness
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_ctype
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_standard
+        str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_exp_time
+        str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_remove_linner
         str_list=str_list+"<td>&nbsp;%.3f</td>" %sample.rp1
 #        str_list=str_list+"<td>&nbsp;%.2f%%</td>" %(sample.dr*100)
 #        str_list=str_list+"<td>&nbsp;%.2f%%</td>" %(sample.dr_avg*100)
@@ -75,6 +80,8 @@ def html2pdf(dirs, samples):
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_thickness
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_ctype
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_standard
+        str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_exp_time
+        str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_remove_linner
         str_list=str_list+"<td>&nbsp;%.3f</td>" %sample.op2
 #        str_list=str_list+"<td>&nbsp;%.2f%%</td>" %(sample.dr*100)
 #        str_list=str_list+"<td>&nbsp;%.2f%%</td>" %(sample.dr_avg*100)
@@ -90,6 +97,8 @@ def html2pdf(dirs, samples):
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_thickness
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_ctype
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_standard
+        str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_exp_time
+        str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_remove_linner
         str_list=str_list+"<td>&nbsp;%.3f</td>" %sample.rp2
 #        str_list=str_list+"<td>&nbsp;%.2f%%</td>" %(sample.dr*100)
 #        str_list=str_list+"<td>&nbsp;%.2f%%</td>" %(sample.dr_avg*100)
@@ -105,6 +114,8 @@ def html2pdf(dirs, samples):
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_thickness
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_ctype
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_standard
+        str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_exp_time
+        str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_remove_linner
         str_list=str_list+"<td>&nbsp;%.3f</td>" %sample.op3
 #        str_list=str_list+"<td>&nbsp;%.2f%%</td>" %(sample.dr*100)
 #        str_list=str_list+"<td>&nbsp;%.2f%%</td>" %(sample.dr_avg*100)
@@ -120,6 +131,8 @@ def html2pdf(dirs, samples):
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_thickness
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_ctype
         str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_standard
+        str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_exp_time
+        str_list=str_list+"<td>&nbsp;%s</td>" %sample.s_remove_linner
         str_list=str_list+"<td>&nbsp;%.3f</td>" %sample.rp3
 #        str_list=str_list+"<td>&nbsp;%.2f%%</td>" %(sample.dr*100)
 #        str_list=str_list+"<td>&nbsp;%.2f%%</td>" %(sample.dr_avg*100)

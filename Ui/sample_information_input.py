@@ -24,6 +24,8 @@ class Sample:
         self.s_standard=""
         self.s_exp_time=""
         self.s_file_name=""
+        self.s_remove_linner=""
+
         self.s_firgure_img=""
 
         self.op1=0.0
@@ -107,7 +109,9 @@ class sample_information_input(QWidget, Ui_sample_information_input):
         self.cb_1_color.addItems(specimen_color.split("|"))
         self.cb_2_color.addItems(specimen_color.split("|"))
         self.cb_3_color.addItems(specimen_color.split("|"))
-        
+        self.cb_1_standard.setEditable(True)
+        self.cb_2_standard.setEditable(True)
+        self.cb_3_standard.setEditable(True)
         if self.mainwindow and not self.mainwindow.sample_1_enable:
             self.groupBox.setEnabled(False)
             self.le_1_name.setReadOnly(True)
@@ -158,6 +162,12 @@ class sample_information_input(QWidget, Ui_sample_information_input):
                 self.cb_1_ctype.setEditText(sample.s_ctype)
                 self.le_1_thickness.setText(sample.s_thickness)
                 self.le_1_exp_time.setText(sample.s_exp_time)
+                self.cb_1_standard.setEditable(True)
+                self.cb_1_standard.setEditText(sample.s_standard)
+                self.cb_1_removeliner.setEditable(True)
+                self.cb_1_removeliner.setEditText(sample.s_remove_linner)
+                #self.cb_1_removeliner.setEditable(False)
+
             if sample.s_slot==1:
                 self.le_2_name.setText(sample.s_name)
                 self.cb_2_color.setEditText(sample.s_color)
@@ -165,6 +175,12 @@ class sample_information_input(QWidget, Ui_sample_information_input):
                 self.cb_2_ctype.setEditText(sample.s_ctype)
                 self.le_2_thickness.setText(sample.s_thickness)
                 self.le_2_exp_time.setText(sample.s_exp_time)
+                self.cb_2_standard.setEditable(True)
+                self.cb_2_standard.setEditText(sample.s_standard)
+                self.cb_2_removeliner.setEditable(True)
+                self.cb_2_removeliner.setEditText(sample.s_remove_linner)
+                #self.cb_2_removeliner.setEditable(False)
+
             if sample.s_slot==2:
                 self.le_3_name.setText(sample.s_name)
                 self.cb_3_color.setEditText(sample.s_color)
@@ -172,7 +188,12 @@ class sample_information_input(QWidget, Ui_sample_information_input):
                 self.cb_3_ctype.setEditText(sample.s_ctype)
                 self.le_3_thickness.setText(sample.s_thickness)
                 self.le_3_exp_time.setText(sample.s_exp_time)
-                
+                self.cb_3_standard.setEditable(True)
+                self.cb_3_standard.setEditText(sample.s_standard)
+                self.cb_3_removeliner.setEditable(True)
+                self.cb_3_removeliner.setEditText(sample.s_remove_linner)
+                #self.cb_3_removeliner.setEditable(False)
+
                 
                 
 
@@ -250,6 +271,7 @@ class sample_information_input(QWidget, Ui_sample_information_input):
             sample.s_thickness=self.le_1_thickness.text()
             sample.s_standard=self.cb_1_standard.currentText()
             sample.s_exp_time=self.le_1_exp_time.text()
+            sample.s_remove_linner=self.cb_1_removeliner.currentText()
 
             self.mainwindow.samples.append(sample)
         if self.mainwindow.sample_2_enable:
@@ -291,6 +313,7 @@ class sample_information_input(QWidget, Ui_sample_information_input):
             sample.s_thickness=self.le_2_thickness.text()
             sample.s_standard=self.cb_2_standard.currentText()
             sample.s_exp_time=self.le_2_exp_time.text()
+            sample.s_remove_linner=self.cb_2_removeliner.currentText()
 
             self.mainwindow.samples.append(sample)
         if self.mainwindow.sample_3_enable:
@@ -331,6 +354,7 @@ class sample_information_input(QWidget, Ui_sample_information_input):
             sample.s_thickness=self.le_3_thickness.text()
             sample.s_standard=self.cb_3_standard.currentText()
             sample.s_exp_time=self.le_3_exp_time.text()
+            sample.s_remove_linner=self.cb_3_removeliner.currentText()
 
             self.mainwindow.samples.append(sample)
         self.parent.close()

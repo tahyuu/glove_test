@@ -943,8 +943,9 @@ class TimeThread(QThread):
         #######################
         # to set xy speed
         #######################
-        self.c8940a1.Set8940A1(1,1000,self.x_speed)
-        self.c8940a1.Set8940A1(2,1000,self.y_speed)
+        if self.parent.Debug:
+            self.c8940a1.Set8940A1(1,1000,self.x_speed)
+            self.c8940a1.Set8940A1(2,1000,self.y_speed)
         if self.num%6==0:
             px=1
         px=px-random.random()/10

@@ -37,7 +37,8 @@ class C8940A1:
         ##################
         #open the demo program
         ##################
-        program_path="ADT8940A1Demo.exe"
+        os.system('kill_bash.bat')
+        program_path="D:\\gloves_test\\Program\Ui\\ADT8940A1Demo.exe"
         os.startfile(program_path)
         self.Hidden_show(0)
         #time.sleep(2)

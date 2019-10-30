@@ -74,9 +74,9 @@ class Ui_Login(object):
             self.Debug=True
         else:
             self.Debug=False
-        if self.Debug==True:
-            self.lineEdit.setText("admin")
-            self.lineEdit_2.setText("admin")
+        #if self.Debug==True:
+        self.lineEdit.setText("honeywell")
+        self.lineEdit_2.setText("HON123well")
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(_translate("Login", "Login", None))

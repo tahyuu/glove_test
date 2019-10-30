@@ -475,7 +475,6 @@ class sample_list(QWidget, Ui_sample_list):
         if self.btn_Next.text()=="Start": 
             self.stop_pushed=False
             #kill bash program
-            os.system('kill_bash.bat')
             self.timer_t.c8940a1.InitCard()
             bkg_img_txt=(self.mainwindow.sample_1_enable and "1" or "0")+(self.mainwindow.sample_2_enable and "1" or "0")+(self.mainwindow.sample_3_enable and "1" or "0")
                 
@@ -912,7 +911,7 @@ class TimeThread(QThread):
         self.c8940a1.Hidden_show(1)
         re_list=[]
         status=(True, True, False)
-        re_list=  self.c8940a1.ReturnZero(10000, status)
+        re_list=  self.c8940a1.ReturnZero(5000, status)
         while re_list.count(True)<3:
             re_list=self.c8940a1.ReturnZero(2000, re_list)
             if re_list.count(True)<3:
@@ -1107,8 +1106,8 @@ class TimeThread(QThread):
             #To Make sure the response command_position is correct
             # there are some error response from ADTECH ,so  we need to make sure the response is correct.
             #############################
-            #for j in range(20):
-            while True:
+            for j in range(30):
+            #while True:
                 if command_position>=self.z_start_point+100000 and command_position<=self.z_start_point+150000:
                     break
                 else:
@@ -1247,9 +1246,10 @@ class TimeThread(QThread):
                     if re_list.count(True)<3:
                         self.c8940a1.ReturnZero(300, re_list)
         #######################################
-        self.c8940a1.Hidden_show(0)
 
         self.c8940a1.MoveMultiAxis(-self.x_length,-self.y_length,True)
+        self.c8940a1.Hidden_show(0)
+
 #        self.c8940a1.MoveSingleAxis(3,-z_length,True)
 #        self.c8940a1.MoveMultiAxis(-x_length,-y_length,True)
   def Reset(self):
@@ -1258,7 +1258,6 @@ class TimeThread(QThread):
         #below code is for Z return zero
         #######################################
         self.c8940a1.Hidden_show(1)
-
         re_list=[]
         status=(True, True, False)
         re_list=  self.c8940a1.ReturnZero(5000, status)

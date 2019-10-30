@@ -75,7 +75,7 @@ class Ui_Login(object):
         else:
             self.Debug=False
         #if self.Debug==True:
-        self.lineEdit.setText("honeywell")
+        self.lineEdit.setText("Honeywell")
         self.lineEdit_2.setText("HON123well")
 
     def retranslateUi(self, Dialog):

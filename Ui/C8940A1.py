@@ -25,15 +25,23 @@ class C8940A1:
             return -1;
         else:
             pass
+    def Hidden_show(self, status):
+        if status==0:
+            os.system('return_zero_hidden.bat')
+        elif status==1:
+            os.system('return_zero_show.bat')
+
+
     def InitCard(self):
-        
+
         ##################
         #open the demo program
         ##################
         program_path="ADT8940A1Demo.exe"
         os.startfile(program_path)
+        self.Hidden_show(0)
         #time.sleep(2)
-        os.system('kill_bash.bat')
+        #os.system('kill_bash.bat')
         #time.sleep(3)
         m_cardno = self.WObjdll.adt8940a1_initial()
         #time.sleep(3)

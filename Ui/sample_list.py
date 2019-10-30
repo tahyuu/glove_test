@@ -474,7 +474,9 @@ class sample_list(QWidget, Ui_sample_list):
 
         if self.btn_Next.text()=="Start": 
             self.stop_pushed=False
-
+            #kill bash program
+            os.system('kill_bash.bat')
+            self.timer_t.c8940a1.InitCard()
             bkg_img_txt=(self.mainwindow.sample_1_enable and "1" or "0")+(self.mainwindow.sample_2_enable and "1" or "0")+(self.mainwindow.sample_3_enable and "1" or "0")
                 
             Dialog = QtGui.QDialog()
@@ -838,7 +840,7 @@ class TimeThread(QThread):
 
     if self.parent.Debug:
         self.c8940a1=C8940A1()
-        self.c8940a1.InitCard()
+        #self.c8940a1.InitCard()
 
   def start_timer(self):
     self.num = 0
@@ -907,6 +909,7 @@ class TimeThread(QThread):
         #######################################
         #below code is for Z return zero
         #######################################
+        self.c8940a1.Hidden_show(1)
         re_list=[]
         status=(True, True, False)
         re_list=  self.c8940a1.ReturnZero(10000, status)
@@ -929,6 +932,8 @@ class TimeThread(QThread):
             if re_list.count(True)<3:
                 self.c8940a1.ReturnZero(300, re_list)
         #######################################
+        self.c8940a1.Hidden_show(0)
+
         #below code will set the speed of each axis
         #######################################
         self.c8940a1.Set8940A1(1,1000,self.x_speed)
@@ -1115,6 +1120,7 @@ class TimeThread(QThread):
                 #######################################
                 #below code is for Z return zero
                 #######################################
+                #self.c8940a1.Hidden_show(1)
                 re_list=[]
                 status=(True, True, False)
                 re_list=  self.c8940a1.ReturnZero(5000, status)
@@ -1126,6 +1132,7 @@ class TimeThread(QThread):
                             self.c8940a1.ReturnZero(100, re_list)
                 #######################################
                 self.c8940a1.MoveSingleAxis(3,self.z_start_point,True)
+                #self.c8940a1.Hidden_show(0)
 
 #        print zmoved
 #        if zmoved==0:
@@ -1221,6 +1228,7 @@ class TimeThread(QThread):
         command_position_z=self.c8940a1.Get_command_pos(3)
         if command_position_z>0:
             self.c8940a1.MoveSingleAxis(3,-command_position_z,True)
+        self.c8940a1.Hidden_show(1)
         #######################################
         #below code is for Z return zero
         #######################################
@@ -1239,6 +1247,8 @@ class TimeThread(QThread):
                     if re_list.count(True)<3:
                         self.c8940a1.ReturnZero(300, re_list)
         #######################################
+        self.c8940a1.Hidden_show(0)
+
         self.c8940a1.MoveMultiAxis(-self.x_length,-self.y_length,True)
 #        self.c8940a1.MoveSingleAxis(3,-z_length,True)
 #        self.c8940a1.MoveMultiAxis(-x_length,-y_length,True)
@@ -1247,6 +1257,8 @@ class TimeThread(QThread):
         #######################################
         #below code is for Z return zero
         #######################################
+        self.c8940a1.Hidden_show(1)
+
         re_list=[]
         status=(True, True, False)
         re_list=  self.c8940a1.ReturnZero(5000, status)
@@ -1268,6 +1280,7 @@ class TimeThread(QThread):
             re_list=self.c8940a1.ReturnZero(200, re_list)
             if re_list.count(True)<3:
                 self.c8940a1.ReturnZero(100, re_list)
+        self.c8940a1.Hidden_show(0)
 
   def stop_at_max_puncual(self):
         self.c8940a1.Stop()
@@ -1644,7 +1657,7 @@ class IOMoniterThread(QThread):
             self.parent.timer_t.Reset()
             
             
-        if emergency_push_flag==0:
+        if emergency_push_flag==1:
             self.parent.emergency_button_status=True
             self.c8940a1.Stop()
             self.parent.timer_t.stop()

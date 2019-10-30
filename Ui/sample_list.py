@@ -1102,7 +1102,8 @@ class TimeThread(QThread):
             #To Make sure the response command_position is correct
             # there are some error response from ADTECH ,so  we need to make sure the response is correct.
             #############################
-            for j in range(20):
+            #for j in range(20):
+            while True:
                 if command_position>=self.z_start_point+100000 and command_position<=self.z_start_point+150000:
                     break
                 else:

@@ -475,7 +475,8 @@ class sample_list(QWidget, Ui_sample_list):
         if self.btn_Next.text()=="Start": 
             self.stop_pushed=False
             #kill bash program
-            self.timer_t.c8940a1.InitCard()
+            if self.Debug:
+                self.timer_t.c8940a1.InitCard()
             bkg_img_txt=(self.mainwindow.sample_1_enable and "1" or "0")+(self.mainwindow.sample_2_enable and "1" or "0")+(self.mainwindow.sample_3_enable and "1" or "0")
                 
             Dialog = QtGui.QDialog()
@@ -839,7 +840,7 @@ class TimeThread(QThread):
 
     if self.parent.Debug:
         self.c8940a1=C8940A1()
-        #self.c8940a1.InitCard()
+        self.c8940a1.InitCard()
 
   def start_timer(self):
     self.num = 0
@@ -1108,6 +1109,10 @@ class TimeThread(QThread):
             #############################
             for j in range(30):
             #while True:
+            
+            
+            # should change 100000 to 80000, 150000 to 120000
+                #if command_position>=self.z_start_point and command_position<=self.z_start_point+120000:
                 if command_position>=self.z_start_point+100000 and command_position<=self.z_start_point+150000:
                     break
                 else:
